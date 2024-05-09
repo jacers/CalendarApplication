@@ -1,4 +1,4 @@
-# Calendar Application
+# 📆 Calendar Application
 
 A simple calendar app created for the University of Oklahoma's Software Studio
 
