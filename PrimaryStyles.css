@@ -20,7 +20,7 @@ html, body /* Ensure the viewport is set correctly or at least centered and some
     padding: 0;
     width: 100%;
     height: 100%;
-    font-family: Arial, sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
     box-sizing: border-box;
 }
 
@@ -91,13 +91,13 @@ main /* Center the main content and make it responsive */
     cursor: pointer; /* Changes the cursor to a pointer button hovering over the button (Can be removed) */
 }
 
-.FormAction button:hover /* The background of the button changes when the cursor is over it */
+.FormAction button /* The background of the button changes when the cursor is over it */
 {
     background-color: #376753;
 }
 
 /* Password requirements styling */
-#PasswordRequirements 
+#PasswordRequirements
 {
     list-style-type: none; /* Removes the default bullet points */
     padding: 0;
@@ -109,19 +109,20 @@ main /* Center the main content and make it responsive */
 }
 
 /* Link styling for registration*/
-.Link 
+.Link
 {
     text-align: center;
     margin-top: 20px;
 }
 
-.Link a 
+.Link a
 {
     color: rgb(51, 72, 209);
     text-decoration: none; /* Removes the underline that is present under each link */
 }
 
-.Link a:hover 
+.Link a
 {
     text-decoration: underline; /* Adds the underline when hovering over it (Can be removed if desired) */
 }
+
