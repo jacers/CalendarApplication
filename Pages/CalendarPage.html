@@ -1,34 +1,43 @@
-<!--
-Author: Lyndsey Dong
-Language: HTML
-Purpose: This page will serve as the main calendar page that user(s) or guest(s) see upon entering the application. It should display
-         the main calendar that the user(s) left off upon, or the main calendar page for guest(s). As of right now, the page will be
-         nonfunctioning (as it will be a mockup).
-Notes: Will be connected to HomePage.html and LoginPage.html
--->
-
 <!DOCTYPE html>
-<html lang = "en">
+<html lang="en">
 <head>
     <meta charset = "UTF-8">
     <meta name = "viewport" content = "width=device-width, initial-scale=1.0">
     <title>Calendar Application - Calendar</title>
-    <link rel = "stylesheet" href = "../PrimaryStyles.css">
+    <link rel = "stylesheet" href = "../Styles/CalendarStyles.css">
 </head>
 <body>
-    <div class = "container">
-        <header>
-            <h1>Calendar</h1>
+    <div class = "calendarContainer">
+        <header class = "calendarHeader">
+            <h1>CalendarName</h1>
+            <div class = "dropdown">
+                <button class = "dropButton">&#9776</button>
+                <div class = "dropdownContent">
+                    <a href = "HomePage.html">Home</a>
+                    <a href = "LoginPage.html">Login</a>
+                </div>
+            </div>
         </header>
-        <nav>
-            <button onclick="window.location.href='HomePage.html'">Home</button>
-            <button onclick="window.location.href='LoginPage.html'">Login</button>
-        </nav>
-        <main>
-            <!-- This is where the React components will be connected-->
-            <div class = "calendar"></div>
-
-            <!-- JS file that will help manipulate and add interactivity to the calendar-->
-            <script src = "TEMP-PLEASE-CHANGE"></script>
+        <div class = "calendar">
+            <div class = "monthNavigation">
+                <button id = "prevButton">&lt;</button> <!-- Can be &lt; -->
+                <h2 id = "monthYearDisplay">Month Year</h2>
+                <button id = "nextButton">&gt;</button> <!-- Can be $gt; -->
+            </div>
+            <div class = "calendarBody">
+                <div class = "weekdays">
+                    <div>Sun</div>
+                    <div>Mon</div>
+                    <div>Tue</div>
+                    <div>Wed</div>
+                    <div>Thu</div>
+                    <div>Fri</div>
+                    <div>Sat</div>
+                </div>
+                <div class = "days"></div>
+            </div>
+        </div>
+    </div>
+    <script src = "../Scripts/Calendar/Calendar.js"></script>
 </body>
 </html>
