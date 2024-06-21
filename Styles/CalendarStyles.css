@@ -1,0 +1,166 @@
+body, html 
+{
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    font-family: Arial, sans-serif;
+    background-color: #7ba683; /* Same green background as before in PrimaryStyles*/
+    /*display: flex;
+    justify-content: center;
+    align-items: center; */
+}
+
+.calendarContainer 
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+}
+
+.calendarHeader 
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 10px;
+    background-color: #376753; /* Background color of the header */
+    color: white; /* Color of the header text */
+    font-family: Georgia, serif;
+    box-sizing: border-box;
+}
+
+.calendarHeader h1 /* Removes the extra "space" above the calendar */
+{
+    margin: 0;
+}
+
+.calendar 
+{
+    background-color: #fff; /* White background for calendar */
+    border-radius: 0; /* Remove border-radius to make the calendar touch the edges */
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+.monthNavigation 
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    background-color: #376753; /* Background color for month navigation */
+    color: #fff; /* Color of month text */
+    border-top: none; /* Remove top border-radius */
+}
+
+.monthNavigation h2 
+{
+    margin: 0 20px;
+}
+
+.calendarBody 
+{
+    flex-grow: 1; /* Allowing the calendar to expand to fill any remaining vertical space */
+    display: flex;
+    flex-direction: column;
+}
+
+.weekdays 
+{
+    display: flex;
+    justify-content: space-around;
+    background-color: #f0f0f0; /* Colors the background of the weekday display */
+    padding: 5px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.weekdays div 
+{
+    flex: 1;
+    text-align: center;
+    font-weight: bold;
+}
+
+.days 
+{
+    flex-grow: 1;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-auto-rows: 1fr; /* Make rows fill the available space */
+    gap: 1px; /* Small gap between days */
+}
+
+.days div 
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    text-align: center;
+    cursor: pointer; /* Changes the cursor to a pointer when hovering over the days */
+    border: 1px solid #ddd; /* Add border around each day */
+}
+
+.days .otherMonth 
+{
+    color: #ccc; /* Sets the color for days not in current month */
+}
+
+/* Additional styling for dropdown menu */
+.dropdown 
+{
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown .dropButton 
+{
+    background-color: #376753;
+    color: white;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid white; /* Border color around the dropdown button */
+    cursor: pointer;
+}
+
+.dropdownContent 
+{
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdownContent a 
+{
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdownContent a:hover 
+{
+    background-color: #f1f1f1;
+}
+
+.dropdown:hover .dropdownContent 
+{
+    display: block;
+}
+
+.dropdown:hover .dropButton 
+{
+    background-color: #3e8e41;
+}
