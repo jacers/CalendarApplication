@@ -30,6 +30,15 @@ body, html
     padding: 0;
 }
 
+.labelHideShow
+{
+    color: white;
+    background-color: #376753;
+    border: 1px solid white;
+    padding: 8px 20px;
+    cursor: pointer;
+}
+
 .calendarHeader 
 {
     display: flex;
@@ -58,10 +67,12 @@ body, html
 
 .labelPanel
 {
+    display: block;
     background-color: white;
     height: 100%;
     width: 200px;
     padding: 20px;
+    transition: display 2s;
 }
 
 .labelPanel .miniCal
