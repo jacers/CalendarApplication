@@ -64,6 +64,51 @@ body, html
     padding: 20px;
 }
 
+.labelPanel .miniCal
+{
+    border: 1px solid black;
+    text-align: center;
+    padding: 60px 10px;
+}
+
+.labelDown
+{
+    position: relative;
+    display: inline-block;
+    margin: 10px 0;
+}
+
+.labelDown .labelBtn {
+    display: flex;
+    width: 150px;
+    justify-content: space-between;
+    background-color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: bold;
+    padding: 5px 10px;
+    transition: background-color 0.5s;
+}
+
+.labelDown .labelBtn:hover {
+    background-color: #f0f0f0;
+}
+
+.labelContent {
+    display: none;
+    margin-top: 5px;
+    padding: 5px;
+}
+
+.labelContent label
+{
+    display: block;
+    padding: 3px 0;
+    font-size: 15px;
+    cursor: pointer;
+}
+
 .calendar 
 {
     background-color: #f0f0f0; /* White background for calendar */
