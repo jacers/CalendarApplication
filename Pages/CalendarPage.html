@@ -34,10 +34,31 @@
                     <div>Fri</div>
                     <div>Sat</div>
                 </div>
-                <div class = "days"></div>
+                <div class = "days">
+                </div>
             </div>
         </div>
     </div>
+
+    <!-- Button to open modal -->
+    <button id = "openModalBtn">Edit Calendar Colors</button>
+
+    <!-- Modal -->
+    <div id = "colorPickerModal" class = "modal">
+        <div class = "modal-content">
+            <span class = "close">x</span> <!--The x icon-->
+            <div class = "colorPickers">
+                <input type="color" id = "sundayColor"    value="#ff0019">
+                <input type="color" id = "mondayColor"    value="#ff9900">
+                <input type="color" id = "tuesdayColor"   value="#ffff00">
+                <input type="color" id = "wednesdayColor" value="#00ff00">
+                <input type="color" id = "thursdayColor"  value="#0000ff">
+                <input type="color" id = "fridayColor"    value="#9900ff">
+                <input type="color" id = "saturdayColor"  value="#ff00ff">
+            </div>
+        </div>
+    </div>
+
     <script src = "../Scripts/Calendar/Calendar.js"></script>
 </body>
 </html>

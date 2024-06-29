@@ -4,6 +4,20 @@ const nextBtn = document.getElementById("nextButton");
 const monthYearDisplay = document.getElementById("monthYearDisplay");
 const daysContainer = document.querySelector(".days");
 
+// Modal buttons
+const openModalBtn        = document.getElementById("openModalBtn"    );
+const modal               = document.getElementById("colorPickerModal");
+const closeModalBtn       = document.querySelector (".close"          );
+
+// Color input elements
+const sundayColorInput    = document.getElementById("sundayColor"     );
+const mondayColorInput    = document.getElementById("mondayColor"     );
+const tuesdayColorInput   = document.getElementById("tuesdayColor"    );
+const wednesdayColorInput = document.getElementById("wednesdayColor"  );
+const thursdayColorInput  = document.getElementById("thursdayColor"   );
+const fridayColorInput    = document.getElementById("fridayColor"     );
+const saturdayColorInput  = document.getElementById("saturdayColor"   );
+
 // Initializing the "current" date to display to user
 let currentDate = new Date();
 
@@ -55,6 +69,11 @@ function renderCalendar() {
         // Sets the day numbers to 1 (and overwrites the previous month days number)
         dayElement.textContent = i;
 
+        // Sets the days of the week to their respective colors
+        const dayOfWeek = new Date(currentDate.getFullYear(), currentDate.getMonth(), i).getDay();
+        const daysOfWeek = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+        dayElement.classList.add(daysOfWeek[dayOfWeek]);
+
         // Appending the numbered days to the current month to the calendar display
         daysContainer.appendChild(dayElement);
     }
@@ -76,17 +95,57 @@ function renderCalendar() {
     
 }
 
-// Event listener for the buttons that change the months
+// Function to update day colors after selecting a new one
+function updateDayColors() {
+    document.querySelectorAll('.sunday'   ).forEach(day => day.style.backgroundColor = sundayColorInput   .value);
+    document.querySelectorAll('.monday'   ).forEach(day => day.style.backgroundColor = mondayColorInput   .value);
+    document.querySelectorAll('.tuesday'  ).forEach(day => day.style.backgroundColor = tuesdayColorInput  .value);
+    document.querySelectorAll('.wednesday').forEach(day => day.style.backgroundColor = wednesdayColorInput.value);
+    document.querySelectorAll('.thursday' ).forEach(day => day.style.backgroundColor = thursdayColorInput .value);
+    document.querySelectorAll('.friday'   ).forEach(day => day.style.backgroundColor = fridayColorInput   .value);
+    document.querySelectorAll('.saturday' ).forEach(day => day.style.backgroundColor = saturdayColorInput .value);
+}
+
+// Event listener to go backward a month
 prevBtn.addEventListener("click", () => {
     currentDate.setMonth(currentDate.getMonth() - 1);
     renderCalendar();
+    updateDayColors();
 });
 
+// Event listener to go forward a month
 nextBtn.addEventListener("click", () => {
     currentDate.setMonth(currentDate.getMonth() + 1);
     renderCalendar();
+    updateDayColors();
 });
+
+// Event listener to open the modal
+openModalBtn.addEventListener("click", () => {
+    modal.style.display = "block";
+});
+
+// Event listener to close the modal
+closeModalBtn.addEventListener("click", () => {
+    modal.style.display = "none";
+});
+
+// Close the modal if the user clicks outside of it
+window.addEventListener("click", (event) => {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+});
+
+// Event listeners for color inputs to update day colors live
+sundayColorInput.addEventListener   ("input", updateDayColors);
+mondayColorInput.addEventListener   ("input", updateDayColors);
+tuesdayColorInput.addEventListener  ("input", updateDayColors);
+wednesdayColorInput.addEventListener("input", updateDayColors);
+thursdayColorInput.addEventListener ("input", updateDayColors);
+fridayColorInput.addEventListener   ("input", updateDayColors);
+saturdayColorInput.addEventListener ("input", updateDayColors);
 
 // The current calendar look upon opening the page
 renderCalendar();
-
+updateDayColors();
