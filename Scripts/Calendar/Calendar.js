@@ -4,12 +4,15 @@ const nextBtn = document.getElementById("nextButton");
 const monthYearDisplay = document.getElementById("monthYearDisplay");
 const daysContainer = document.querySelector(".days");
 
-// Modal buttons
+
+// TODO: Consistent formatting
+// Modal for color picker; will appear in front of and disable other elements
 const openModalBtn        = document.getElementById("openModalBtn"    );
 const modal               = document.getElementById("colorPickerModal");
 const closeModalBtn       = document.querySelector (".close"          );
 
-// Color input elements
+// TODO: Consistent formatting
+// Color picker input elements
 const sundayColorInput    = document.getElementById("sundayColor"     );
 const mondayColorInput    = document.getElementById("mondayColor"     );
 const tuesdayColorInput   = document.getElementById("tuesdayColor"    );
@@ -95,6 +98,7 @@ function renderCalendar() {
     
 }
 
+// TODO: Consistent formatting
 // Function to update day colors after selecting a new one
 function updateDayColors() {
     document.querySelectorAll('.sunday'   ).forEach(day => day.style.backgroundColor = sundayColorInput   .value);
@@ -137,6 +141,7 @@ window.addEventListener("click", (event) => {
     }
 });
 
+// TODO: Consistent formatting
 // Event listeners for color inputs to update day colors live
 sundayColorInput.addEventListener   ("input", updateDayColors);
 mondayColorInput.addEventListener   ("input", updateDayColors);
