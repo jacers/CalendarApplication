@@ -18,14 +18,24 @@
         <header class = "calendarHeader">
             <button class="labelHideShow">Hide</button>
             <h1>CalendarName</h1>
-            <!-- Burger icon -->
-            <div class = "dropdown">
-                <button class = "dropButton">&#9776</button>
-                <div class = "dropdownContent">
-                    <a href = "HomePage.html">Home</a>
-                    <a href = "LoginPage.html">Login</a>
+            <div class = "monthNavigation">
+                <button id = "prevButton">&lt;</button> <!-- Can be &lt; -->
+                <h2 id = "monthYearDisplay">Month Year</h2>
+                <button id = "nextButton">&gt;</button> <!-- Can be $gt; -->
+            </div>
+            <div class="userFunctions">
+                <button class="searchBtn">
+                    <img src="../Images/whiteMagGlass.png" alt="Magnifying Glass">
+                </button>
+                <div class = "dropdown">
+                    <button class = "dropButton">&#9776</button>
+                    <div class = "dropdownContent">
+                        <a href = "HomePage.html">Home</a>
+                        <a href = "LoginPage.html">Login</a>
+                    </div>
                 </div>
             </div>
+            
         </header>
         <div class = "calendar">
             <!-- Displays current month  and allows navigation between months -->

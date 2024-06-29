@@ -39,6 +39,11 @@ body, html
     cursor: pointer;
 }
 
+.labelHideShow:hover
+{
+    background-color: #3e8e41;
+}
+
 .calendarHeader 
 {
     display: flex;
@@ -133,8 +138,9 @@ body, html
 
 .monthNavigation 
 {
+    width: 290px;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     padding: 10px;
     background-color: #376753; /* Background color for month navigation */
@@ -366,6 +372,15 @@ emoji-picker {
     display: inline-block;
 }
 
+.userFunctions 
+{
+    /* Solution to keeping drop button functionality 
+    and the search button correctly formated */
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
 .dropdown .dropButton 
 {
     background-color: #376753;
@@ -407,4 +422,22 @@ emoji-picker {
 .dropdown:hover .dropButton 
 {
     background-color: #3e8e41;
+}
+
+.userFunctions .searchBtn 
+{
+    background-color: #376753;
+    border: 1px solid white;
+    cursor: pointer;
+}
+
+.userFunctions .searchBtn:hover 
+{
+    background-color: #3e8e41;
+}
+
+.userFunctions .searchBtn img 
+{
+    width: 30px;
+    height: 34px;
 }
