@@ -10,22 +10,43 @@
     <div class = "calendarContainer">
         <header class = "calendarHeader">
             <h1>CalendarName</h1>
-            <div class = "dropdown">
+
+            <!-- This is the month navgation display at the top of the website -->
+            <div class = "monthNavigation">
+                <button id = "prevButton">&lt;</button> <!-- Can be &lt; -->
+                <h2 id = "monthYearDisplay">Month Year</h2>
+                <button id = "nextButton">&gt;</button> <!-- Can be $gt; -->
+            </div>
+
+            <!-- This is the search bar display at the top of the website -->
+            <div class = "searchBar">
+                <input type = "text" class = "searchBarInput" placeholder = "Search.... bleh">
+                <button class = searchBarButton>Search</button>
+            </div>
+
+            <!-- This is to allow users to switch between what view they want currently displayed -->
+            <div class = "viewSelection">
+                <select id="viewSelectionContent">
+                    <option value="month" selected>Month</option>
+                    <option value="day">Day</option>
+                    <option value="year">Year</option>
+                    <option value="week">Week</option>
+                </select>
+            </div>
+
+            <!-- This is the dropdown selection located in the top right corner of the page -->
+            <div class = "dropdownLinks">
                 <button class = "dropButton">&#9776</button>
                 <div class = "dropdownContent">
                     <a href = "HomePage.html">Home</a>
                     <a href = "LoginPage.html">Login</a>
                 </div>
             </div>
+
         </header>
         <div class = "calendar">
-            <div class = "monthNavigation">
-                <button id = "prevButton">&lt;</button> <!-- Can be &lt; -->
-                <h2 id = "monthYearDisplay">Month Year</h2>
-                <button id = "nextButton">&gt;</button> <!-- Can be $gt; -->
-            </div>
             <div class = "calendarBody">
-                <div class = "weekdays">
+                <div class="weekdays">
                     <div>Sun</div>
                     <div>Mon</div>
                     <div>Tue</div>

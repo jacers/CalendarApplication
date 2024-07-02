@@ -80,6 +80,10 @@ body, html
     background-color: #f0f0f0; /* Colors the background of the weekday display */
     padding: 5px 0;
     border-bottom: 1px solid #ddd;
+
+
+
+    width:100%
 }
 
 .weekdays div 
@@ -114,14 +118,14 @@ body, html
     color: #ccc; /* Sets the color for days not in current month */
 }
 
-/* Additional styling for dropdown menu */
-.dropdown 
+/* Styling for the dropdown menu */
+.dropdownLinks 
 {
     position: relative;
     display: inline-block;
 }
 
-.dropdown .dropButton 
+.dropdownLinks .dropButton 
 {
     background-color: #376753;
     color: white;
@@ -155,12 +159,131 @@ body, html
     background-color: #f1f1f1;
 }
 
-.dropdown:hover .dropdownContent 
+.dropdownLinks:hover .dropdownContent 
 {
     display: block;
 }
 
-.dropdown:hover .dropButton 
+.dropdownLinks:hover .dropButton 
 {
     background-color: #3e8e41;
+}
+
+
+/* Day view styles */
+.dayView 
+{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border: 1px solid #ddd;
+    background-color: #fff;
+}
+
+.dayView .hour 
+{
+    position: absolute;
+    width: 100%;
+    border-bottom: 1px solid #eee;
+    height: 60px; /* Each hour is represented by a 60px height */
+}
+
+.dayView .hour span 
+{
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    font-size: 14px;
+    color: #666;
+}
+
+.dayView .event 
+{
+    position: absolute;
+    left: 60px;
+    right: 10px;
+    background-color: rgba(0, 123, 255, 0.1);
+    border: 1px solid #007bff;
+    border-radius: 4px;
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+.dayViewContainer 
+{
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+/* Month view styles */
+.monthViewContainer 
+{
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-auto-rows: 1fr;
+    gap: 1px;
+}
+
+/* Year view container */
+.yearViewContainer 
+{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 10px;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+/* Individual month container */
+.month 
+{
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 10px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Month title */
+.month h3 
+{
+    margin: 0 0 10px 0;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* Month days grid */
+.monthDaysGrid 
+{
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-auto-rows: 1fr;
+    gap: 2px;
+    width: 100%;
+}
+
+/* Individual day in month view */
+.yearDay 
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+    height: 30px;
+    cursor: pointer;
+}
+
+/* Empty day placeholder */
+.emptyDay 
+{
+    background-color: transparent;
+    border: 1px solid transparent;
 }
