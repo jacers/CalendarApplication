@@ -29,6 +29,19 @@ body, html
     padding: 0;
 }
 
+.calendarHeader 
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 10px;
+    background-color: #376753; /* Background color of the header */
+    color: white; /* Color of the header text */
+    font-family: Georgia, serif;
+    box-sizing: border-box;
+}
+
 .labelHideShow
 {
     color: white;
@@ -61,6 +74,83 @@ body, html
     margin: 0;
 }
 
+/* Dropdown Menu Styles */
+.dropdown 
+{
+    position: relative;
+    display: inline-block;
+}
+
+.userFunctions 
+{
+    /* Solution to keeping drop button functionality 
+    and the search button correctly formated */
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.dropdown .dropButton 
+{
+    background-color: #376753;
+    color: white;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid white; /* Border color around the dropdown button */
+    cursor: pointer;
+}
+
+.dropdownContent {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdownContent a 
+{
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdownContent a:hover 
+{
+    background-color: #f1f1f1;
+}
+
+.dropdown:hover .dropdownContent 
+{
+    display: block;
+}
+
+.dropdown:hover .dropButton 
+{
+    background-color: #3e8e41;
+}
+
+.userFunctions .searchBtn 
+{
+    background-color: #376753;
+    border: 1px solid white;
+    cursor: pointer;
+}
+
+.userFunctions .searchBtn:hover 
+{
+    background-color: #3e8e41;
+}
+
+.userFunctions .searchBtn img 
+{
+    width: 30px;
+    height: 34px;
+}
+
 .mainContent
 {
     width: 100%;
@@ -77,13 +167,6 @@ body, html
     width: 200px;
     padding: 20px;
     transition: display 2s;
-}
-
-.labelPanel .miniCal
-{
-    border: 1px solid black;
-    text-align: center;
-    padding: 60px 10px;
 }
 
 .labelDown
@@ -103,7 +186,7 @@ body, html
     font-size: 15px;
     font-weight: bold;
     padding: 5px 10px;
-    transition: background-color 0.5s;
+    transition: background-color 0.2s;
 }
 
 .labelDown .labelBtn:hover {
@@ -150,6 +233,11 @@ body, html
 .monthNavigation h2 
 {
     margin: 0 20px;
+}
+
+.monthNavigation button
+{
+    cursor: pointer;
 }
 
 .calendarBody 
@@ -201,14 +289,15 @@ body, html
 }
 
 /* The default colors for each day of the week */
-/* TODO: Consistent formatting */
-.sunday    { background-color: #fff; }
-.monday    { background-color: #fff; }
-.tuesday   { background-color: #fff; }
-.wednesday { background-color: #fff; }
-.thursday  { background-color: #fff; }
-.friday    { background-color: #fff; }
-.saturday  { background-color: #fff; }
+/* I have this commented out bc it doesn't do anything as of now */
+/* .sunday    { background-color: #ff0019; }
+.monday    { background-color: #ff9900; }
+.tuesday   { background-color: #ffff00; }
+.wednesday { background-color: #00ff00; }
+.thursday  { background-color: #0000ff; }
+.friday    { background-color: #9900ff; }
+.saturday  { background-color: #ff00ff; } */
+
 
 .colorPickerModal 
 {
@@ -458,4 +547,9 @@ emoji-picker {
     cursor: pointer;
     color: white;
     padding: 5px 7px;
+}
+
+.colorEditor #openModalBtn:hover
+{
+    background-color: #3e8e41;
 }

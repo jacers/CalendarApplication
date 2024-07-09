@@ -55,6 +55,10 @@ const monthYearDisplay = document.getElementById("monthYearDisplay");
 const daysContainer    = document.querySelector (".days"           );
 
 // Modal for color picker; will appear in front of and disable other elements
+const openModalBtn = document.getElementById("openModalBtn");
+const modal = document.getElementById("colorPickerModal");
+const closeModalBtn = document.querySelector (".close");
+
 // TODO: Consistent formatting
 const openColorPickerBtn  = document.getElementById("openColorPickerBtn");
 const colorPickerModal    = document.getElementById("colorPickerModal"  );
@@ -89,14 +93,13 @@ let events     = []; // Array to store all events
 let labels     = []; // Array to store all labels
 
 // Color picker input elements
-// TODO: Consistent formatting
-const sundayColorInput    = document.getElementById("sundayColor"     );
-const mondayColorInput    = document.getElementById("mondayColor"     );
-const tuesdayColorInput   = document.getElementById("tuesdayColor"    );
-const wednesdayColorInput = document.getElementById("wednesdayColor"  );
-const thursdayColorInput  = document.getElementById("thursdayColor"   );
-const fridayColorInput    = document.getElementById("fridayColor"     );
-const saturdayColorInput  = document.getElementById("saturdayColor"   );
+const sundayColorInput = document.getElementById("sundayColor");
+const mondayColorInput = document.getElementById("mondayColor");
+const tuesdayColorInput = document.getElementById("tuesdayColor");
+const wednesdayColorInput = document.getElementById("wednesdayColor");
+const thursdayColorInput = document.getElementById("thursdayColor");
+const fridayColorInput = document.getElementById("fridayColor");
+const saturdayColorInput = document.getElementById("saturdayColor");
 
 // Initializing the "current" date to display to user
 let currentDate = new Date();
@@ -196,13 +199,13 @@ function renderCalendar() {
 // TODO: Consistent formatting
 // Function to update day colors after selecting a new one
 function updateDayColors() {
-    document.querySelectorAll('.sunday'   ).forEach(day => day.style.backgroundColor = sundayColorInput   .value);
-    document.querySelectorAll('.monday'   ).forEach(day => day.style.backgroundColor = mondayColorInput   .value);
-    document.querySelectorAll('.tuesday'  ).forEach(day => day.style.backgroundColor = tuesdayColorInput  .value);
+    document.querySelectorAll('.sunday').forEach(day => day.style.backgroundColor = sundayColorInput   .value);
+    document.querySelectorAll('.monday').forEach(day => day.style.backgroundColor = mondayColorInput   .value);
+    document.querySelectorAll('.tuesday').forEach(day => day.style.backgroundColor = tuesdayColorInput  .value);
     document.querySelectorAll('.wednesday').forEach(day => day.style.backgroundColor = wednesdayColorInput.value);
-    document.querySelectorAll('.thursday' ).forEach(day => day.style.backgroundColor = thursdayColorInput .value);
-    document.querySelectorAll('.friday'   ).forEach(day => day.style.backgroundColor = fridayColorInput   .value);
-    document.querySelectorAll('.saturday' ).forEach(day => day.style.backgroundColor = saturdayColorInput .value);
+    document.querySelectorAll('.thursday').forEach(day => day.style.backgroundColor = thursdayColorInput .value);
+    document.querySelectorAll('.friday').forEach(day => day.style.backgroundColor = fridayColorInput   .value);
+    document.querySelectorAll('.saturday').forEach(day => day.style.backgroundColor = saturdayColorInput .value);
 }
 
 // Event listener to go backward a month
@@ -290,32 +293,6 @@ window.addEventListener("click", (event) => {
     }
 });
 
-// Implementation of the label maker (event label)
-// TODO: Integrate with labels
-document.querySelector('emoji-picker').addEventListener('emoji-click', event => {
-    const emoji = event.detail.unicode; // Temporary variable to be added to the event
-    emojiPreview.innerText = `Selected Emoji: ${emoji}`; // Preview of the emoji
-    labelEmoji = emoji; // To add the emoji to the event
-});
-
-// Implementation of the event save button
-saveEventBtn.addEventListener("click", () => {
-    // Temporary variables that will be added to a new event
-    // TODO: Consistent formatting
-    const eventName      = document.getElementById("eventName"     ).value;
-    const eventLocation  = document.getElementById("eventLocation" ).value;
-    const eventStartDate = document.getElementById("eventStartDate").value;
-    const eventStartTime = document.getElementById("eventStartTime").value;
-    const eventEndDate   = document.getElementById("eventEndDate"  ).value;
-    const eventEndTime   = document.getElementById("eventEndTime"  ).value;
-    const eventNotes     = document.getElementById("eventNotes"    ).value;
-    const labelIndex     = eventLabelDropdown                       .value;
-
-    // Warns the user if no name is inputted
-    if (!eventName) {
-        alert("Please name this event.");
-        return;
-    }
 
     // Warns the user if no label is inputted
     if (!labelIndex || labelIndex === "select" || labelIndex === "newEvent") {
@@ -418,13 +395,13 @@ saveLabelBtn.addEventListener("click", () => {
 
 // TODO: Consistent formatting
 // Event listeners for color inputs to update day colors live
-sundayColorInput.addEventListener   ("input", updateDayColors);
-mondayColorInput.addEventListener   ("input", updateDayColors);
-tuesdayColorInput.addEventListener  ("input", updateDayColors);
+sundayColorInput.addEventListener("input", updateDayColors);
+mondayColorInput.addEventListener("input", updateDayColors);
+tuesdayColorInput.addEventListener("input", updateDayColors);
 wednesdayColorInput.addEventListener("input", updateDayColors);
-thursdayColorInput.addEventListener ("input", updateDayColors);
-fridayColorInput.addEventListener   ("input", updateDayColors);
-saturdayColorInput.addEventListener ("input", updateDayColors);
+thursdayColorInput.addEventListener("input", updateDayColors);
+fridayColorInput.addEventListener("input", updateDayColors);
+saturdayColorInput.addEventListener("input", updateDayColors);
 
 // The current calendar look upon opening the page
 renderCalendar();

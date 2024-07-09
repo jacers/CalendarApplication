@@ -37,25 +37,53 @@
             </div>
             
         </header>
-        <div class = "calendar">
-            <!-- Displays current month  and allows navigation between months -->
-            <div class = "monthNavigation">
-                <button id = "prevButton">&lt;</button> <!-- Can be &lt; -->
-                <h2 id = "monthYearDisplay">Month Year</h2>
-                <button id = "nextButton">&gt;</button> <!-- Can be $gt; -->
-            </div>
-            <div class = "calendarBody">
-                <!-- Displays days of the week-->
-                <div class = "weekdays">
-                    <div>Sun</div>
-                    <div>Mon</div>
-                    <div>Tue</div>
-                    <div>Wed</div>
-                    <div>Thu</div>
-                    <div>Fri</div>
-                    <div>Sat</div>
+
+        <div class="mainContent">
+            <section class="labelPanel">
+                <div class="labelDown">
+                    <button class="labelBtn">
+                        <span class="labelName">Work</span> <span class="labelArrow">⌃</span>
+                    </button>
+                    <div class="labelContent">
+                        <label><input type="checkbox">Meetings</label>
+                        <label><input type="checkbox">Projects</label>
+                        <label><input type="checkbox">Tasks</label>
+                    </div>
                 </div>
-                <div class = "days">
+                <div class="labelDown">
+                    <button class="labelBtn">
+                        <span class="labelName">Personal</span> <span class="labelArrow">⌃</span>
+                    </button>
+                    <div class="labelContent">
+                        <label><input type="checkbox">Birthdays</label>
+                        <label><input type="checkbox">Errands</label>
+                        <label><input type="checkbox">Appointments</label>
+                    </div>
+                </div>
+                <div class="labelDown">
+                    <button class="labelBtn">
+                        <span class="labelName">Other</span> <span class="labelArrow">⌃</span>
+                    </button>
+                    <div class="labelContent">
+                        <label><input type="checkbox">US Holidays</label>
+                        <label><input type="checkbox">Local Events</label>
+                        <label><input type="checkbox">Weather?</label>
+                    </div>
+                </div>
+            </section>
+
+            <div class = "calendar">
+                <div class = "calendarBody">
+                    <div class = "weekdays">
+                        <div>Sun</div>
+                        <div>Mon</div>
+                        <div>Tue</div>
+                        <div>Wed</div>
+                        <div>Thu</div>
+                        <div>Fri</div>
+                        <div>Sat</div>
+                    </div>
+                    <div class = "days"></div>
                 </div>
             </div>
         </div>
