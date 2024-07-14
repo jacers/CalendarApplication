@@ -161,12 +161,13 @@ body, html
 
 .labelPanel
 {
+    overflow-y: auto;
     display: block;
     background-color: white;
-    height: 600px;
+    height: 100%;
     width: 200px;
     padding: 20px;
-    transition: display 2s;
+    overflow-y: auto;
 }
 
 .labelDown
@@ -176,7 +177,7 @@ body, html
     margin: 10px 0;
 }
 
-.labelDown .labelBtn {
+.labelBtn {
     display: flex;
     width: 150px;
     justify-content: space-between;
@@ -189,11 +190,12 @@ body, html
     transition: background-color 0.2s;
 }
 
-.labelDown .labelBtn:hover {
+.labelBtn:hover {
     background-color: #f0f0f0;
 }
 
-.labelContent {
+.labelContent 
+{
     display: none;
     margin-top: 5px;
     padding: 5px;
@@ -205,6 +207,32 @@ body, html
     padding: 3px 0;
     font-size: 15px;
     cursor: pointer;
+}
+
+#addCat 
+{
+    color: #666666;
+    font-size: 12px;
+    display: flex;
+}
+
+.inputBox
+{
+    width: 100px;
+    padding: 3px;
+    margin-right: 5px;
+}
+
+.submitButton
+{
+    background-color: white;
+    border: 1px solid black;
+    cursor: pointer;
+}
+
+.submitButton:hover
+{
+    background-color: #e0e0e0;
 }
 
 .calendar 

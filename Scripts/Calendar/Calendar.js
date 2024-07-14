@@ -393,7 +393,6 @@ saveLabelBtn.addEventListener("click", () => {
     labelMakerModal.style.display = "none";
 });
 
-// TODO: Consistent formatting
 // Event listeners for color inputs to update day colors live
 sundayColorInput.addEventListener("input", updateDayColors);
 mondayColorInput.addEventListener("input", updateDayColors);
