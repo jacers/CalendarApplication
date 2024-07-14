@@ -161,10 +161,10 @@ body, html
 
 .labelPanel
 {
-    overflow-y: auto;
+    overflow-y: auto; /* Allows Scrolling for overflow */
     display: block;
     background-color: white;
-    height: 100%;
+    height: 600px;
     width: 200px;
     padding: 20px;
     overflow-y: auto;
