@@ -209,6 +209,14 @@ body, html
     cursor: pointer;
 }
 
+.addLabBtn
+{
+    font-size: 12px;
+    padding-left: 3px;
+    color: #666666;
+    width: 120px;
+}
+
 #addCat 
 {
     color: #666666;
