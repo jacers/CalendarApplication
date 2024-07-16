@@ -5,6 +5,7 @@ const labelPanel = document.querySelector(".labelPanel");
 const allLabelBtn = document.querySelectorAll('.labelBtn');
 const labelHideShow = document.querySelector(".labelHideShow");
 const addCatButton = document.querySelector("#addCat");
+const addLabButton = document.querySelector(".addLabBtn")
 
 // Show hide label functionality
 
@@ -30,7 +31,10 @@ allLabelBtn.forEach(button => {
  });
 
 // Event listener to add a category on label panel
-addCatButton.addEventListener('click', handleLabelInput)
+addCatButton.addEventListener('click', handleCatInput);
+
+// Event listener to add a label on label panel
+//addLabButton.addEventListener('click', handleLabInput);
 
  // Functionality for the dropdown of categories
 function showLabels(e)
@@ -56,8 +60,8 @@ function showLabels(e)
         }
 }
 
-// Function that handles user functionality for creating a label
-function handleLabelInput()
+// Function that handles user functionality for creating a category
+function handleCatInput()
 {
     addCatButton.style.display = 'none';
     
@@ -72,11 +76,11 @@ function handleLabelInput()
     inputBox.addEventListener('keydown', (e) => {
         if(e.key === 'Enter')
         {
-            submitLabelInput();
+            submitCatInput();
         }
         else if(e.key === 'Escape')
         {
-            cancelLabelInput();
+            cancelCatInput();
         }
     })
 
@@ -91,7 +95,7 @@ function handleLabelInput()
     const submitButton = document.createElement('button');
     submitButton.classList.add('submitButton');
     submitButton.textContent = 'Submit';
-    submitButton.addEventListener('click', submitLabelInput);
+    submitButton.addEventListener('click', submitCatInput);
 
     labelPanel.appendChild(inputBox);
     labelPanel.appendChild(submitButton);
@@ -100,12 +104,12 @@ function handleLabelInput()
     // Timeout stops issue where this listener would load too fast and
     // stop the addCatButton from working at all
     setTimeout(() => {
-        document.addEventListener('click', outLabelClick);
+        document.addEventListener('click', outCatClick);
     }, 10);
 }
 
 // Handles input deemed acceptable and creates the actual category
-function submitLabelInput()
+function submitCatInput()
 {
     const inputBox = document.querySelector('.inputBox');
     const labelTitle = inputBox.value;
@@ -121,7 +125,7 @@ function submitLabelInput()
     // Removing things necessary for the input process
     labelPanel.removeChild(inputBox);
     labelPanel.removeChild(submitButton);
-    document.removeEventListener('click', outLabelClick);
+    document.removeEventListener('click', outCatClick);
 
     // Creation of all elements needed for category to run correctly
     const labelDown = document.createElement('div');
@@ -143,7 +147,6 @@ function submitLabelInput()
 
     const addLabBtn = document.createElement('button');
     addLabBtn.classList.add('labelBtn');
-    addLabBtn.classList.add('#addLabBtn');
     const labText = document.createElement('span');
     labText.textContent = 'Add Label';
     const labPlusSign = document.createElement('span');
@@ -175,7 +178,7 @@ function submitLabelInput()
 }
 
 // Handles input deemed unnaceptable
-function cancelLabelInput()
+function cancelCatInput()
 {
     const inputBox = document.querySelector('.inputBox');
     const submitButton = document.querySelector('.submitButton');
@@ -183,19 +186,68 @@ function cancelLabelInput()
     labelPanel.removeChild(inputBox);
     labelPanel.removeChild(submitButton);
 
-    document.removeEventListener('click', outLabelClick);
+    document.removeEventListener('click', outCatClick);
 
     addCatButton.style.display = 'flex';
 }
 
 // Helper function for when user clicks outside of the input box and/or submit button
-function outLabelClick(e)
+function outCatClick(e)
 {
     const inputBox = document.querySelector('.inputBox');
     const submitButton = document.querySelector('.submitButton');
 
     if(inputBox && submitButton && !submitButton.contains(e.target) && !inputBox.contains(e.target))
     {
-        cancelLabelInput();
+        cancelCatInput();
     }
 }
+
+// Function that handles user functionality for creating a label
+// function handleLabInput()
+// {
+//     addLabButton.style.display = 'none';
+    
+//     // Creating a text input box for the category name
+//     const inputBox = document.createElement('input');
+//     inputBox.type = 'text';
+//     inputBox.classList.add('inputBox');
+//     inputBox.placeholder = 'Category Name';
+
+//     // This allows for the enter key to submit contents and the escape key
+//     // to cancel the action
+//     inputBox.addEventListener('keydown', (e) => {
+//         if(e.key === 'Enter')
+//         {
+//             submitCatInput();
+//         }
+//         else if(e.key === 'Escape')
+//         {
+//             cancelCatInput();
+//         }
+//     })
+
+//     // Creates category name character limit, set to 13 *CAN BE CHANGED*
+//     inputBox.addEventListener('input', (e) => {
+//         if (e.target.value.length > 13) {
+//             e.target.value = e.target.value.slice(0, 13);
+//         }
+//     });
+
+//     // Submit button created to have a visual way to submit input
+//     const submitButton = document.createElement('button');
+//     submitButton.classList.add('submitButton');
+//     submitButton.textContent = 'Submit';
+//     submitButton.addEventListener('click', submitCatInput);
+
+//     labelPanel.appendChild(inputBox);
+//     labelPanel.appendChild(submitButton);
+//     inputBox.focus();
+
+//     // Timeout stops issue where this listener would load too fast and
+//     // stop the addCatButton from working at all
+//     setTimeout(() => {
+//         document.addEventListener('click', outCatClick);
+//     }, 10);
+// }
+

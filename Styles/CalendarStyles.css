@@ -159,90 +159,6 @@ body, html
     flex-direction: row;
 }
 
-.labelPanel
-{
-    overflow-y: auto; /* Allows Scrolling for overflow */
-    display: block;
-    background-color: white;
-    height: 600px;
-    width: 200px;
-    padding: 20px;
-    overflow-y: auto;
-}
-
-.labelDown
-{
-    position: relative;
-    display: inline-block;
-    margin: 10px 0;
-}
-
-.labelBtn {
-    display: flex;
-    width: 150px;
-    justify-content: space-between;
-    background-color: white;
-    border: none;
-    cursor: pointer;
-    font-size: 15px;
-    font-weight: bold;
-    padding: 5px 10px;
-    transition: background-color 0.2s;
-}
-
-.labelBtn:hover {
-    background-color: #f0f0f0;
-}
-
-.labelContent 
-{
-    display: none;
-    margin-top: 5px;
-    padding: 5px;
-}
-
-.labelContent label
-{
-    display: block;
-    padding: 3px 0;
-    font-size: 15px;
-    cursor: pointer;
-}
-
-.addLabBtn
-{
-    font-size: 12px;
-    padding-left: 3px;
-    color: #666666;
-    width: 120px;
-}
-
-#addCat 
-{
-    color: #666666;
-    font-size: 12px;
-    display: flex;
-}
-
-.inputBox
-{
-    width: 100px;
-    padding: 3px;
-    margin-right: 5px;
-}
-
-.submitButton
-{
-    background-color: white;
-    border: 1px solid black;
-    cursor: pointer;
-}
-
-.submitButton:hover
-{
-    background-color: #e0e0e0;
-}
-
 .calendar 
 {
     background-color: #f0f0f0; /* White background for calendar */
@@ -323,17 +239,6 @@ body, html
 {
     color: #ccc; /* Sets the color for days not in current month */
 }
-
-/* The default colors for each day of the week */
-/* I have this commented out bc it doesn't do anything as of now */
-/* .sunday    { background-color: #ff0019; }
-.monday    { background-color: #ff9900; }
-.tuesday   { background-color: #ffff00; }
-.wednesday { background-color: #00ff00; }
-.thursday  { background-color: #0000ff; }
-.friday    { background-color: #9900ff; }
-.saturday  { background-color: #ff00ff; } */
-
 
 .colorPickerModal 
 {

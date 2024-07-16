@@ -1,0 +1,83 @@
+.labelPanel
+{
+    overflow-y: auto; /* Allows Scrolling for overflow */
+    display: block;
+    background-color: white;
+    height: 600px;
+    width: 200px;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.labelDown
+{
+    position: relative;
+    display: inline-block;
+    margin: 10px 0;
+}
+
+.labelBtn {
+    display: flex;
+    width: 150px;
+    justify-content: space-between;
+    background-color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: bold;
+    padding: 5px 10px;
+    transition: background-color 0.2s;
+}
+
+.labelBtn:hover {
+    background-color: #f0f0f0;
+}
+
+.labelContent 
+{
+    display: none;
+    margin-top: 5px;
+    padding: 5px;
+}
+
+.labelContent label
+{
+    display: block;
+    padding: 3px 0;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.addLabBtn
+{
+    font-size: 12px;
+    padding-left: 3px;
+    color: #666666;
+    width: 120px;
+}
+
+#addCat 
+{
+    color: #666666;
+    font-size: 12px;
+    display: flex;
+}
+
+.inputBox
+{
+    width: 100px;
+    padding: 3px;
+    margin-right: 5px;
+}
+
+.submitButton
+{
+    background-color: white;
+    border: 1px solid black;
+    cursor: pointer;
+}
+
+.submitButton:hover
+{
+    background-color: #e0e0e0;
+}
