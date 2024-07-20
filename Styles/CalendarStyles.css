@@ -154,15 +154,16 @@ body, html
 .mainContent
 {
     width: 100%;
-    height: 100%;
+    /* height: 100%; */
+    height: calc(100% - 60px);
     display: flex;
     flex-direction: row;
 }
 
 .calendar 
 {
-    background-color: #f0f0f0; /* White background for calendar */
-    border-radius: 0; /* Remove border-radius to make the calendar touch the edges */
+    background-color: #fff; /* White background for calendar */
+    border-radius: 0; /*Remove border-radius to make the calendar touch the edges*/
     width: 100%;
     height: 100%;
     box-sizing: border-box;

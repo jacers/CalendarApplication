@@ -3,7 +3,6 @@
     overflow-y: auto; /* Allows Scrolling for overflow */
     display: block;
     background-color: white;
-    height: 600px;
     width: 200px;
     padding: 20px;
     overflow-y: auto;
@@ -63,21 +62,40 @@
     display: flex;
 }
 
-.inputBox
+.inputBoxCat
 {
     width: 100px;
     padding: 3px;
     margin-right: 5px;
 }
 
-.submitButton
+.submitButtonCat
 {
     background-color: white;
     border: 1px solid black;
     cursor: pointer;
 }
 
-.submitButton:hover
+.submitButtonCat:hover
 {
     background-color: #e0e0e0;
 }
+
+.inputBoxLab
+{
+    width: 80px;
+    padding: 3px;
+    margin-right: 5px;
+}
+
+.submitButtonLab
+{
+    background-color: white;
+    border: 1px solid black;
+    cursor: pointer;
+}
+
+.submitButtonLab:hover
+{
+    background-color: #e0e0e0;
+} 
