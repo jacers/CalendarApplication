@@ -43,8 +43,18 @@
             <section class="labelPanel">
                 <div class="labelDown">
                     <button class="labelBtn">
-                        <span class="labelName">Work</span> <span class="labelArrow">⌃</span>
+                        <span class="labelName">Work</span> 
+                        <div class="catOptions">
+                            <span class="verticleDots">
+                                <img src="../Images/verticleDots.png" alt="verticle dots">
+                            </span>
+                            <span class="labelArrow">⌃</span>
+                        </div>
                     </button>
+                    <div class="catMenu">
+                        <button class="catEdit">Edit</button>
+                        <button class="catDelete">Delete</button>
+                    </div>
                     <div class="labelContent">
                         <label><input type="checkbox" checked>Meetings</label>
                         <label><input type="checkbox" checked>Projects</label>
@@ -220,5 +230,7 @@
 
     <script src = "../Scripts/Calendar/Calendar.js"></script>
     <script src="../Scripts/Calendar/labelPanel.js"></script>
+    <script src="../Scripts/Calendar/labelPanelCategory.js"></script>
+    <script src="../Scripts/Calendar/labelPanelLabel.js"></script>
 </body>
 </html>
