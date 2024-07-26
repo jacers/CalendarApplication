@@ -1,5 +1,31 @@
+const addCatButton = document.querySelector("#addCat");
+const catMenus = document.querySelectorAll('.catMenu');
+const verticleDots = document.querySelectorAll('.verticleDots');
+const catCancels = document.querySelectorAll('.catClose');
+
 // Event listener to add a category on label panel
 addCatButton.addEventListener('click', handleCatInput);
+
+// Adding proper listeners for each button for each category menu
+catMenus.forEach(catMenu => {
+    const editBtn = catMenu.querySelector('.catEdit');
+    const deleteBtn = catMenu.querySelector('.catDelete');
+
+    editBtn.addEventListener('click', editCat);
+    deleteBtn.addEventListener('click', deleteCat);
+});
+
+verticleDots.forEach(verticleDot => {
+    verticleDot.addEventListener('click', handleCatMenu);
+})
+
+catCancels.forEach(catCancel => {
+    catCancel.addEventListener('click', (e) => {
+       cancelCatMenu(e.target.parentElement);
+    })
+})
+
+
 
 // Function that handles user functionality for creating a category
 function handleCatInput()
@@ -44,6 +70,7 @@ function handleCatInput()
 
     // Timeout stops issue where this listener would load too fast and
     // stop the addCatButton from working at all
+    // I dont think this needs a timeout actually
     setTimeout(() => {
         document.addEventListener('click', outCatClick);
     }, 10);
@@ -148,12 +175,76 @@ function outCatClick(e)
     }
 }
 
-function handleCatMenuInput(e)
+function handleCatMenu(e)
 {
+    e.stopPropagation();
+    const verticleDot = e.target;
+    let labelBtnNear = verticleDot;
 
+    // Selecting proper catMenu
+    while(!labelBtnNear.classList.contains('labelDown'))
+    {
+        labelBtnNear = labelBtnNear.parentElement;
+    }
+    const catMenu = labelBtnNear.querySelector('.catMenu');
+    const catClose = catMenu.querySelector('.catClose');
+
+    catMenu.addEventListener('keydown', (e) => {
+        if(e.key === 'Escape')
+        {
+            cancelCatMenu(catMenu);
+            console.log("hit escape")
+        }
+    });
+
+    setTimeout(() => {
+        document.addEventListener('click', (e) => {
+            cancelCatMenu(catMenu);
+        });
+    }, 10);
+
+    catMenu.style.display = 'flex';
+    handleLabelContent(labelBtnNear);
+}
+
+function handleLabelContent(labelDownNew)
+{
+    const labelArrow = labelDownNew.querySelector('.labelArrow');
+    const labelContent = labelDownNew.querySelector('.labelContent');
+
+    // Sets proper display and arrow type
+    if (labelContent.style.display === 'block') 
+    {
+        labelContent.style.display = 'none';
+        labelArrow.textContent = '⌃';
+    } 
+}
+
+function editCat(e)
+{
+    console.log('got to edit cat');
 }
 
 function deleteCat(e)
 {
+    const catMenu = e.target.parentElement;
+    let labelBtnNear = catMenu; 
+    while(!labelBtnNear.classList.contains('labelDown'))
+    {
+        labelBtnNear = labelBtnNear.parentElement;
+    }
+    const labelBtn = labelBtnNear.querySelector('.labelBtn');
+    const labelName = labelBtn.querySelector('.labelName');
 
+    if(confirm(`Are you sure you want to delete the \"${labelName.textContent}\" category? This action can't be undone.`))
+    {
+        labelBtn.remove();
+    }
+
+    cancelCatMenu(catMenu);
+}
+
+function cancelCatMenu(catMenu)
+{
+    catMenu.style.display = 'none';
 }

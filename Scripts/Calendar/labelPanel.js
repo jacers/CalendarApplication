@@ -4,26 +4,12 @@ const labelPanel = document.querySelector(".labelPanel");
 // Buttons
 const allLabelBtn = document.querySelectorAll('.labelBtn');
 const labelHideShow = document.querySelector(".labelHideShow");
-const addCatButton = document.querySelector("#addCat");
 const allLabButtons = document.querySelectorAll('.addLabBtn');
-const catMenus = document.querySelectorAll('.catMenu');
 
 // Event listener for the dropdown of labels
 allLabelBtn.forEach(button => {
     button.addEventListener('click', showLabels);
  });
-
-// Do this to verticle dots dumbass
-// catMenus.forEach(catMenu => {
-//     const editBtn = catMenu.querySelector('.catEdit');
-//     const deleteBtn = catMenu.querySelector('.catDelete');
-
-//     catMenu.addEventListener('click', () => {
-
-//     });
-//     editBtn.addEventListener('click', handleCatMenuInput);
-//     deleteBtn.addEventListener('click', deleteCat);
-// });
 
 // Show hide label functionality
 

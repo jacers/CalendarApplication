@@ -78,7 +78,7 @@
     right: 0;
     z-index: 1000;
     width: 100px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); 
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 } 
 
 .catMenu button
@@ -95,6 +95,22 @@
 .catMenu button:hover
 {
     background-color: #f0f0f0;
+}
+
+.catMenu .catClose
+{
+    text-align: center;
+    color: #aaa;
+    width: 20px;
+    font-weight: bold;
+    font-size: 16px;
+    margin-left: 80px; /* Forgive me father for I have sinned, will fix later */
+}
+
+.catMenu .catClose:hover
+{
+    color: black;
+    cursor: pointer;
 }
 
 .labelContent 
