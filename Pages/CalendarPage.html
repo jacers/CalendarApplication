@@ -5,6 +5,10 @@
     <meta name = "viewport" content = "width=device-width, initial-scale=1.0">
     <title>Calendar Application - Calendar</title>
     <link rel = "stylesheet" href = "../Styles/CalendarStyles.css">
+    <script type="module" src="https://cdn.jsdelivr.net/npm/emoji-picker-element@^1/index.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class = "calendarContainer">
@@ -40,24 +44,96 @@
         </div>
     </div>
 
-    <!-- Button to open modal -->
-    <button id = "openModalBtn">Edit Calendar Colors</button>
+    <!-- Button to open color picker modal -->
+    <button id = "openColorPickerBtn">Edit Calendar Colors</button>
 
-    <!-- Modal -->
-    <div id = "colorPickerModal" class = "modal">
-        <div class = "modal-content">
-            <span class = "close">x</span> <!--The x icon-->
+    <!-- Color picker modal -->
+    <div id = "colorPickerModal" class = "colorPickerModal">
+        <div class = "colorPickerModal-content">
+            <span class = "closeColorPicker">x</span> <!--The x icon-->
             <div class = "colorPickers">
-                <input type="color" id = "sundayColor"    value="#ff0019">
-                <input type="color" id = "mondayColor"    value="#ff9900">
-                <input type="color" id = "tuesdayColor"   value="#ffff00">
-                <input type="color" id = "wednesdayColor" value="#00ff00">
-                <input type="color" id = "thursdayColor"  value="#0000ff">
-                <input type="color" id = "fridayColor"    value="#9900ff">
-                <input type="color" id = "saturdayColor"  value="#ff00ff">
+                <!-- Color pickers -->
+                <input type = "color" id = "sundayColor"    value="#f0f0f0">
+                <input type = "color" id = "mondayColor"    value="#f0f0f0">
+                <input type = "color" id = "tuesdayColor"   value="#f0f0f0">
+                <input type = "color" id = "wednesdayColor" value="#f0f0f0">
+                <input type = "color" id = "thursdayColor"  value="#f0f0f0">
+                <input type = "color" id = "fridayColor"    value="#f0f0f0">
+                <input type = "color" id = "saturdayColor"  value="#f0f0f0">
             </div>
         </div>
     </div>
+
+    <!-- Button to open new event modal -->
+    <button id = "openNewEvent">Add New Event</button>
+
+    <!-- New event modal -->
+    <div id = "newEventModal" class = "newEventModal">
+        <div class = "newEventModal-content">
+            <span class = "closeNewEvent">x</span> <!--The x icon-->
+            <div>
+                <!-- Name input -->
+                <label for = "eventName">Name:</label>
+                <input type = "text" id="eventName" name="eventName">
+            </div>
+            <div>
+                <!-- Location input -->
+                <label for = "eventLocation">Location:</label>
+                <input type = "text" id="eventLocation" name="eventLocation">
+            </div>
+            <div>
+                <!-- Group input -->
+                <label for = "eventEmoji">Group:</label>
+                <button id = "emojiButton">Select Emoji</button>
+            </div>
+            <div>
+                <!-- Start input -->
+                <label for = "eventStartDate">Starts:</label>
+                <input type = "date" id = "eventStartDate" name = "eventStartDate">
+                <input type = "time" id = "eventStartTime" name = "eventStartTime">
+            </div>
+            <div>
+                <!-- End input -->
+                <label for = "eventEndDate">Ends:</label>
+                <input type = "date" id = "eventEndDate" name = "eventEndDate">
+                <input type = "time" id = "eventEndTime" name = "eventEndTime">
+            </div>
+            <div>
+                <!-- Notes label -->
+                <label for = "eventNotes">Notes:</label>
+            </div>
+            <div>
+                <!-- Notes input -->
+                <textarea id="eventNotes" name="eventNotes" rows="5" cols="50"></textarea>
+            </div>
+            <div>
+                <!-- Save button -->
+                <button id = "saveEvent">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Emoji picker modal sub-menu within new wevent modal -->
+    <div id = "emojiPickerModal" class = "emojiPickerModal">
+        <div class = "newEventModal-content">
+            <span class = "closeEmojiPicker">⬅</span>   <!--The back icon-->
+            <div id = "emojiPreview"></div>             <!-- View of current emoji-->>
+            <emoji-picker class="light"></emoji-picker> <!-- Emoji picker light mode-->
+        </div>
+    </div>
+
+    <!-- Button to open events view modal -->
+    <button id="openEventsViewer">View Events</button>
+
+    <!-- View events modal -->
+    <div id="eventsViewerModal" class="eventsModal">
+        <div class="eventsViewerModal-content">
+            <span class="closeEventsViewer">x</span> <!--The x icon-->
+            <h2>Event List</h2>
+            <ul id="eventList"></ul>
+        </div>
+    </div>
+
 
     <script src = "../Scripts/Calendar/Calendar.js"></script>
 </body>
