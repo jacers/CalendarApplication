@@ -6,14 +6,18 @@
     <title>Calendar Application - Calendar</title>
     <link rel = "stylesheet" href = "../Styles/CalendarStyles.css">
     <script type="module" src="https://cdn.jsdelivr.net/npm/emoji-picker-element@^1/index.js"></script>
+
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class = "calendarContainer">
+        <!-- Top of the webpage-->
         <header class = "calendarHeader">
             <h1>CalendarName</h1>
+            <!-- Burger icon -->
             <div class = "dropdown">
                 <button class = "dropButton">&#9776</button>
                 <div class = "dropdownContent">
@@ -23,12 +27,14 @@
             </div>
         </header>
         <div class = "calendar">
+            <!-- Displays current month  and allows navigation between months -->
             <div class = "monthNavigation">
                 <button id = "prevButton">&lt;</button> <!-- Can be &lt; -->
                 <h2 id = "monthYearDisplay">Month Year</h2>
                 <button id = "nextButton">&gt;</button> <!-- Can be $gt; -->
             </div>
             <div class = "calendarBody">
+                <!-- Displays days of the week-->
                 <div class = "weekdays">
                     <div>Sun</div>
                     <div>Mon</div>
@@ -50,9 +56,11 @@
     <!-- Color picker modal -->
     <div id = "colorPickerModal" class = "colorPickerModal">
         <div class = "colorPickerModal-content">
+            <!-- Close button -->
             <span class = "closeColorPicker">x</span> <!--The x icon-->
             <div class = "colorPickers">
                 <!-- Color pickers -->
+                <!-- TODO: Consistent formatting-->
                 <input type = "color" id = "sundayColor"    value="#f0f0f0">
                 <input type = "color" id = "mondayColor"    value="#f0f0f0">
                 <input type = "color" id = "tuesdayColor"   value="#f0f0f0">
@@ -70,6 +78,7 @@
     <!-- New event modal -->
     <div id = "newEventModal" class = "newEventModal">
         <div class = "newEventModal-content">
+            <!-- Close button -->
             <span class = "closeNewEvent">x</span> <!--The x icon-->
             <div>
                 <!-- Name input -->
@@ -84,7 +93,7 @@
             <div>
                 <!-- Group input -->
                 <label for = "eventEmoji">Group:</label>
-                <button id = "emojiButton">Select Emoji</button>
+                <button id = "emojiBtn">Select Emoji</button>
             </div>
             <div>
                 <!-- Start input -->
@@ -113,12 +122,15 @@
         </div>
     </div>
 
-    <!-- Emoji picker modal sub-menu within new wevent modal -->
+    <!-- Emoji picker modal sub-menu within new event modal -->
     <div id = "emojiPickerModal" class = "emojiPickerModal">
         <div class = "newEventModal-content">
-            <span class = "closeEmojiPicker">⬅</span>   <!--The back icon-->
-            <div id = "emojiPreview"></div>             <!-- View of current emoji-->>
-            <emoji-picker class="light"></emoji-picker> <!-- Emoji picker light mode-->
+            <!-- Back button -->
+            <span class = "closeEmojiPicker">⬅</span> <!-- The back arrow icon -->
+            <!-- View of current emoji-->>
+            <div id = "emojiPreview"></div>
+            <!-- Emoji picker light mode-->
+            <emoji-picker class="light"></emoji-picker>
         </div>
     </div>
 
@@ -128,12 +140,14 @@
     <!-- View events modal -->
     <div id="eventsViewerModal" class="eventsModal">
         <div class="eventsViewerModal-content">
+            <!-- Close button -->
             <span class="closeEventsViewer">x</span> <!--The x icon-->
+            <!-- Header -->
             <h2>Event List</h2>
+            <!-- List -->
             <ul id="eventList"></ul>
         </div>
     </div>
-
 
     <script src = "../Scripts/Calendar/Calendar.js"></script>
 </body>

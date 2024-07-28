@@ -1,58 +1,68 @@
+// Constructs a new event to be added to the calender.
 class Event {
     constructor(name, location, startDate, startTime, endDate, endTime, notes, emoji) {
-        this.name      = name     ;
-        this.location  = location ;
-        this.startDate = startDate;
-        this.startTime = startTime;
-        this.endDate   = endDate  ;
-        this.endTime   = endTime  ;
-        this.notes     = notes    ;
-        this.emoji     = emoji    ;
+        // TODO: Consistent formatting
+        this.name      = name     ; // Name of the event
+        this.location  = location ; // Location where the event takes place
+        this.startDate = startDate; // Start date, formatted as a date with no time
+        this.startTime = startTime; // Start time, formatted as a time with no date
+        this.endDate   = endDate  ; // End date, formatted as a date with no time
+        this.endTime   = endTime  ; // End time, formatted as a time with no date
+        this.notes     = notes    ; // Any notes of the event
+        this.emoji     = emoji    ; // Emoji associated with the event. TODO: replace or combine with label.
     }
 
+    // Combines and returns the startDate and startTime parameters
     getStart() {
         return new Date(`${this.startDate}T${this.startTime}`)
     }
 
+    // Combines and returns the endDate and endTime parameters
     getEnd() {
         return new Date(`${this.endDate}T${this.endTime}`)
     }
 }
 
 // Selecting DOM elements (Elements in the CalendarPage.html)
+// TODO: Consistent formatting
 const prevBtn          = document.getElementById("prevButton"      );
 const nextBtn          = document.getElementById("nextButton"      );
 const monthYearDisplay = document.getElementById("monthYearDisplay");
 const daysContainer    = document.querySelector (".days"           );
 
 // Modal for color picker; will appear in front of and disable other elements
+// TODO: Consistent formatting
 const openColorPickerBtn  = document.getElementById("openColorPickerBtn");
 const colorPickerModal    = document.getElementById("colorPickerModal"  );
 const closeColorPickerBtn = document.querySelector (".closeColorPicker" );
 
 // Modal for new event; will appear in front of and disable other elements
+// TODO: Consistent formatting
 const openNewEventBtn  = document.getElementById("openNewEvent"   );
 const newEventModal    = document.getElementById("newEventModal"  );
 const closeNewEventBtn = document.querySelector (".closeNewEvent" );
 const saveEventBtn     = document.getElementById("saveEvent"      );
 
 // Modal to view events; will appear in front of and disable other elements
+// TODO: Consistent formatting
 const openEventsViewerBtn  = document.getElementById("openEventsViewer" );
 const closeEventsViewerBtn = document.querySelector(".closeEventsViewer");
 const eventsViewerModal    = document.getElementById("eventsViewerModal");
 
 // Modal for emoji picker; will appear in front of and disable other elements
-const emojiButton         = document.getElementById("emojiButton"     );
+// TODO: Consistent formatting
+const emojiBtn         = document.getElementById("emojiBtn"     );
 const emojiPickerModal    = document.getElementById("emojiPickerModal");
 const closeEmojiPickerBtn = document.querySelector(".closeEmojiPicker");
 const emojiPreview        = document.getElementById("emojiPreview"    );
 
 // Event variables
+// TODO: Consistent formatting
 let eventEmoji = ""; // Variable to store selected emoji
 let events     = []; // Array to store all events
 
-// TODO: Consistent formatting
 // Color picker input elements
+// TODO: Consistent formatting
 const sundayColorInput    = document.getElementById("sundayColor"     );
 const mondayColorInput    = document.getElementById("mondayColor"     );
 const tuesdayColorInput   = document.getElementById("tuesdayColor"    );
@@ -64,7 +74,7 @@ const saturdayColorInput  = document.getElementById("saturdayColor"   );
 // Initializing the "current" date to display to user
 let currentDate = new Date();
 
-// Function to get events for a specific day
+// Function that returns events for a specific day
 function getEventsForDay(day) {
     return events.filter(event => {
         const eventStart = new Date(event.startDate);
@@ -74,7 +84,6 @@ function getEventsForDay(day) {
         return currentDay >= eventStart && currentDay <= eventEnd;
     });
 }
-
 
 // Function to have the whole calendar displayed
 function renderCalendar() {
@@ -95,7 +104,6 @@ function renderCalendar() {
     // Refers to the HTML element and converts currentDate in String to display
     monthYearDisplay.textContent = currentDate.toLocaleString("default", { month: "long" }) + " " + currentDate.getFullYear();
 
-    
     // Loop to render the days of the previous month before the current month will start
     // Displays the previous month days so that the next month can start off where it ended (improves cohesiveness)
     const prevMonthDays = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0).getDate();
@@ -194,12 +202,12 @@ closeColorPickerBtn.addEventListener("click", () => {
     colorPickerModal.style.display = "none";
 });
 
-// Event listener to open the event modal
+// Event listener to open the new event modal
 openNewEventBtn.addEventListener("click", () => {
     newEventModal.style.display = "block";
 });
 
-// Event listener to close the event modal
+// Event listener to close the new event modal
 closeNewEventBtn.addEventListener("click", () => {
     newEventModal.style.display = "none";
 });
@@ -209,6 +217,7 @@ openEventsViewerBtn.addEventListener("click", () => {
     const eventsList = document.getElementById("eventList");
     eventsList.innerHTML = ""; // Clear the list
 
+    // Cycles through each event on the events arrays and displays them on the list
     events.forEach(event => {
         const listEvent = document.createElement("li");
         listEvent.innerHTML = `${event.emoji} "${event.name}" | From: ${event.startDate}, To: ${event.endDate}`;
@@ -224,7 +233,7 @@ closeEventsViewerBtn.addEventListener("click", () => {
 });
 
 // Event listener to open the emoji picker modal
-emojiButton.addEventListener("click", () => {
+emojiBtn.addEventListener("click", () => {
     emojiPickerModal.style.display = "block";
 });
 
@@ -236,6 +245,7 @@ closeEmojiPickerBtn.addEventListener("click", () => {
 // Close any of the modals if the user clicks outside of it
 window.addEventListener("click", (event) => {
     if (event.target == colorPickerModal || event.target == newEventModal) {
+    // TODO: Consistent formatting
         colorPickerModal .style.display = "none";
         newEventModal    .style.display = "none";
         emojiPickerModal .style.display = "none";
@@ -245,15 +255,17 @@ window.addEventListener("click", (event) => {
 
 // Implementation of the emoji picker (event group)
 document.querySelector('emoji-picker').addEventListener('emoji-click', event => {
-    const emoji = event.detail.unicode;
-    emojiPreview.innerText = `Selected Emoji: ${emoji}`;
-    emojiButton.innerText = emoji;
-    eventEmoji = emoji;
-    emojiPickerModal.style.display = "none";
+    const emoji = event.detail.unicode; // Temporary variable to be added to the event
+    emojiPreview.innerText = `Selected Emoji: ${emoji}`; // Preview of the emoji
+    emojiBtn.innerText = emoji; // Changes the text of the button to display emoji selected
+    eventEmoji = emoji; // To add the emoji to the event
+    emojiPickerModal.style.display = "none"; // Closes the emoji picker modal
 });
 
 // Implementation of the save button
 saveEventBtn.addEventListener("click", () => {
+    // Temporary variables that will be added to a new event
+    // TODO: Consistent formatting
     const eventName      = document.getElementById("eventName"     ).value;
     const eventLocation  = document.getElementById("eventLocation" ).value;
     const eventStartDate = document.getElementById("eventStartDate").value;
@@ -262,27 +274,29 @@ saveEventBtn.addEventListener("click", () => {
     const eventEndTime   = document.getElementById("eventEndTime"  ).value;
     const eventNotes     = document.getElementById("eventNotes"    ).value;
 
+    // Warns the user if no name is inputted
     if (!eventName) {
         alert("Please name this event.");
         return;
     }
 
+    // Warns the user if no group is inputted
     if (!eventEmoji) {
         alert("Please group this event.");
         return;
     }
 
-    // Event needs a start/end date and time
+    // Warns the user if no start or end date and time are given
     if (!eventStartDate || !eventStartTime || !eventEndDate || !eventEndTime) {
         alert("Please select a date and time for the event to start and end.");
         return;
     }
 
-    // When given a start/end date and time, the two are combined
+    // Combines the dates and times of the start and end date
     const startDateTime = new Date(`${eventStartDate}T${eventStartTime}`);
     const endDateTime   = new Date(`${eventEndDate  }T${eventEndTime  }`);
 
-    // Checks if the event starts after it has ended
+    // Warns the user if the event starts after it has ended
     if (startDateTime >= endDateTime) {
         alert("The event cannot start after it has ended.");
         return;
@@ -293,7 +307,9 @@ saveEventBtn.addEventListener("click", () => {
 
     // Add the new event to the events array
     events.push(newEvent);
+
     // TODO: Create events view, currently logs them
+    // TODO: Consistent formatting
     console.log("Event Name:    ", eventName    );
     console.log("Event Location:", eventLocation);
     console.log("Event Start:   ", startDateTime);
@@ -302,6 +318,7 @@ saveEventBtn.addEventListener("click", () => {
     console.log("Event Emoji:   ", eventEmoji   );
 
     // Clear the input fields
+    // TODO: Consistent formatting
     document.getElementById("eventName"     ).value = "";
     document.getElementById("eventLocation" ).value = "";
     document.getElementById("eventStartDate").value = "";
@@ -309,7 +326,7 @@ saveEventBtn.addEventListener("click", () => {
     document.getElementById("eventEndDate"  ).value = "";
     document.getElementById("eventEndTime"  ).value = "";
     document.getElementById("eventNotes"    ).value = "";
-    //emojiButton.innerText = "Select Emoji";
+    //emojiBtn.innerText = "Select Emoji";
     //eventEmoji = new String; //Not working
 
     newEventModal.style.display = "none";

@@ -123,8 +123,8 @@ body, html
     color: #ccc; /* Sets the color for days not in current month */
 }
 
-/* TODO: Consistent formatting */
 /* The default colors for each day of the week */
+/* TODO: Consistent formatting */
 .sunday    { background-color: #fff; }
 .monday    { background-color: #fff; }
 .tuesday   { background-color: #fff; }
