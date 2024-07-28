@@ -27,10 +27,10 @@
             <!-- This is to allow users to switch between what view they want currently displayed -->
             <div class = "viewSelection">
                 <select id="viewSelectionContent">
-                    <option value="month" selected>Month</option>
-                    <option value="day">Day</option>
-                    <option value="year">Year</option>
-                    <option value="week">Week</option>
+                    <option value = "month" selected>Month</option>
+                    <option value = "day" >Day</option>
+                    <option value = "year" >Year</option>
+                    <option value = "week" >Week</option>
                 </select>
             </div>
 
@@ -42,23 +42,15 @@
                     <a href = "LoginPage.html">Login</a>
                 </div>
             </div>
-
+            
         </header>
         <div class = "calendar">
             <div class = "calendarBody">
-                <div class="weekdays">
-                    <div>Sun</div>
-                    <div>Mon</div>
-                    <div>Tue</div>
-                    <div>Wed</div>
-                    <div>Thu</div>
-                    <div>Fri</div>
-                    <div>Sat</div>
-                </div>
-                <div class = "days"></div>
+                <div class = "days"> </div>
             </div>
         </div>
     </div>
+    <script src = "../Scripts/Calendar/Views.js"></script> <!-- This has to be first because following script depends on it -->
     <script src = "../Scripts/Calendar/Calendar.js"></script>
 </body>
 </html>
