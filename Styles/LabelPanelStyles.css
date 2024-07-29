@@ -128,6 +128,39 @@
     cursor: pointer;
 }
 
+/* Necessary to change checkbox background */
+.labelContent input[type="checkbox"]
+{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border: 2px solid #000;
+    border-radius: 3px;
+    position: relative;
+    vertical-align: middle;
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+.labelContent input[type="checkbox"]:checked
+{
+    background-color: #007BFF;
+}
+
+.labelContent input[type="checkbox"]:checked::after
+{
+    content: '✔';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 10px;
+    color: white;
+}
+
+
 .addLabBtn
 {
     font-size: 12px;

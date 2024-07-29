@@ -1,8 +1,10 @@
+// General DOM Elements
 const addCatButton = document.querySelector("#addCat");
 const catMenus = document.querySelectorAll('.catMenu');
 const verticleDots = document.querySelectorAll('.verticleDots');
 const catClosers = document.querySelectorAll('.catClose');
 
+// Object that handles problem event handlers
 const eventHandlers = {};
 
 // Event listener to add a category on label panel
@@ -79,6 +81,7 @@ function handleCatInput()
 }
 
 // Handles input deemed acceptable and creates the actual category
+// I know this function is way too long I'll fix it later
 function submitCatInput()
 {
     const inputBoxCat = document.querySelector('.inputBoxCat');
@@ -97,53 +100,55 @@ function submitCatInput()
     labelPanel.removeChild(submitButtonCat);
     document.removeEventListener('click', outCatClick);
 
-    // Creation of all elements needed for category to run correctly
+    // Overall container
     const labelDown = document.createElement('div');
     labelDown.classList.add('labelDown');
 
+    // Label button creation
     const newButton = document.createElement('button');
     newButton.classList.add('labelBtn');
 
     const textSpan = document.createElement('span');
-    textSpan.classList.add('labelName');
+    textSpan.classList.add('catName');
     textSpan.textContent = labelTitle;
 
-    // div cat options
+    // Cat option div creation
     const catOptions = document.createElement('div');
     catOptions.classList.add('catOptions');
 
-    // vert dots span
+    // Span that contains verticle dots
     const verticleDots = document.createElement('span');
     verticleDots.classList.add('verticleDots');
 
-    // img
+    // Actual verticle dots image creation
     const dotImage = document.createElement('img');
     dotImage.src = "../Images/verticleDots.png";
     dotImage.alt = "verticle dots";
 
-    // this insine cat options
+    // Arrow up creation
     const arrowSpan = document.createElement('span');
     arrowSpan.classList.add('labelArrow');
     arrowSpan.textContent = '⌃';
 
+    // Creating wrapper for labels
     const labelContent = document.createElement('div');
     labelContent.classList.add('labelContent');
 
-    // cat menu div
+    // Category menu div creation
     const catMenu = document.createElement('div');
     catMenu.classList.add('catMenu');
     
-    // cat close span with x
+    // Category close span with x
     const catClose = document.createElement('span');
     catClose.classList.add('catClose');
     catClose.textContent = 'x';
 
-    // cat edit button
+    // Category edit button
     const catEdit = document.createElement('button');
     catEdit.classList.add('catEdit');
     catEdit.textContent = 'Edit';
 
-    // cat delete button
+    // Category delete button
     const catDelete = document.createElement('button');
     catDelete.classList.add('catDelete');
     catDelete.textContent = 'Delete';
@@ -151,15 +156,19 @@ function submitCatInput()
     // Creating add label button, will always exist in a category by default
     const addLabBtn = document.createElement('button');
     addLabBtn.classList.add('labelBtn');
+
+    // Text for actual button
     const labText = document.createElement('span');
     labText.textContent = 'Add Label';
+
+    // Plus sign text
     const labPlusSign = document.createElement('span');
     labPlusSign.textContent = '+';
     addLabBtn.classList.add('addLabBtn');
     labText.classList.add('labText');
     labPlusSign.classList.add('labPlusSign');
-    addLabBtn.addEventListener('click', handleLabInput);
 
+    // Creation of HTML hierarchy
     addLabBtn.append(labText);
     addLabBtn.append(labPlusSign);
     labelContent.appendChild(addLabBtn);
@@ -181,7 +190,7 @@ function submitCatInput()
     labelPanel.appendChild(labelDown);
 
     // This limits number of categories to 11
-    if(document.querySelectorAll('.labelName').length < 11) 
+    if(document.querySelectorAll('.catName').length < 11) 
     {
         labelPanel.appendChild(addCatButton);
         addCatButton.style.display = 'flex';
@@ -189,18 +198,21 @@ function submitCatInput()
 
     // Allows the dropdown to actually function
     newButton.addEventListener('click', showLabels);
+
+    // catMenu related event listeners
     verticleDots.addEventListener('click', handleCatMenu);
     catClose.addEventListener('click', (e) => {
         cancelCatMenu(e.target.parentElement);
      })
     catEdit.addEventListener('click', editCat);
     catDelete.addEventListener('click', deleteCat);
-
+    addLabBtn.addEventListener('click', handleLabInput);
 }
 
 // Handles input deemed unnaceptable
 function cancelCatInput()
 {
+    // Getting and removing input box and submit button
     const inputBoxCat = document.querySelector('.inputBoxCat');
     const submitButtonCat = document.querySelector('.submitButtonCat');
 
@@ -218,6 +230,8 @@ function outCatClick(e)
     const inputBoxCat = document.querySelector('.inputBoxCat');
     const submitButtonCat = document.querySelector('.submitButtonCat');
 
+    // Cancelling input assuming user didn't click the box or submit button
+    // Also checking to make sure both exist
     if(inputBoxCat && submitButtonCat && 
         !submitButtonCat.contains(e.target) && 
         !inputBoxCat.contains(e.target))
@@ -228,18 +242,21 @@ function outCatClick(e)
 
 function handleCatMenu(e)
 {
+    // Stopping parent button from triggering
     e.stopPropagation();
+
     const verticleDot = e.target;
     let labelBtnNear = verticleDot;
 
-    // Selecting proper catMenu
+    // Selecting proper catMenu by finding labelBtn
     while(!labelBtnNear.classList.contains('labelDown'))
     {
         labelBtnNear = labelBtnNear.parentElement;
     }
     const catMenu = labelBtnNear.querySelector('.catMenu');
-    const catClose = catMenu.querySelector('.catClose');
 
+    // Creating a wrapper function so that the out click button
+    // can both pass a parameter and be  deleted
     const eventHandler = (e) => {
         if(!catMenu.contains(e.target)) 
         {
@@ -247,18 +264,21 @@ function handleCatMenu(e)
         }
     }
 
+    // Adding to global object
     eventHandlers[catMenu] = eventHandler;
 
+    // Timeout so this doesn't immediately run
     setTimeout(() => {
         document.addEventListener('click', eventHandler);
     }, 10);
 
-    // Add eventHandler to eventHandlers and deal with it in cancelCat
-
     catMenu.style.display = 'flex';
+
+    // Deals with formatting issue
     handleLabelContent(labelBtnNear);
 }
 
+// Function similar to showLabels
 function handleLabelContent(labelDownNew)
 {
     const labelArrow = labelDownNew.querySelector('.labelArrow');
@@ -272,6 +292,7 @@ function handleLabelContent(labelDownNew)
     } 
 }
 
+// Edit button selected
 function editCat(e)
 {
     const catMenu = e.target.parentElement;
@@ -281,31 +302,32 @@ function editCat(e)
         labelBtnNear = labelBtnNear.parentElement;
     }
     const labelBtn = labelBtnNear.querySelector('.labelBtn');
-    const labelName = labelBtn.querySelector('.labelName');
+    const catName = labelBtn.querySelector('.catName');
 
     // Check to make sure no other edits or creations are currently happening
     if(document.querySelector('.inputBoxCat'))
     {
-        cancelCatEdit();
+        catMenu.style.display = 'none';
+        return;
     }
     if(document.querySelector('.inputBoxLab'))
     {
-        // Fill in when finished
-        console.log('lab input cancelled');
+        catMenu.style.display = 'none';
+        return;
     }
 
     const inputBoxCat = document.createElement('input');
     inputBoxCat.type = 'text';
     inputBoxCat.classList.add('inputBoxCat');
     inputBoxCat.placeholder = 'Category Name';
-    inputBoxCat.value = labelName.textContent;
+    inputBoxCat.value = catName.textContent;
 
     // This allows for the enter key to submit contents and the escape key
     // to cancel the action
     inputBoxCat.addEventListener('keydown', (e) => {
         if(e.key === 'Enter')
         {
-            submitCatEdit(labelBtn, labelName);
+            submitCatEdit(labelBtn, catName);
         }
         else if(e.key === 'Escape')
         {
@@ -325,7 +347,7 @@ function editCat(e)
     submitButtonCat.classList.add('submitButtonCat');
     submitButtonCat.textContent = 'Submit';
     submitButtonCat.addEventListener('click', () => {
-        submitCatEdit(labelBtn, labelName)
+        submitCatEdit(labelBtn, catName)
     });
 
     labelBtn.append(inputBoxCat);
@@ -345,7 +367,6 @@ function editCat(e)
     const eventHandler = (e) => {
         if(!inputBoxCat.contains(e.target) && !submitButtonCat.contains(e.target)) 
         {
-            console.log('clicked out');
             cancelCatEdit(labelBtn);
         }
     }
@@ -368,9 +389,9 @@ function deleteCat(e)
         labelBtnNear = labelBtnNear.parentElement;
     }
     const labelBtn = labelBtnNear.querySelector('.labelBtn');
-    const labelName = labelBtn.querySelector('.labelName');
+    const catName = labelBtn.querySelector('.catName');
 
-    if(confirm(`Are you sure you want to delete the \"${labelName.textContent}\" category? This action can't be undone.`))
+    if(confirm(`Are you sure you want to delete the \"${catName.textContent}\" category? This action can't be undone.`))
     {
         labelBtn.remove();
     }
@@ -389,13 +410,13 @@ function cancelCatMenu(catMenu)
     }
 }
 
-function submitCatEdit(labelBtn, labelName)
+function submitCatEdit(labelBtn, catName)
 {
     const inputBoxCat = document.querySelector('.inputBoxCat');
-    labelName.textContent = inputBoxCat.value;
+    catName.textContent = inputBoxCat.value;
 
     // Prevents an accidental enter or submit
-    if(labelName.textContent.trim() === '')
+    if(catName.textContent.trim() === '')
     {
         return;
     } 
@@ -406,6 +427,13 @@ function submitCatEdit(labelBtn, labelName)
     
     inputBoxCat.remove();
     submitButtonCat.remove();
+
+    if(eventHandlers[labelBtn])
+    {
+        document.removeEventListener('click', eventHandlers[labelBtn]);
+        delete eventHandlers[labelBtn];
+    }
+
     labelBtn.style.display = 'flex';
 }
 
