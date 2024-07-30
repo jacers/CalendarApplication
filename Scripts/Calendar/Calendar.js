@@ -50,11 +50,12 @@ const closeEventsViewerBtn = document.querySelector(".closeEventsViewer");
 const eventsViewerModal    = document.getElementById("eventsViewerModal");
 
 // Modal for emoji picker; will appear in front of and disable other elements
+// TODO: Integrate with labels
 // TODO: Consistent formatting
-const emojiBtn         = document.getElementById("emojiBtn"     );
-const emojiPickerModal    = document.getElementById("emojiPickerModal");
-const closeEmojiPickerBtn = document.querySelector(".closeEmojiPicker");
-const emojiPreview        = document.getElementById("emojiPreview"    );
+const eventLabelDropdown  = document.getElementById("eventLabelDropdown");
+const emojiPickerModal    = document.getElementById("emojiPickerModal"  ); // TODO: Either replace this modal with the New Label maker or implement the emoji picker with the New Label maker
+const closeEmojiPickerBtn = document.querySelector(".closeEmojiPicker"  );
+const emojiPreview        = document.getElementById("emojiPreview"      );
 
 // Event variables
 // TODO: Consistent formatting
@@ -232,10 +233,20 @@ closeEventsViewerBtn.addEventListener("click", () => {
     eventsViewerModal.style.display = "none";
 });
 
-// Event listener to open the emoji picker modal
-emojiBtn.addEventListener("click", () => {
-    emojiPickerModal.style.display = "block";
+// Add listener to the dropdown menu
+// TODO: Integrate with labels
+eventLabelDropdown.addEventListener("change", function() {
+    if (eventLabelDropdown.value === "newEvent") {
+        openEmojiPickerModal();              // Function to open the emoji picker modal
+        eventLabelDropdown.value = "select"; // Reset the dropdown to the default option
+    }
 });
+
+// Event listener to open the emoji picker modal
+// TODO: Possibly group this with the rest of the functions, rather than the rest of the modal openers
+function openEmojiPickerModal() {
+    emojiPickerModal.style.display = "block";
+}
 
 // Event listener to close the emoji picker modal
 closeEmojiPickerBtn.addEventListener("click", () => {
@@ -254,10 +265,11 @@ window.addEventListener("click", (event) => {
 });
 
 // Implementation of the emoji picker (event group)
+// TODO: Integrate with labels
 document.querySelector('emoji-picker').addEventListener('emoji-click', event => {
     const emoji = event.detail.unicode; // Temporary variable to be added to the event
     emojiPreview.innerText = `Selected Emoji: ${emoji}`; // Preview of the emoji
-    emojiBtn.innerText = emoji; // Changes the text of the button to display emoji selected
+//    eventLabelDropdown.innerText = emoji; // TODO: Integrate with labels, make it so the inside of the dropdown menu changes to the new if created
     eventEmoji = emoji; // To add the emoji to the event
     emojiPickerModal.style.display = "none"; // Closes the emoji picker modal
 });
@@ -326,8 +338,6 @@ saveEventBtn.addEventListener("click", () => {
     document.getElementById("eventEndDate"  ).value = "";
     document.getElementById("eventEndTime"  ).value = "";
     document.getElementById("eventNotes"    ).value = "";
-    //emojiBtn.innerText = "Select Emoji";
-    //eventEmoji = new String; //Not working
 
     newEventModal.style.display = "none";
     renderCalendar();
