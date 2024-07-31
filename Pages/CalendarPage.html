@@ -80,6 +80,8 @@
         <div class = "newEventModal-content">
             <!-- Close button -->
             <span class = "closeNewEvent">x</span> <!--The x icon-->
+            <!-- Header -->
+            <h2>New Event</h2>
             <div>
                 <!-- Name input -->
                 <label for = "eventName">Name:</label>
@@ -125,15 +127,30 @@
         </div>
     </div>
 
-    <!-- Emoji picker modal sub-menu within new event modal -->
-    <div id = "emojiPickerModal" class = "emojiPickerModal">
+    <!-- Label maker modal sub-menu within new event modal -->
+    <div id = "labelMakerModal" class = "labelMakerModal">
         <div class = "newEventModal-content">
             <!-- Back button -->
-            <span class = "closeEmojiPicker">⬅</span> <!-- The back arrow icon -->
+            <span class = "closeLabelMaker">⬅</span> <!-- The back arrow icon -->
+            <!-- Header -->
+            <h2>New Label</h2>
+            <div>
+                <!-- Name input -->
+                <label for = "eventName">Name:</label>
+                <input type = "text" id="labelName" name="labelName">
+            </div>
+            <div class = "labelColorPicker">
+                <!-- Color picker -->
+                <input type = "color" id = "labelColor" value="#ffffff">
+            </div>
             <!-- View of current emoji-->>
             <div id = "emojiPreview"></div>
             <!-- Emoji picker light mode-->
             <emoji-picker class="light"></emoji-picker>
+            <div>
+                <!-- Save button -->
+                <button id = "saveLabel">Save</button>
+            </div>
         </div>
     </div>
 

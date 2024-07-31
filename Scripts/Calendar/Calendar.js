@@ -1,6 +1,6 @@
-// Constructs a new event to be added to the calender.
+// Constructs a new event to be added to the calender
 class Event {
-    constructor(name, location, startDate, startTime, endDate, endTime, notes, emoji) {
+    constructor(name, location, startDate, startTime, endDate, endTime, notes, label) {
         // TODO: Consistent formatting
         this.name      = name     ; // Name of the event
         this.location  = location ; // Location where the event takes place
@@ -9,7 +9,8 @@ class Event {
         this.endDate   = endDate  ; // End date, formatted as a date with no time
         this.endTime   = endTime  ; // End time, formatted as a time with no date
         this.notes     = notes    ; // Any notes of the event
-        this.emoji     = emoji    ; // Emoji associated with the event. TODO: replace or combine with label.
+        // TODO: replace or combine with label.
+        this.label     = label    ; // Label associated with the event
     }
 
     // Combines and returns the startDate and startTime parameters
@@ -20,6 +21,29 @@ class Event {
     // Combines and returns the endDate and endTime parameters
     getEnd() {
         return new Date(`${this.endDate}T${this.endTime}`)
+    }
+}
+
+// Constructs a new label to be added to events
+class Label {
+    constructor(name, emoji, color) {
+        // TODO: Consistent formatting
+        this.name  = name ; // Name of the label
+        this.emoji = emoji; // Emoji associated with the label
+        this.color = color; // Color associated with the label
+    }
+
+    // Combines and returns the name and emoji parameters
+    getEmojiAndName() {
+        return `${this.emoji} ${this.name}`;
+    }
+
+    getEmojiAndColor() {
+        return `<span style="background-color:${this.color}; border-radius: 5px; padding: 2px 4px;">${this.emoji}</span>`;
+    }
+
+    getLabel() {
+        return `${this.getEmojiAndColor()} ${this.name}`;
     }
 }
 
@@ -49,18 +73,20 @@ const openEventsViewerBtn  = document.getElementById("openEventsViewer" );
 const closeEventsViewerBtn = document.querySelector(".closeEventsViewer");
 const eventsViewerModal    = document.getElementById("eventsViewerModal");
 
-// Modal for emoji picker; will appear in front of and disable other elements
+// Modal for label maker; will appear in front of and disable other elements
 // TODO: Integrate with labels
 // TODO: Consistent formatting
-const eventLabelDropdown  = document.getElementById("eventLabelDropdown");
-const emojiPickerModal    = document.getElementById("emojiPickerModal"  ); // TODO: Either replace this modal with the New Label maker or implement the emoji picker with the New Label maker
-const closeEmojiPickerBtn = document.querySelector(".closeEmojiPicker"  );
-const emojiPreview        = document.getElementById("emojiPreview"      );
+const eventLabelDropdown = document.getElementById("eventLabelDropdown");
+const labelMakerModal    = document.getElementById("labelMakerModal"   ); // TODO: Either replace this modal with the New Label maker or implement the label maker with the New Label maker
+const closeLabelMakerBtn = document.querySelector(".closeLabelMaker"   );
+const emojiPreview       = document.getElementById("emojiPreview"      );
+const saveLabelBtn       = document.getElementById("saveLabel"         );
 
 // Event variables
 // TODO: Consistent formatting
-let eventEmoji = ""; // Variable to store selected emoji
+let labelEmoji = ""; // Variable to store selected emoji
 let events     = []; // Array to store all events
+let labels     = []; // Array to store all labels
 
 // Color picker input elements
 // TODO: Consistent formatting
@@ -133,11 +159,11 @@ function renderCalendar() {
         // Sets the day numbers to 1 (and overwrites the previous month days number)
         dayElement.textContent = i;
 
-        // Get events for the day and add their emojis
+        // Get events for the day and adds the emoji and colors from the labels
         const dayEvents = getEventsForDay(i);
         dayEvents.forEach(event => {
             const emojiPreview = document.createElement("preview");
-            emojiPreview.textContent = event.emoji;
+            emojiPreview.innerHTML = event.label.getEmojiAndColor();
             dayElement.appendChild(emojiPreview);
         });
 
@@ -221,7 +247,7 @@ openEventsViewerBtn.addEventListener("click", () => {
     // Cycles through each event on the events arrays and displays them on the list
     events.forEach(event => {
         const listEvent = document.createElement("li");
-        listEvent.innerHTML = `${event.emoji} "${event.name}" | From: ${event.startDate}, To: ${event.endDate}`;
+        listEvent.innerHTML = `${event.name} | ${event.label.getLabel()} | From: ${event.startDate}, To: ${event.endDate}`;
         eventsList.appendChild(listEvent);
     });
 
@@ -237,20 +263,20 @@ closeEventsViewerBtn.addEventListener("click", () => {
 // TODO: Integrate with labels
 eventLabelDropdown.addEventListener("change", function() {
     if (eventLabelDropdown.value === "newEvent") {
-        openEmojiPickerModal();              // Function to open the emoji picker modal
+        openlabelMakerModal();              // Function to open the label maker modal
         eventLabelDropdown.value = "select"; // Reset the dropdown to the default option
     }
 });
 
-// Event listener to open the emoji picker modal
+// Event listener to open the label maker modal
 // TODO: Possibly group this with the rest of the functions, rather than the rest of the modal openers
-function openEmojiPickerModal() {
-    emojiPickerModal.style.display = "block";
+function openlabelMakerModal() {
+    labelMakerModal.style.display = "block";
 }
 
-// Event listener to close the emoji picker modal
-closeEmojiPickerBtn.addEventListener("click", () => {
-    emojiPickerModal.style.display = "none";
+// Event listener to close the label maker modal
+closeLabelMakerBtn.addEventListener("click", () => {
+    labelMakerModal.style.display = "none";
 });
 
 // Close any of the modals if the user clicks outside of it
@@ -259,22 +285,20 @@ window.addEventListener("click", (event) => {
     // TODO: Consistent formatting
         colorPickerModal .style.display = "none";
         newEventModal    .style.display = "none";
-        emojiPickerModal .style.display = "none";
+        labelMakerModal  .style.display = "none";
         eventsViewerModal.style.display = "none";
     }
 });
 
-// Implementation of the emoji picker (event group)
+// Implementation of the label maker (event label)
 // TODO: Integrate with labels
 document.querySelector('emoji-picker').addEventListener('emoji-click', event => {
     const emoji = event.detail.unicode; // Temporary variable to be added to the event
     emojiPreview.innerText = `Selected Emoji: ${emoji}`; // Preview of the emoji
-//    eventLabelDropdown.innerText = emoji; // TODO: Integrate with labels, make it so the inside of the dropdown menu changes to the new if created
-    eventEmoji = emoji; // To add the emoji to the event
-    emojiPickerModal.style.display = "none"; // Closes the emoji picker modal
+    labelEmoji = emoji; // To add the emoji to the event
 });
 
-// Implementation of the save button
+// Implementation of the event save button
 saveEventBtn.addEventListener("click", () => {
     // Temporary variables that will be added to a new event
     // TODO: Consistent formatting
@@ -285,6 +309,7 @@ saveEventBtn.addEventListener("click", () => {
     const eventEndDate   = document.getElementById("eventEndDate"  ).value;
     const eventEndTime   = document.getElementById("eventEndTime"  ).value;
     const eventNotes     = document.getElementById("eventNotes"    ).value;
+    const labelIndex     = eventLabelDropdown                       .value;
 
     // Warns the user if no name is inputted
     if (!eventName) {
@@ -292,9 +317,9 @@ saveEventBtn.addEventListener("click", () => {
         return;
     }
 
-    // Warns the user if no group is inputted
-    if (!eventEmoji) {
-        alert("Please group this event.");
+    // Warns the user if no label is inputted
+    if (!labelIndex || labelIndex === "select" || labelIndex === "newEvent") {
+        alert("Please label this event.");
         return;
     }
 
@@ -314,20 +339,24 @@ saveEventBtn.addEventListener("click", () => {
         return;
     }
     
+    const selectedLabel = labels[labelIndex];
+
     // Create an instance of the Event class
-    const newEvent = new Event(eventName, eventLocation, eventStartDate, eventStartTime, eventEndDate, eventEndTime, eventNotes, eventEmoji);
+    const newEvent = new Event(eventName, eventLocation, eventStartDate, eventStartTime, eventEndDate, eventEndTime, eventNotes, selectedLabel);
 
     // Add the new event to the events array
     events.push(newEvent);
 
-    // TODO: Create events view, currently logs them
-    // TODO: Consistent formatting
-    console.log("Event Name:    ", eventName    );
-    console.log("Event Location:", eventLocation);
-    console.log("Event Start:   ", startDateTime);
-    console.log("Event End:     ", endDateTime  );
-    console.log("Event Notes:   ", eventNotes   );
-    console.log("Event Emoji:   ", eventEmoji   );
+    // TODO: This is only to help debugging, may need to be deleted or commented out later.
+    console.log("Event Name:           ", eventName                      );
+    console.log("Event Location:       ", eventLocation                  );
+    console.log("Event Start:          ", startDateTime                  );
+    console.log("Event End:            ", endDateTime                    );
+    console.log("Event Notes:          ", eventNotes                     );
+    console.log("Label Name:           ", selectedLabel.name             );
+    console.log("Label Emoji:          ", selectedLabel.emoji            );
+    console.log("Label Color:          ", selectedLabel.color            );
+    console.log("Label Name and Emoji: ", selectedLabel.getEmojiAndName());
 
     // Clear the input fields
     // TODO: Consistent formatting
@@ -341,6 +370,50 @@ saveEventBtn.addEventListener("click", () => {
 
     newEventModal.style.display = "none";
     renderCalendar();
+});
+
+// Implementation of the label save button
+saveLabelBtn.addEventListener("click", () => {
+    const labelName = document.getElementById("labelName").value;
+    const labelColor = document.getElementById("labelColor").value;
+
+    // Warns the user if no name is inputted
+    if (!labelName) {
+        alert("Please provide a name for the label.");
+        return;
+    }
+
+    // Warns the user if no emoji is inputted
+    if (!labelEmoji) {
+        alert("Please provide a emoji for the label.");
+        return;
+    }
+
+    // Warns the user if no color is inputted
+    // Note: Should not happen under normal circumstances
+    if (!labelColor) {
+        alert("Please provide a emoji for the label.");
+        return;
+    }
+
+    const newLabel = new Label(labelName, labelEmoji, labelColor);
+    labels.push(newLabel);
+
+    // Optionally, you can add the new label to the dropdown for future events
+    const option = document.createElement("option");
+    option.value = labels.length - 1; // Use the index as the value
+    option.text = newLabel.getEmojiAndName();
+    option.style.backgroundColor = labelColor; // TODO: Supposed to change the background color of the option but it doesn't work
+    eventLabelDropdown.add(option);
+
+    // Reset the label maker modal
+    document.getElementById("labelName").value = "";
+    document.getElementById("labelColor").value = "#ffffff";
+    emojiPreview.innerText = "";
+    labelEmoji = "";
+
+    // Close the label maker modal
+    labelMakerModal.style.display = "none";
 });
 
 // TODO: Consistent formatting

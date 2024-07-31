@@ -240,7 +240,7 @@ body, html
     cursor: pointer; /* Changes the cursor to a pointer when hovering over the x */
 }
 
-.emojiPickerModal 
+.labelMakerModal 
 {
     display: none;
     position: fixed;
@@ -253,7 +253,7 @@ body, html
     padding-top: 60px;
 }
 
-.emojiPickerModal-content
+.labelMakerModal-content
 {
     background-color: #fefefe;
     margin: 5% auto;
@@ -262,7 +262,7 @@ body, html
     width: 50%;  
 }
 
-.closeEmojiPicker
+.closeLabelMaker
 {
     color: #aaa;
     float: right;
@@ -270,11 +270,16 @@ body, html
     font-weight: bold;
 }
 
-.closeEmojiPicker:hover,
-.closeEmojiPicker:focus 
+.closeLabelMaker:hover,
+.closeLabelMaker:focus 
 {
     color: black; /* Gives the x a thicker color when hovered over */
     cursor: pointer; /* Changes the cursor to a pointer when hovering over the x */
+}
+
+/* TODO: This is supposed to make it so the dropdown menu in the new label maker has a background color but it doesn't work*/
+option {
+    background-color: inherit;
 }
 
 emoji-picker {
