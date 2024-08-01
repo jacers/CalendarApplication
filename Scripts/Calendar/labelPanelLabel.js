@@ -1,12 +1,23 @@
+const allLabels = document.querySelectorAll('.labelContent label');
+const labelDots = document.querySelectorAll('label img');
+
+allLabels.forEach(label => {
+    generateLabelMenu(label);
+})
+
 // Event listener to add a label on label panel
 allLabButtons.forEach(button => {
     button.addEventListener('click', handleLabInput);
 });
 
+labelDots.forEach(labelDot => {
+    // Send this to main editor later
+    labelDot.addEventListener('click', handleLabMenu);
+})
+
 // Function that handles user functionality for creating a label
 function handleLabInput(e)
 {
-    
     // Getting proper container for specific button, hidding button
     const addLabelBtn = e.target.closest('.addLabBtn');
     const labelContent = addLabelBtn.parentElement;
@@ -123,3 +134,84 @@ function outLabClick(e)
         cancelLabInput(inputBoxLab.previousElementSibling);
     }
 }
+
+
+// KEEPING THESE FUNCTIONS FOR FUTURE USE
+function handleLabMenu(e)
+{
+    // Stopping parent button from triggering
+    e.stopPropagation();
+    e.preventDefault();
+}
+
+function editLabel(e)
+{
+    console.log('edit button hit');
+}
+
+function deleteLabel(e)
+{
+    console.log('delete button hit');
+}
+
+function cancelLabMenu(labelMenu)
+{
+    console.log('closed');
+    labelMenu.style.display = 'none';
+
+    if(eventHandlers[labelMenu])
+    {
+        document.removeEventListener('click', eventHandlers[labelMenu]);
+        delete eventHandlers[labelMenu];
+    }
+}
+
+// Keeping this for now will probably delete later
+function generateLabelMenu(label)
+{
+    const labelMenu = document.createElement('div');
+    labelMenu.classList.add('labelMenu');
+
+    const labClose = document.createElement('span');
+    labClose.classList.add('labClose');
+    labClose.textContent = 'x';
+
+    const editLabBtn = document.createElement('button');
+    editLabBtn.classList.add('editLabBtn');
+    editLabBtn.textContent = 'Edit'
+
+    const deleteLabBtn = document.createElement('button');
+    deleteLabBtn.classList.add('deleteLabBtn');
+    deleteLabBtn.textContent = 'Delete'
+
+    const colorContainer = document.createElement('div');
+    colorContainer.classList.add('colorContainer');
+
+    const colorPicker = document.createElement('input');
+    colorPicker.type = 'color';
+
+    const colorText = document.createElement('span');
+    colorText.classList.add('colorText');
+    colorText.textContent = 'Color';
+    
+    colorContainer.appendChild(colorText);
+    colorContainer.appendChild(colorPicker);
+
+    labelMenu.appendChild(labClose);
+    labelMenu.appendChild(editLabBtn);
+    labelMenu.appendChild(deleteLabBtn);
+    labelMenu.appendChild(colorContainer);
+    label.appendChild(labelMenu);
+
+    editLabBtn.addEventListener('click', editLabel);
+    deleteLabBtn.addEventListener('click', deleteLabel);
+
+    labelMenu.addEventListener('click', function(e) {
+        e.preventDefault();
+    });
+
+    labClose.addEventListener('click', function(e) {
+        cancelLabMenu(labelMenu);
+    });
+}
+
