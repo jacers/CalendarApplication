@@ -293,6 +293,24 @@ window.addEventListener("click", (event) => {
     }
 });
 
+// Implementation of the event save button
+saveEventBtn.addEventListener("click", () => {
+    // Temporary variables that will be added to a new event
+    // TODO: Consistent formatting
+    const eventName      = document.getElementById("eventName"     ).value;
+    const eventLocation  = document.getElementById("eventLocation" ).value;
+    const eventStartDate = document.getElementById("eventStartDate").value;
+    const eventStartTime = document.getElementById("eventStartTime").value;
+    const eventEndDate   = document.getElementById("eventEndDate"  ).value;
+    const eventEndTime   = document.getElementById("eventEndTime"  ).value;
+    const eventNotes     = document.getElementById("eventNotes"    ).value;
+    const labelIndex     = eventLabelDropdown                       .value;
+
+    // Warns the user if no name is inputted
+    if (!eventName) {
+        alert("Please name this event.");
+        return;
+    }
 
     // Warns the user if no label is inputted
     if (!labelIndex || labelIndex === "select" || labelIndex === "newEvent") {
