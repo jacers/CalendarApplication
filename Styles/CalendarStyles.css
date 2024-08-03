@@ -429,8 +429,13 @@ body, html
     margin: 5% auto;
     padding: 20px;
     border: 1px solid #888;
-    width: 80%;
-    overflow-y: auto; /* Ensures scroll wheel appears if modal goes off screen*/
+    width:
+     80%;
+}
+
+.catLabInputs {
+    display: inline-block;
+    margin-right: 10px;
 }
 
 .closeEventsViewer

@@ -593,7 +593,10 @@ closeLabelMakerBtn.addEventListener("click", () => {
 
 // Close any of the modals if the user clicks outside of it
 window.addEventListener("click", (event) => {
-    if (event.target == colorPickerModal || event.target == newEventModal) {
+    if (event.target == colorPickerModal || 
+        event.target == newEventModal    ||
+        event.target == labelMakerModal  ||
+        event.target == eventsViewerModal) {
     // TODO: Consistent formatting
         colorPickerModal .style.display = "none";
         newEventModal    .style.display = "none";
