@@ -134,8 +134,7 @@ function renderCalendar() {
     // Loop to render the days of the previous month before the current month will start
     // Displays the previous month days so that the next month can start off where it ended (improves cohesiveness)
     const prevMonthDays = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0).getDate();
-    for (let i = startDay; i > 0; i--) 
-    {
+    for (let i = startDay; i > 0; i--) {
         // Div elements will be created for each day before the start of the current month
         const dayElement = document.createElement("div");
 
@@ -402,8 +401,8 @@ saveLabelBtn.addEventListener("click", () => {
     // Optionally, you can add the new label to the dropdown for future events
     const option = document.createElement("option");
     option.value = labels.length - 1; // Use the index as the value
-    option.text = newLabel.getEmojiAndName();
-    option.style.backgroundColor = labelColor; // TODO: Supposed to change the background color of the option but it doesn't work
+    option.innerHTML = newLabel.getLabel();
+    option.style.backgroundColor = newLabel.color; // TODO: Supposed to change the background color of the option but it doesn't work
     eventLabelDropdown.add(option);
 
     // Reset the label maker modal
@@ -418,13 +417,13 @@ saveLabelBtn.addEventListener("click", () => {
 
 // TODO: Consistent formatting
 // Event listeners for color inputs to update day colors live
-sundayColorInput.addEventListener   ("input", updateDayColors);
-mondayColorInput.addEventListener   ("input", updateDayColors);
-tuesdayColorInput.addEventListener  ("input", updateDayColors);
+sundayColorInput   .addEventListener("input", updateDayColors);
+mondayColorInput   .addEventListener("input", updateDayColors);
+tuesdayColorInput  .addEventListener("input", updateDayColors);
 wednesdayColorInput.addEventListener("input", updateDayColors);
-thursdayColorInput.addEventListener ("input", updateDayColors);
-fridayColorInput.addEventListener   ("input", updateDayColors);
-saturdayColorInput.addEventListener ("input", updateDayColors);
+thursdayColorInput .addEventListener("input", updateDayColors);
+fridayColorInput   .addEventListener("input", updateDayColors);
+saturdayColorInput .addEventListener("input", updateDayColors);
 
 // The current calendar look upon opening the page
 renderCalendar();
