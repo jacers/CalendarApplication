@@ -62,6 +62,18 @@ class Label {
     getLabel() {
         return `${this.getEmojiAndColor()} ${this.name}`;
     }
+
+    // Adds the label to the options under the event label dropdown selector
+    addLabelOption() {
+        const eventLabelDropdown = document.querySelector('#eventLabelDropdown');
+        const newLabelOption = eventLabelDropdown.querySelector('option[value="newEvent"]');
+        const newOption = document.createElement('option');
+
+        newOption.value = labels.length - 1;
+        newOption.innerHTML = this.getEmojiAndName();
+
+        newLabelOption.parentNode.insertBefore(newOption, newLabelOption);
+    }
 }
 
 // Selecting DOM elements (Elements in the CalendarPage.html)
@@ -645,7 +657,7 @@ saveEventBtn.addEventListener("click", () => {
         alert("The event cannot start after it has ended.");
         return;
     }
-    
+
     const selectedLabel = labels[labelIndex];
 
     // Create an instance of the Event class
@@ -674,6 +686,8 @@ saveEventBtn.addEventListener("click", () => {
     document.getElementById("eventEndDate"  ).value = "";
     document.getElementById("eventEndTime"  ).value = "";
     document.getElementById("eventNotes"    ).value = "";
+    const selectOption = eventLabelDropdown.querySelector('option[value="select"]'); // Needed to set label back to select
+    selectOption.selected = true;
 
     newEventModal.style.display = "none";
     renderCalendar();
@@ -683,6 +697,8 @@ saveEventBtn.addEventListener("click", () => {
 saveLabelBtn.addEventListener("click", () => {
     const labelName = document.getElementById("labelName").value;
     const labelColor = document.getElementById("labelColor").value;
+    // labelEmoji = document.getElementById("emojiPreview").value;
+    labelEmoji = '😐'; // temp please fix this emoji preview doesn't work rn
 
     // Warns the user if no name is inputted
     if (!labelName) {
@@ -692,26 +708,21 @@ saveLabelBtn.addEventListener("click", () => {
 
     // Warns the user if no emoji is inputted
     if (!labelEmoji) {
-        alert("Please provide a emoji for the label.");
+        alert("Please provide an emoji for the label.");
         return;
     }
 
     // Warns the user if no color is inputted
     // Note: Should not happen under normal circumstances
     if (!labelColor) {
-        alert("Please provide a emoji for the label.");
+        alert("Please provide an emoji for the label.");
         return;
     }
 
     const newLabel = new Label(labelName, labelEmoji, labelColor);
+    
+    newLabel.addLabelOption(); // New method does what old code did
     labels.push(newLabel);
-
-    // Adds the new label to the dropdown for future events
-    const option = document.createElement("option");
-    option.value = labels.length - 1; // Use the index as the value
-    option.innerHTML = newLabel.getLabel();
-    option.style.backgroundColor = newLabel.color; // TODO: Supposed to change the background color of the option but it doesn't work
-    eventLabelDropdown.add(option);
 
     // Reset the label maker modal
     document.getElementById("labelName").value = "";

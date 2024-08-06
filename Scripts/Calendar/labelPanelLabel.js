@@ -2,12 +2,16 @@ const allLabels = document.querySelectorAll('.labelContent label');
 const labelDots = document.querySelectorAll('label img');
 
 allLabels.forEach(label => {
+    let newLabel = new Label(label.textContent, '', '#ffffff');
+    newLabel.addLabelOption();
+    labels.push(newLabel);
     generateLabelMenu(label);
 })
 
 // Event listener to add a label on label panel
 allLabButtons.forEach(button => {
-    button.addEventListener('click', handleLabInput);
+    // Need to edit this so there's an X instead of back button
+    button.addEventListener('click', openlabelMakerModal);
 });
 
 labelDots.forEach(labelDot => {
