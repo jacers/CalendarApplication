@@ -227,7 +227,7 @@ body, html
 {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: top;
     padding: 10px;
     text-align: center;
     cursor: pointer; /* Changes the cursor to a pointer when hovering over the days */
