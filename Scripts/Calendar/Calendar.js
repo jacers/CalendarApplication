@@ -414,9 +414,9 @@ saveLabelBtn.addEventListener("click", () => {
 sundayColorInput   .addEventListener("input", updateDayColors);
 mondayColorInput   .addEventListener("input", updateDayColors);
 tuesdayColorInput  .addEventListener("input", updateDayColors);
-sundayColorInput.addEventListener("input", updateDayColors);
-mondayColorInput.addEventListener("input", updateDayColors);
-tuesdayColorInput.addEventListener("input", updateDayColors);
+sundayColorInput   .addEventListener("input", updateDayColors);
+mondayColorInput   .addEventListener("input", updateDayColors);
+tuesdayColorInput  .addEventListener("input", updateDayColors);
 wednesdayColorInput.addEventListener("input", updateDayColors);
 thursdayColorInput .addEventListener("input", updateDayColors);
 fridayColorInput   .addEventListener("input", updateDayColors);
