@@ -25,7 +25,16 @@
                 <button id = "nextButton">&gt;</button> <!-- Can be $gt; -->
             </div>
             <div class="userFunctions">
-                <button class="searchBtn">
+                <!-- New Event Button -->
+                <button class="newEventBtn" id="openNewEvent">
+                    <img src="../Images/whitePlus.png" alt="Plus">
+                </button>
+                <!-- Customize Button -->
+                <button class="customizeBtn" id = "openColorPickerBtn">
+                    <img src="../Images/whitePalette.png" alt="Palette">
+                </button>
+                <!-- Search Button -->
+                <button class="searchBtn" id="openEventsViewer">
                     <img src="../Images/whiteMagGlass.png" alt="Magnifying Glass">
                 </button>
                 <div class = "dropdown">
@@ -150,10 +159,6 @@
         </div>
     </div>
 
-<footer class="colorEditor">
-    <!-- Button to open color picker modal -->
-    <button id = "openColorPickerBtn">Edit Calendar Colors</button>
-
     <!-- Color picker modal -->
     <div id = "colorPickerModal" class = "colorPickerModal">
         <div class = "colorPickerModal-content">
@@ -172,9 +177,6 @@
             </div>
         </div>
     </div>
-
-    <!-- Button to open new event modal -->
-    <button id = "openNewEvent">Add New Event</button>
 
     <!-- New event modal -->
     <div id = "newEventModal" class = "newEventModal">
@@ -255,21 +257,42 @@
         </div>
     </div>
 
-    <!-- Button to open events view modal -->
-    <button id="openEventsViewer">View Events</button>
-
     <!-- View events modal -->
     <div id="eventsViewerModal" class="eventsModal">
-        <div class="eventsViewerModal-content">
-            <!-- Close button -->
-            <span class="closeEventsViewer">x</span> <!--The x icon-->
-            <!-- Header -->
-            <h2>Event List</h2>
-            <!-- List -->
-            <ul id="eventList"></ul>
+      <div class="eventsViewerModal-content">
+        <!-- Close button -->
+        <span class="closeEventsViewer">x</span> <!--The x icon-->
+        <h1>Search Events</h1>
+        <input type = "text" id="eventName" name="eventName">
+        <!-- Active Events Table -->
+        <h2>Active Events</h2>
+        <table id="eventTable">
+            <thead>
+               <tr>
+                <th>Name</th>
+                <th>Label</th>
+                <th>From</th>
+                <th>To</th>
+               </tr>
+            </thead>
+            <tbody id="eventList"></tbody>
+        </table>
+        <!-- Past Events Table -->
+        <h2>Past Events</h2>
+        <table id="pastEventTable">
+            <thead>
+               <tr>
+                <th>Name</th>
+                <th>Label</th>
+                <th>From</th>
+                <th>To</th>
+              </tr>
+            </thead>
+            <tbody id="pastEventList"></tbody>
+        </table>
         </div>
     </div>
-</footer>
+  
 
     <script src = "../Scripts/Calendar/Calendar.js"></script>
     <script src="../Scripts/Calendar/labelPanel.js"></script>

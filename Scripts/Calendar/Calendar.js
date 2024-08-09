@@ -73,7 +73,7 @@ const saveEventBtn     = document.getElementById("saveEvent"      );
 
 // Modal to view events; will appear in front of and disable other elements
 // TODO: Consistent formatting
-const openEventsViewerBtn  = document.getElementById("openEventsViewer" );
+const searchBtn  = document.getElementById("openEventsViewer" );
 const closeEventsViewerBtn = document.querySelector(".closeEventsViewer");
 const eventsViewerModal    = document.getElementById("eventsViewerModal");
 
@@ -82,9 +82,15 @@ const eventsViewerModal    = document.getElementById("eventsViewerModal");
 // TODO: Consistent formatting
 const eventLabelDropdown = document.getElementById("eventLabelDropdown");
 const labelMakerModal    = document.getElementById("labelMakerModal"   ); // TODO: Either replace this modal with the New Label maker or implement the label maker with the New Label maker
-const closeLabelMakerBtn = document.querySelector(".closeLabelMaker"   );
+const closeLabelMakerBtn = document.querySelector (".closeLabelMaker"  );
 const emojiPreview       = document.getElementById("emojiPreview"      );
 const saveLabelBtn       = document.getElementById("saveLabel"         );
+
+const emojiPicker = document.querySelector("emoji-picker");
+emojiPicker.addEventListener("emoji-click", (event) => {
+    labelEmoji = event.detail.unicode;
+    emojiPreview.innerText = labelEmoji;
+});
 
 // Event variables
 // TODO: Consistent formatting
@@ -145,7 +151,7 @@ function renderCalendar() {
         dayElement.classList.add("otherMonth");
 
         // Writes in the prevoius month days into the calendar
-        dayElement.textContent = prevMonthDays - i + 1;
+        dayElement.innerHTML = `${prevMonthDays - i + 1}<br>`;
 
         // Appends each dayElement to the daysContainer
         daysContainer.appendChild(dayElement);
@@ -153,19 +159,21 @@ function renderCalendar() {
     
 
     // Loop to render the days in the current month
-    for (let i = 1; i <= daysInMonth; i++) 
-    {
+    for (let i = 1; i <= daysInMonth; i++) {
         // Div elements will be created for each day of the current month
         const dayElement = document.createElement("div");
 
         // Sets the day numbers to 1 (and overwrites the previous month days number)
-        dayElement.textContent = i;
+        dayElement.innerHTML = `${i}`;
 
         // Get events for the day and adds the emoji and colors from the labels
         const dayEvents = getEventsForDay(i);
         dayEvents.forEach(event => {
+            // Create a emoji element
             const emojiPreview = document.createElement("preview");
-            emojiPreview.innerHTML = event.label.getEmojiAndColor();
+            emojiPreview.innerHTML = `<br>${event.label.getEmojiAndColor()}`;
+
+            // Add the emoji to the calendar
             dayElement.appendChild(emojiPreview);
         });
 
@@ -184,11 +192,10 @@ function renderCalendar() {
     
     // Loop to render in next month's days to fill out the remaning empty boxes
     // OPTIONAL CAN BE REMOVED
-    for (let i = 1; i <= nextMonthDays; i++) 
-    {
+    for (let i = 1; i <= nextMonthDays; i++) {
         const dayElement = document.createElement("div");
         dayElement.classList.add("otherMonth");
-        dayElement.textContent = i;
+        dayElement.innerHTML = `${i}<br>`
         daysContainer.appendChild(dayElement);
     }
     
@@ -242,21 +249,71 @@ closeNewEventBtn.addEventListener("click", () => {
 });
 
 // Event listener to open the event viewer modal
-openEventsViewerBtn.addEventListener("click", () => {
+searchBtn.addEventListener("click", () => {
     const eventsList = document.getElementById("eventList");
-    eventsList.innerHTML = ""; // Clear the list
-
-    // Cycles through each event on the events arrays and displays them on the list
-    events.forEach(event => {
-        const listEvent = document.createElement("li");
-        listEvent.innerHTML = `${event.name} | ${event.label.getLabel()} | From: ${event.startDate}, To: ${event.endDate}`;
-        eventsList.appendChild(listEvent);
+    const pastEventsList = document.getElementById("pastEventList");
+    eventsList.innerHTML = ""; // Clear the current events list
+    pastEventsList.innerHTML = ""; // Clear the past events list
+  
+    const now = new Date();
+  
+    // Separate current and past events
+    const currentEvents = events.filter(event => new Date(event.endDate) >= now);
+    const pastEvents = events.filter(event => new Date(event.endDate) < now);
+  
+    // Sort current events by start date
+    const sortedCurrentEvents = currentEvents.sort((a, b) => new Date(a.startDate) - new Date(b.startDate));
+  
+    // Populate current events table
+    sortedCurrentEvents.forEach(event => {
+      const row = document.createElement("tr");
+  
+      const nameCell = document.createElement("td");
+      nameCell.textContent = event.name;
+      row.appendChild(nameCell);
+  
+      const labelCell = document.createElement("td");
+      labelCell.innerHTML = event.label.getLabel();
+      row.appendChild(labelCell);
+  
+      const fromCell = document.createElement("td");
+      fromCell.textContent = event.startDate;
+      row.appendChild(fromCell);
+  
+      const toCell = document.createElement("td");
+      toCell.textContent = event.endDate;
+      row.appendChild(toCell);
+  
+      eventsList.appendChild(row);
     });
-
+  
+    // Populate past events table
+    pastEvents.forEach(event => {
+      const row = document.createElement("tr");
+  
+      const nameCell = document.createElement("td");
+      nameCell.textContent = event.name;
+      row.appendChild(nameCell);
+  
+      const labelCell = document.createElement("td");
+      labelCell.innerHTML = event.label.getLabel();
+      row.appendChild(labelCell);
+  
+      const fromCell = document.createElement("td");
+      fromCell.textContent = event.startDate;
+      row.appendChild(fromCell);
+  
+      const toCell = document.createElement("td");
+      toCell.textContent = event.endDate;
+      row.appendChild(toCell);
+  
+      pastEventsList.appendChild(row);
+    });
+  
     eventsViewerModal.style.display = "block";
-});
+  });
 
-// Event listener to close the event modal
+// Event listener to close the event viewer modal
 closeEventsViewerBtn.addEventListener("click", () => {
     eventsViewerModal.style.display = "none";
 });

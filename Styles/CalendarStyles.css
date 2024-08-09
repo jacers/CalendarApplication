@@ -133,6 +133,42 @@ body, html
     background-color: #3e8e41;
 }
 
+.userFunctions .newEventBtn 
+{
+    background-color: #376753;
+    border: 1px solid white;
+    cursor: pointer;
+}
+
+.userFunctions .newEventBtn:hover 
+{
+    background-color: #3e8e41;
+}
+
+.userFunctions .newEventBtn img 
+{
+    width: 30px;
+    height: 34px;
+}
+
+.userFunctions .customizeBtn
+{
+    background-color: #376753;
+    border: 1px solid white;
+    cursor: pointer;
+}
+
+.userFunctions .customizeBtn:hover 
+{
+    background-color: #3e8e41;
+}
+
+.userFunctions .customizeBtn img 
+{
+    width: 30px;
+    height: 34px;
+}
+
 .userFunctions .searchBtn 
 {
     background-color: #376753;
@@ -345,6 +381,22 @@ body, html
     color: black; /* Gives the x a thicker color when hovered over */
     cursor: pointer; /* Changes the cursor to a pointer when hovering over the x */
 }
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  th {
+    background-color: #f2f2f2;
+    text-align: left;
+  }  
 
 .labelMakerModal 
 {
