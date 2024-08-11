@@ -17,7 +17,9 @@
     <div class = "calendarContainer">
         <!-- Top of the webpage-->
         <header class = "calendarHeader">
-            <button class="labelHideShow">Hide</button>
+            <button class="labelHideShow">
+                <img src="../Images/whiteLeftPanelClose.png" alt="Toggle Panel">
+            </button>            
             <h1>CalendarName</h1>
             <div class = "monthNavigation">
                 <button id = "prevButton">&lt;</button> <!-- Can be &lt; -->
@@ -27,18 +29,20 @@
             <div class="userFunctions">
                 <!-- New Event Button -->
                 <button class="newEventBtn" id="openNewEvent">
-                    <img src="../Images/whitePlus.png" alt="Plus">
+                    <img src="../Images/whitePlus.png" alt="New Event">
                 </button>
                 <!-- Customize Button -->
                 <button class="customizeBtn" id = "openColorPickerBtn">
-                    <img src="../Images/whitePalette.png" alt="Palette">
+                    <img src="../Images/whitePalette.png" alt="Customize">
                 </button>
                 <!-- Search Button -->
                 <button class="searchBtn" id="openEventsViewer">
-                    <img src="../Images/whiteMagGlass.png" alt="Magnifying Glass">
+                    <img src="../Images/whiteMagGlass.png" alt="Search">
                 </button>
                 <div class = "dropdown">
-                    <button class = "dropButton">&#9776</button>
+                    <button class = "dropButton">
+                        <img src="../Images/whiteDropdown.png" alt="Toggle Panel">
+                    </button>
                     <div class = "dropdownContent">
                         <a href = "HomePage.html">Home</a>
                         <a href = "LoginPage.html">Login</a>
@@ -164,16 +168,55 @@
         <div class = "colorPickerModal-content">
             <!-- Close button -->
             <span class = "closeColorPicker">x</span> <!--The x icon-->
+            <!-- Header -->
+            <h1>Themes</h1>
+            <h2>Presets</h2>
+            <h2>Header</h2>
+            <h2>Body</h2>
+            <h2>Weekdays</h2>
             <div class = "colorPickers">
-                <!-- Color pickers -->
-                <!-- TODO: Consistent formatting-->
-                <input type = "color" id = "sundayColor"    value="#ffffff">
-                <input type = "color" id = "mondayColor"    value="#ffffff">
-                <input type = "color" id = "tuesdayColor"   value="#ffffff">
-                <input type = "color" id = "wednesdayColor" value="#ffffff">
-                <input type = "color" id = "thursdayColor"  value="#ffffff">
-                <input type = "color" id = "fridayColor"    value="#ffffff">
-                <input type = "color" id = "saturdayColor"  value="#ffffff">
+                <table class = "colorPickerTable">
+                    <thead>
+                        <tr>
+                            <!-- Header of the weekday color customizer -->
+                            <th></th>
+                            <th>Sun</th>
+                            <th>Mon</th>
+                            <th>Tue</th>
+                            <th>Wed</th>
+                            <th>Thu</th>
+                            <th>Fri</th>
+                            <th>Sat</th>
+                            <th>Oth</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Fill</td>
+                            <!-- Calendar background fill color pickers -->
+                            <td><input type = "color" id = "sundayFillColor"     value="#ffffff"></td>
+                            <td><input type = "color" id = "mondayFillColor"     value="#ffffff"></td>
+                            <td><input type = "color" id = "tuesdayFillColor"    value="#ffffff"></td>
+                            <td><input type = "color" id = "wednesdayFillColor"  value="#ffffff"></td>
+                            <td><input type = "color" id = "thursdayFillColor"   value="#ffffff"></td>
+                            <td><input type = "color" id = "fridayFillColor"     value="#ffffff"></td>
+                            <td><input type = "color" id = "saturdayFillColor"   value="#ffffff"></td>
+                            <td><input type = "color" id = "otherMonthFillColor" value="#ffffff"></td>
+                        </tr>
+                        <tr>
+                            <td>Text</td>
+                            <!-- Calendar text color pickers -->
+                            <td><input type = "color" id = "sundayTextColor"     value="#000000"></td>
+                            <td><input type = "color" id = "mondayTextColor"     value="#000000"></td>
+                            <td><input type = "color" id = "tuesdayTextColor"    value="#000000"></td>
+                            <td><input type = "color" id = "wednesdayTextColor"  value="#000000"></td>
+                            <td><input type = "color" id = "thursdayTextColor"   value="#000000"></td>
+                            <td><input type = "color" id = "fridayTextColor"     value="#000000"></td>
+                            <td><input type = "color" id = "saturdayTextColor"   value="#000000"></td>
+                            <td><input type = "color" id = "otherMonthTextColor" value="#000000"></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
@@ -185,17 +228,17 @@
             <span class = "closeNewEvent">x</span> <!--The x icon-->
             <!-- Header -->
             <h1>New Event</h1>
-            <div>
+            <div class="form-group">
                 <!-- Name input -->
                 <label for = "eventName">Name:</label>
                 <input type = "text" id="eventName" name="eventName">
             </div>
-            <div>
+            <div class="form-group">
                 <!-- Location input -->
                 <label for = "eventLocation">Location:</label>
                 <input type = "text" id="eventLocation" name="eventLocation">
             </div>
-            <div>
+            <div class="form-group">
                 <!-- Label input -->
                 <label for = "eventLabelDropdown">Label:</label>
                 <select id="eventLabelDropdown">
@@ -203,27 +246,27 @@
                     <option value="newEvent">New Label</option>
                 </select>
             </div>
-            <div>
+            <div class="form-group">
                 <!-- Start input -->
                 <label for = "eventStartDate">Starts:</label>
                 <input type = "date" id = "eventStartDate" name = "eventStartDate">
                 <input type = "time" id = "eventStartTime" name = "eventStartTime">
             </div>
-            <div>
+            <div class="form-group">
                 <!-- End input -->
                 <label for = "eventEndDate">Ends:</label>
                 <input type = "date" id = "eventEndDate" name = "eventEndDate">
                 <input type = "time" id = "eventEndTime" name = "eventEndTime">
             </div>
-            <div>
+            <div class="form-group">
                 <!-- Notes label -->
                 <label for = "eventNotes">Notes:</label>
             </div>
-            <div>
+            <div class="form-group">
                 <!-- Notes input -->
                 <textarea id="eventNotes" name="eventNotes" rows="5" cols="50"></textarea>
             </div>
-            <div>
+            <div class="form-group">
                 <!-- Save button -->
                 <button id = "saveEvent">Save</button>
             </div>

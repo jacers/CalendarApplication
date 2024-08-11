@@ -12,20 +12,16 @@ allLabelBtn.forEach(button => {
  });
 
 // Show hide label functionality
-
 labelHideShow.addEventListener('click', (e) => {
     const button = e.target;
     const currentDisplay = getComputedStyle(labelPanel).display;
 
-    if (currentDisplay === 'block') 
-    {
+    if (currentDisplay === 'block') {
         labelPanel.style.display = 'none';
-        button.textContent = 'Show';
-    } 
-    else 
-    {
+        button.src = '../Images/whiteLeftPanelOpen.png'; // Show image when panel is hidden
+    } else {
         labelPanel.style.display = 'block';
-        button.textContent = 'Hide'
+        button.src = '../Images/whiteLeftPanelClose.png'; // Hide image when panel is shown
     }
 });
 

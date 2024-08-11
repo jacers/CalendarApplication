@@ -99,13 +99,13 @@ let events     = []; // Array to store all events
 let labels     = []; // Array to store all labels
 
 // Color picker input elements
-const sundayColorInput = document.getElementById("sundayColor");
-const mondayColorInput = document.getElementById("mondayColor");
-const tuesdayColorInput = document.getElementById("tuesdayColor");
-const wednesdayColorInput = document.getElementById("wednesdayColor");
-const thursdayColorInput = document.getElementById("thursdayColor");
-const fridayColorInput = document.getElementById("fridayColor");
-const saturdayColorInput = document.getElementById("saturdayColor");
+const sundayFillColorInput = document.getElementById("sundayFillColor");
+const mondayFillColorInput = document.getElementById("mondayFillColor");
+const tuesdayFillColorInput = document.getElementById("tuesdayFillColor");
+const wednesdayFillColorInput = document.getElementById("wednesdayFillColor");
+const thursdayFillColorInput = document.getElementById("thursdayFillColor");
+const fridayFillColorInput = document.getElementById("fridayFillColor");
+const saturdayFillColorInput = document.getElementById("saturdayFillColor");
 
 // Initializing the "current" date to display to user
 let currentDate = new Date();
@@ -205,13 +205,13 @@ function renderCalendar() {
 // TODO: Consistent formatting
 // Function to update day colors after selecting a new one
 function updateDayColors() {
-    document.querySelectorAll('.sunday').forEach(day => day.style.backgroundColor = sundayColorInput   .value);
-    document.querySelectorAll('.monday').forEach(day => day.style.backgroundColor = mondayColorInput   .value);
-    document.querySelectorAll('.tuesday').forEach(day => day.style.backgroundColor = tuesdayColorInput  .value);
-    document.querySelectorAll('.wednesday').forEach(day => day.style.backgroundColor = wednesdayColorInput.value);
-    document.querySelectorAll('.thursday').forEach(day => day.style.backgroundColor = thursdayColorInput .value);
-    document.querySelectorAll('.friday').forEach(day => day.style.backgroundColor = fridayColorInput   .value);
-    document.querySelectorAll('.saturday').forEach(day => day.style.backgroundColor = saturdayColorInput .value);
+    document.querySelectorAll('.sunday').forEach(day => day.style.backgroundColor = sundayFillColorInput   .value);
+    document.querySelectorAll('.monday').forEach(day => day.style.backgroundColor = mondayFillColorInput   .value);
+    document.querySelectorAll('.tuesday').forEach(day => day.style.backgroundColor = tuesdayFillColorInput  .value);
+    document.querySelectorAll('.wednesday').forEach(day => day.style.backgroundColor = wednesdayFillColorInput.value);
+    document.querySelectorAll('.thursday').forEach(day => day.style.backgroundColor = thursdayFillColorInput .value);
+    document.querySelectorAll('.friday').forEach(day => day.style.backgroundColor = fridayFillColorInput   .value);
+    document.querySelectorAll('.saturday').forEach(day => day.style.backgroundColor = saturdayFillColorInput .value);
 }
 
 // Event listener to go backward a month
@@ -468,16 +468,13 @@ saveLabelBtn.addEventListener("click", () => {
 });
 
 // Event listeners for color inputs to update day colors live
-sundayColorInput   .addEventListener("input", updateDayColors);
-mondayColorInput   .addEventListener("input", updateDayColors);
-tuesdayColorInput  .addEventListener("input", updateDayColors);
-sundayColorInput   .addEventListener("input", updateDayColors);
-mondayColorInput   .addEventListener("input", updateDayColors);
-tuesdayColorInput  .addEventListener("input", updateDayColors);
-wednesdayColorInput.addEventListener("input", updateDayColors);
-thursdayColorInput .addEventListener("input", updateDayColors);
-fridayColorInput   .addEventListener("input", updateDayColors);
-saturdayColorInput .addEventListener("input", updateDayColors);
+sundayFillColorInput   .addEventListener("input", updateDayColors);
+mondayFillColorInput   .addEventListener("input", updateDayColors);
+tuesdayFillColorInput  .addEventListener("input", updateDayColors);
+wednesdayFillColorInput.addEventListener("input", updateDayColors);
+thursdayFillColorInput .addEventListener("input", updateDayColors);
+fridayFillColorInput   .addEventListener("input", updateDayColors);
+saturdayFillColorInput .addEventListener("input", updateDayColors);
 
 // The current calendar look upon opening the page
 renderCalendar();

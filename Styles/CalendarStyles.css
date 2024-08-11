@@ -10,7 +10,8 @@ body, html
     flex-direction: column;
 }
 
-.open-sans-font {
+.open-sans-font
+{
   font-family: "Open Sans", sans-serif;
   font-optical-sizing: auto;
   font-weight: 100;
@@ -42,13 +43,17 @@ body, html
     box-sizing: border-box;
 }
 
-.labelHideShow
+.labelHideShow 
 {
-    color: white;
     background-color: #376753;
     border: 1px solid white;
-    padding: 8px 20px;
     cursor: pointer;
+}
+
+.labelHideShow img 
+{
+    width: 34px;
+    height: 34px;
 }
 
 .labelHideShow:hover
@@ -74,6 +79,23 @@ body, html
     margin: 0;
 }
 
+#prevButton, 
+#nextButton 
+{
+    background-color: transparent;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    transition: color 0.3s ease;
+}
+
+#prevButton:hover, 
+#nextButton:hover 
+{
+    color: #ccc; /* Lighten text color on hover */
+}
+
 /* Dropdown Menu Styles */
 .dropdown 
 {
@@ -90,16 +112,19 @@ body, html
     gap: 20px;
 }
 
-.dropdown .dropButton 
-{
+.dropdown .dropButton {
     background-color: #376753;
     color: white;
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid white; /* Border color around the dropdown button */
-    cursor: pointer;
+    border: 1px solid white;
 }
 
+.dropdown img 
+{
+    width: 34px;
+    height: 34px;
+}
+
+.dropdownContent
 .dropdownContent {
     display: none;
     position: absolute;
@@ -147,7 +172,7 @@ body, html
 
 .userFunctions .newEventBtn img 
 {
-    width: 30px;
+    width: 34px;
     height: 34px;
 }
 
@@ -165,7 +190,7 @@ body, html
 
 .userFunctions .customizeBtn img 
 {
-    width: 30px;
+    width: 34px;
     height: 34px;
 }
 
@@ -183,7 +208,7 @@ body, html
 
 .userFunctions .searchBtn img 
 {
-    width: 30px;
+    width: 34px;
     height: 34px;
 }
 
@@ -331,7 +356,25 @@ body, html
     margin: 5% auto;
     padding: 20px;
     border: 1px solid #888;
-    width: 80%;  
+    width: 80%;
+}
+
+.form-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.form-group label {
+    width: 100px;
+    margin-right: 10px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea,
+.form-group button {
+    flex: 1;
 }
 
 .closeNewEvent
@@ -349,7 +392,8 @@ body, html
     cursor: pointer; /* Changes the cursor to a pointer when hovering over the x */
 }
 
-.eventsModal {
+.eventsModal
+{
     display: none;
     position: fixed;
     z-index: 1;
@@ -361,7 +405,8 @@ body, html
     padding-top: 60px;
 }
 
-.eventsViewerModal-content {
+.eventsViewerModal-content
+{
     background-color: #fefefe;
     margin: 5% auto;
     padding: 20px;
@@ -369,7 +414,8 @@ body, html
     width: 80%;
 }
 
-.closeEventsViewer {
+.closeEventsViewer
+{
     color: #aaa;
     float: right;
     font-size: 28px;
@@ -377,26 +423,55 @@ body, html
 }
 
 .closeEventsViewer:hover,
-.closeEventsViewer:focus {
+.closeEventsViewer:focus
+{
     color: black; /* Gives the x a thicker color when hovered over */
     cursor: pointer; /* Changes the cursor to a pointer when hovering over the x */
 }
 
-table {
+/*Styling for general tables*/
+table
+{
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
-  }
-  
-  th, td {
+}
+
+th, td
+{
     border: 1px solid #ddd;
-    padding: 8px;
-  }
-  
-  th {
+}
+
+th
+{
     background-color: #f2f2f2;
+}
+
+.colorPickerTable th,
+.colorPickerTable td
+{
+    text-align: center;
+}
+
+.colorPickerTable tbody tr td
+{
+    text-align: center;
+}
+
+.colorPickerTable tbody tr td:first-child,
+.colorPickerTable tbody tr th:first-child
+{
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+#eventTable th,
+#eventTable td,
+#pastEventTable th,
+#pastEventTable td
+{
     text-align: left;
-  }  
+}
 
 .labelMakerModal 
 {
@@ -436,11 +511,13 @@ table {
 }
 
 /* TODO: This is supposed to make it so the dropdown menu in the new label maker has a background color but it doesn't work*/
-option {
+option
+{
     background-color: inherit;
 }
 
-emoji-picker {
+emoji-picker
+{
     width: 350px;
     height: 300px;
 }
@@ -471,7 +548,8 @@ emoji-picker {
     cursor: pointer;
 }
 
-.dropdownContent {
+.dropdownContent
+{
     display: none;
     position: absolute;
     right: 0;
@@ -518,31 +596,6 @@ emoji-picker {
 
 .userFunctions .searchBtn img 
 {
-    width: 30px;
+    width: 34px;
     height: 34px;
-}
-
-.colorEditor
-{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 60px;
-    background-color: #376753;
-}
-
-.colorEditor button
-{
-    /* Figure out how to not clash with label panel */
-    background-color: #376753;
-    border: 1px solid white;
-    cursor: pointer;
-    color: white;
-    padding: 5px 7px;
-    margin: 0 7px;
-}
-
-.colorEditor button:hover
-{
-    background-color: #3e8e41;
 }
