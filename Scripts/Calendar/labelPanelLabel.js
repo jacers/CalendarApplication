@@ -1,12 +1,13 @@
 const allLabels = document.querySelectorAll('.labelContent label');
 const labelDots = document.querySelectorAll('label img');
 
-allLabels.forEach(label => {
-    let newLabel = new Label(label.textContent, '', '#ffffff');
-    newLabel.addLabelOption();
-    labels.push(newLabel);
-    generateLabelMenu(label);
-})
+// Not needed with the new category class
+// allLabels.forEach(label => {
+//     let newLabel = new Label(label.textContent, '', '#ffffff');
+//     newLabel.addLabelOption();
+//     labels.push(newLabel);
+//     generateLabelMenu(label);
+// })
 
 // Event listener to add a label on label panel
 allLabButtons.forEach(button => {

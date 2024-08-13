@@ -48,6 +48,7 @@ class Label {
         this.name  = name ; // Name of the label
         this.emoji = emoji; // Emoji associated with the label
         this.color = color; // Color associated with the label
+        this.id = labels.length; // Doing this so Labels can be removed
     }
 
     // Combines and returns the name and emoji parameters
@@ -69,11 +70,24 @@ class Label {
         const newLabelOption = eventLabelDropdown.querySelector('option[value="newEvent"]');
         const newOption = document.createElement('option');
 
-        newOption.value = labels.length - 1;
+        // Giving new option proper value and name/emoji
+        newOption.value = this.id;
         newOption.innerHTML = this.getEmojiAndName();
 
+        // Inserting this before the new label option to maintain consistency and readability
         newLabelOption.parentNode.insertBefore(newOption, newLabelOption);
     }
+
+    // Removes the label from the options under the event label dropdown selector
+    removeLabelOption() {
+        const eventLabelDropdown = document.querySelector('#eventLabelDropdown');
+        const optionToRemove = eventLabelDropdown.querySelector(`option[value="${this.id}"]`);
+        if(optionToRemove)
+        {
+            optionToRemove.remove();
+        }
+    }
+
 }
 
 // Selecting DOM elements (Elements in the CalendarPage.html)
@@ -95,10 +109,12 @@ const closeColorPickerBtn = document.querySelector (".closeColorPicker" );
 
 // Modal for new event; will appear in front of and disable other elements
 // TODO: Consistent formatting
-const openNewEventBtn  = document.getElementById("openNewEvent"   );
-const newEventModal    = document.getElementById("newEventModal"  );
-const closeNewEventBtn = document.querySelector (".closeNewEvent" );
-const saveEventBtn     = document.getElementById("saveEvent"      );
+const openNewEventBtn  = document.getElementById("openNewEvent"    );
+const newEventModal    = document.getElementById("newEventModal"   );
+const closeNewEventBtn = document.querySelector (".closeNewEvent"  );
+const eventCatDropdown = document.querySelector("#eventCatDropdown");
+const labelInput       = document.querySelector("#labInputs"       );
+const saveEventBtn     = document.getElementById("saveEvent"       );
 
 // Modal to view events; will appear in front of and disable other elements
 // TODO: Consistent formatting
@@ -125,6 +141,7 @@ emojiPicker.addEventListener("emoji-click", (event) => {
 let labelEmoji = ""; // Variable to store selected emoji
 let events     = []; // Array to store all events
 let labels     = []; // Array to store all labels
+let categories = []; // Array to store all categories
 
 // Color picker input elements
 const sundayFillColorInput = document.getElementById("sundayFillColor");
@@ -591,6 +608,43 @@ eventLabelDropdown.addEventListener("change", function() {
         eventLabelDropdown.value = "select"; // Reset the dropdown to the default option
     }
 });
+
+// Add listener to the category dropdown menu
+let prevValueRaw = eventCatDropdown.value
+eventCatDropdown.addEventListener("change", () => {
+    const valueRaw = eventCatDropdown.value
+    
+    if(valueRaw === "newCategory")
+    {
+        // Will go to category creator at some point soon
+        // openCategoryMakerModal();
+        eventCatDropdown.value = "select"; // Reset the dropdown to the default option
+        return; // want to stop other functionality
+    }
+    // Do nothing if changed back to select
+    if(valueRaw === "select") return;
+
+    // Getting proper category class and removing old labels if applicable
+    const value = categories[valueRaw];
+    console.log(`prevValueRaw: ${prevValueRaw}`);
+    if(!(prevValueRaw === 'select' || prevValueRaw === 'newCategory'))
+    {
+        console.log('was not select or new category')
+        const prevValue = categories[prevValueRaw];
+        console.log(`prevValue is ${prevValue}`)
+        prevValue.removeLabels();
+    }
+
+    // Check if labelInput div is none and changing if it is
+    if(window.getComputedStyle(labelInput).display == 'none')
+    {
+        labelInput.style.display = 'inline-block';
+    } 
+
+    // Changing out labels based on the category
+    prevValueRaw = valueRaw; // Updating previous value to current value
+    value.addLabels();
+})
 
 // Event listener to open the label maker modal
 // TODO: Possibly group this with the rest of the functions, rather than the rest of the modal openers

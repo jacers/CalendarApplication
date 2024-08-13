@@ -1,11 +1,75 @@
+// THIS CODE WILL BE HEAVILY DE-BLOATED SOON
+
 // General DOM Elements
 const addCatButton = document.querySelector("#addCat");
 const catMenus = document.querySelectorAll('.catMenu');
 const verticleDots = document.querySelectorAll('.verticleDots');
 const catClosers = document.querySelectorAll('.catClose');
+const labelDowns = document.querySelectorAll('.labelDown');
 
 // Object that handles problem event handlers
 const eventHandlers = {};
+
+class Category
+{
+    constructor(labelDown)
+    {
+        this.name = labelDown.querySelector('.catName').textContent;
+        this.catLabels = this.getAllLabels(labelDown.querySelectorAll('.labelContent label'));
+    }
+
+    getAllLabels(labelNodes)
+    {
+        let returnLabels = [];
+        labelNodes.forEach(label => {
+            let newLabel = new Label(label.textContent, '', '#ffffff');
+            labels.push(newLabel);
+            returnLabels.push(newLabel);
+            generateLabelMenu(label);
+        });
+        return returnLabels;
+    }
+
+    // Adds this category as an option, using index as value for ease of access
+    addCatOption()
+    {
+        const eventCatDropdown = document.querySelector('#eventCatDropdown');
+        // Might be a problem with the quotes inside quotes idk yet
+        const newCatOption = eventCatDropdown.querySelector('option[value="newCategory"]');
+        const newOption = document.createElement('option');
+
+        newOption.value = categories.length - 1;
+        newOption.innerHTML = this.name;
+
+        newCatOption.parentNode.insertBefore(newOption, newCatOption);
+    }
+
+    // This is called when a category is selected within the event adder
+    addLabels()
+    {
+        // First check if labelInputs is hidden or not, change if it is
+        // MAY NEED TO CHANGE THIS
+        const labInputs = document.querySelector("#labInputs");
+        if(labInputs.style.display === 'none')
+        {
+            labInputs.style.display === 'inline-block';
+        }
+
+        // Adding each label associated with the category
+        this.catLabels.forEach(label => {
+            label.addLabelOption();
+        });
+    }
+
+    removeLabels()
+    {
+        const labInputs = document.querySelector("#labInputs");
+
+        this.catLabels.forEach(label => {
+            label.removeLabelOption();
+        });
+    }
+}
 
 // Event listener to add a category on label panel
 addCatButton.addEventListener('click', handleCatInput);
@@ -29,7 +93,12 @@ catClosers.forEach(catClose => {
     })
 })
 
-
+// Going through each labelDown and initalizing a Category class, adding to the category array
+labelDowns.forEach(labelDown => {
+    const newCat = new Category(labelDown);
+    categories.push(newCat);
+    newCat.addCatOption();
+})
 
 // Function that handles user functionality for creating a category
 function handleCatInput()

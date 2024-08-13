@@ -438,6 +438,22 @@ body, html
     margin-right: 10px;
 }
 
+#labInputs {
+    display: none;
+}
+
+#eventLabelDropdown {
+    width: 125px;
+}
+
+#labInputs {
+    display: none;
+}
+
+#eventLabelDropdown {
+    width: 125px;
+}
+
 .closeEventsViewer
 {
     color: #aaa;
