@@ -254,64 +254,117 @@ searchBtn.addEventListener("click", () => {
     const pastEventsList = document.getElementById("pastEventList");
     eventsList.innerHTML = ""; // Clear the current events list
     pastEventsList.innerHTML = ""; // Clear the past events list
-  
+
     const now = new Date();
-  
-    // Separate current and past events
+
+    // Filter out current and past events
     const currentEvents = events.filter(event => new Date(event.endDate) >= now);
     const pastEvents = events.filter(event => new Date(event.endDate) < now);
-  
+
     // Sort current events by start date
     const sortedCurrentEvents = currentEvents.sort((a, b) => new Date(a.startDate) - new Date(b.startDate));
-  
+
     // Populate current events table
     sortedCurrentEvents.forEach(event => {
-      const row = document.createElement("tr");
-  
-      const nameCell = document.createElement("td");
-      nameCell.textContent = event.name;
-      row.appendChild(nameCell);
-  
-      const labelCell = document.createElement("td");
-      labelCell.innerHTML = event.label.getLabel();
-      row.appendChild(labelCell);
-  
-      const fromCell = document.createElement("td");
-      fromCell.textContent = event.startDate;
-      row.appendChild(fromCell);
-  
-      const toCell = document.createElement("td");
-      toCell.textContent = event.endDate;
-      row.appendChild(toCell);
-  
-      eventsList.appendChild(row);
+        const row = document.createElement("tr");
+
+        const nameCell = document.createElement("td");
+        nameCell.textContent = event.name;
+        row.appendChild(nameCell);
+
+        const labelCell = document.createElement("td");
+        labelCell.innerHTML = event.label.getLabel();
+        row.appendChild(labelCell);
+
+        const fromCell = document.createElement("td");
+        fromCell.textContent = event.startDate;
+        row.appendChild(fromCell);
+
+        const toCell = document.createElement("td");
+        toCell.textContent = event.endDate;
+        row.appendChild(toCell);
+
+        eventsList.appendChild(row);
     });
   
     // Populate past events table
     pastEvents.forEach(event => {
-      const row = document.createElement("tr");
+        const row = document.createElement("tr");
   
-      const nameCell = document.createElement("td");
-      nameCell.textContent = event.name;
-      row.appendChild(nameCell);
+        const nameCell = document.createElement("td");
+        nameCell.textContent = event.name;
+        row.appendChild(nameCell);
   
-      const labelCell = document.createElement("td");
-      labelCell.innerHTML = event.label.getLabel();
-      row.appendChild(labelCell);
+        const labelCell = document.createElement("td");
+        labelCell.innerHTML = event.label.getLabel();
+        row.appendChild(labelCell);
   
-      const fromCell = document.createElement("td");
-      fromCell.textContent = event.startDate;
-      row.appendChild(fromCell);
+        const fromCell = document.createElement("td");
+        fromCell.textContent = event.startDate;
+        row.appendChild(fromCell);
   
-      const toCell = document.createElement("td");
-      toCell.textContent = event.endDate;
-      row.appendChild(toCell);
+        const toCell = document.createElement("td");
+        toCell.textContent = event.endDate;
+        row.appendChild(toCell);
   
-      pastEventsList.appendChild(row);
+        pastEventsList.appendChild(row);
     });
-  
+
     eventsViewerModal.style.display = "block";
-  });
+});
+
+// Search bar for the eventViewerModal
+function searchEvents() {
+    var input, filter, eventTable, pastEventTable, tr, td, i, txtValue;
+
+    // Get the user input and filter it so it is case-insensitive
+    input = document.getElementById("searchInput");
+    filter = input.value.toUpperCase();
+
+    // Get information from the event table and past event table
+    eventTable = document.getElementById("eventTable");
+    pastEventTable = document.getElementById("pastEventTable");
+  
+    // Search for active events
+    tr = eventTable.getElementsByTagName("tr"); // Get all rows from the active events table
+    for (i = 1; i < tr.length; i++) {           // Loop through each row excluding the header row
+        // Get the first column of each row and check if there is a value
+        td = tr[i].getElementsByTagName("td")[0];
+        if (td) {
+            // There is a value; get the text content
+            txtValue = td.textContent || td.innerText;
+
+            // Check if the case-insensitive text content matches the case-insensitive filter
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                // The text content matches the filter; display the associated row
+                tr[i].style.display = "";
+            } else {
+                // The text content does not match the filter; hide the associated row
+                tr[i].style.display = "none";
+            }
+        }
+    }
+  
+    // Search for past events
+    tr = pastEventTable.getElementsByTagName("tr"); // Get all rows from the active events table
+    for (i = 1; i < tr.length; i++) {               // Loop through each row excluding the header row
+        // Get the first column of each row and check if there is a value
+        td = tr[i].getElementsByTagName("td")[0];
+        if (td) {
+            // There is a value; get the text content
+            txtValue = td.textContent || td.innerText;
+
+            // Check if the case-insensitive text content matches the case-insensitive filter
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                // The text content matches the filter; display the associated row
+                tr[i].style.display = "";
+            } else {
+                // The text content does not match the filter; hide the associated row
+                tr[i].style.display = "none";
+            }
+        }
+    }
+}
 
 // Event listener to close the event viewer modal
 closeEventsViewerBtn.addEventListener("click", () => {
@@ -322,7 +375,7 @@ closeEventsViewerBtn.addEventListener("click", () => {
 // TODO: Integrate with labels
 eventLabelDropdown.addEventListener("change", function() {
     if (eventLabelDropdown.value === "newEvent") {
-        openlabelMakerModal();              // Function to open the label maker modal
+        openlabelMakerModal();               // Function to open the label maker modal
         eventLabelDropdown.value = "select"; // Reset the dropdown to the default option
     }
 });

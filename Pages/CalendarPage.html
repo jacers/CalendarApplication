@@ -306,7 +306,7 @@
         <!-- Close button -->
         <span class="closeEventsViewer">x</span> <!--The x icon-->
         <h1>Search Events</h1>
-        <input type = "text" id="eventName" name="eventName">
+        <input type="text" id="searchInput" onkeyup="searchEvents()" placeholder="Search for events..." title="Type in an event name">
         <!-- Active Events Table -->
         <h2>Active Events</h2>
         <table id="eventTable">
@@ -335,7 +335,6 @@
         </table>
         </div>
     </div>
-  
 
     <script src = "../Scripts/Calendar/Calendar.js"></script>
     <script src="../Scripts/Calendar/labelPanel.js"></script>
