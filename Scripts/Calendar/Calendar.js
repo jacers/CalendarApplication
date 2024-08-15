@@ -130,11 +130,11 @@ const closeLabelMakerBtn = document.querySelector (".closeLabelMaker"  );
 const emojiPreview       = document.getElementById("emojiPreview"      );
 const saveLabelBtn       = document.getElementById("saveLabel"         );
 
-const emojiPicker = document.querySelector("emoji-picker");
-emojiPicker.addEventListener("emoji-click", (event) => {
-    labelEmoji = event.detail.unicode;
-    emojiPreview.innerText = labelEmoji;
-});
+// Modal for category maker
+const catMakerModal = document.querySelector('.catMakerModal');
+const closeNewCat = document.querySelector('.closeNewCat');
+const saveCat = document.querySelector('.saveCat');
+const categoryName = document.querySelector('#categoryName');
 
 // Event variables
 // TODO: Consistent formatting
@@ -616,17 +616,19 @@ eventCatDropdown.addEventListener("change", () => {
     
     if(valueRaw === "newCategory")
     {
-        // Will go to category creator at some point soon
-        // openCategoryMakerModal();
+        openCatMaker();
         eventCatDropdown.value = "select"; // Reset the dropdown to the default option
         return; // want to stop other functionality
     }
-    // Do nothing if changed back to select
-    if(valueRaw === "select") return;
+    // Back to default if select
+    if(valueRaw === "select")
+    {
+        labelInput.style.display = 'none';
+        return;
+    }
 
     // Getting proper category class and removing old labels if applicable
     const value = categories[valueRaw];
-    console.log(`prevValueRaw: ${prevValueRaw}`);
     if(!(prevValueRaw === 'select' || prevValueRaw === 'newCategory'))
     {
         console.log('was not select or new category')
@@ -652,6 +654,13 @@ function openlabelMakerModal() {
     labelMakerModal.style.display = "block";
 }
 
+// Event listener to open the category maker modal
+function openCatMaker()
+{
+    catMakerModal.style.display = 'block';
+    categoryName.focus();
+}
+
 // Event listener to close the label maker modal
 closeLabelMakerBtn.addEventListener("click", () => {
     labelMakerModal.style.display = "none";
@@ -659,15 +668,18 @@ closeLabelMakerBtn.addEventListener("click", () => {
 
 // Close any of the modals if the user clicks outside of it
 window.addEventListener("click", (event) => {
-    if (event.target == colorPickerModal || 
-        event.target == newEventModal    ||
-        event.target == labelMakerModal  ||
-        event.target == eventsViewerModal) {
-    // TODO: Consistent formatting
+    if (event.target == colorPickerModal  || 
+        event.target == newEventModal     ||
+        event.target == labelMakerModal   ||
+        event.target == eventsViewerModal ||
+        event.target == catMakerModal) 
+    {
+        // TODO: Consistent formatting
         colorPickerModal .style.display = "none";
         newEventModal    .style.display = "none";
         labelMakerModal  .style.display = "none";
         eventsViewerModal.style.display = "none";
+        catMakerModal    .style.display = "none";
     }
 });
 

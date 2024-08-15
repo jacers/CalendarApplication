@@ -347,6 +347,41 @@
         </div>
     </div>
 
+    <!-- Category Maker Modal -->
+    <div class="catMakerModal">
+        <div class="catMakerModel-content">
+            <div class="catHeader">
+                <!-- Header -->
+                <h2>New Category</h2>
+                <!-- Close button -->
+                <span class="closeNewCat">x</span>
+            </div>
+            <div>
+                <!-- Name input -->
+                <label for = "categoryName">Name:</label>
+                <input type = "text" id="categoryName" name="labelName" maxlength="13">
+            </div>
+            <!-- Save button -->
+            <button class = "saveCat">Save</button>
+        </div>
+    </div>
+
+    <!-- Button to open events view modal -->
+    <button id="openEventsViewer">View Events</button>
+
+    <!-- View events modal -->
+    <div id="eventsViewerModal" class="eventsModal">
+        <div class="eventsViewerModal-content">
+            <!-- Close button -->
+            <span class="closeEventsViewer">x</span> <!--The x icon-->
+            <!-- Header -->
+            <h2>Event List</h2>
+            <!-- List -->
+            <ul id="eventList"></ul>
+        </div>
+    </div>
+</footer>
+
 <script src = "../Scripts/Calendar/Calendar.js"></script>
 <script src="../Scripts/Calendar/labelPanel.js"></script>
 <script src="../Scripts/Calendar/labelPanelLabel.js"></script>

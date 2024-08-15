@@ -1,24 +1,29 @@
 const allLabels = document.querySelectorAll('.labelContent label');
 const labelDots = document.querySelectorAll('label img');
 
-// Not needed with the new category class
-// allLabels.forEach(label => {
-//     let newLabel = new Label(label.textContent, '', '#ffffff');
-//     newLabel.addLabelOption();
-//     labels.push(newLabel);
-//     generateLabelMenu(label);
-// })
-
 // Event listener to add a label on label panel
 allLabButtons.forEach(button => {
     // Need to edit this so there's an X instead of back button
-    button.addEventListener('click', openlabelMakerModal);
+    button.addEventListener('click', handleNewLab);
 });
 
 labelDots.forEach(labelDot => {
     // Send this to main editor later
     labelDot.addEventListener('click', handleLabMenu);
 })
+
+function handleNewLab(e)
+{
+    const oldLength = labels.length;
+    openlabelMakerModal();
+    const newLength = labels.length;
+    if(oldLength !== newLength)
+    {
+        const newLabel = labels[labels.length - 1];
+        relatedCat = categories[eventCatDropdown.value];
+        
+    }
+}
 
 // Function that handles user functionality for creating a label
 function handleLabInput(e)

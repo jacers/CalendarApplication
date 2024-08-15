@@ -30,6 +30,8 @@ class Category
         return returnLabels;
     }
 
+    // Gonna need an option to add a label to the catLabels array
+
     // Adds this category as an option, using index as value for ease of access
     addCatOption()
     {
@@ -44,11 +46,15 @@ class Category
         newCatOption.parentNode.insertBefore(newOption, newCatOption);
     }
 
+    addLabel(label)
+    {
+        this.catLabels.push(label);
+    }
+
     // This is called when a category is selected within the event adder
     addLabels()
     {
         // First check if labelInputs is hidden or not, change if it is
-        // MAY NEED TO CHANGE THIS
         const labInputs = document.querySelector("#labInputs");
         if(labInputs.style.display === 'none')
         {
@@ -71,8 +77,15 @@ class Category
     }
 }
 
-// Event listener to add a category on label panel
-addCatButton.addEventListener('click', handleCatInput);
+// Event listener to open category creater modal
+addCatButton.addEventListener('click', openCatMaker);
+
+// Event listener to close the category creator modal
+closeNewCat.addEventListener('click', (e) => {
+    catMakerModal.style.display = 'none';
+});
+
+// saveCat.addEventListener('click')
 
 // Adding proper listeners for each button for each category menu
 catMenus.forEach(catMenu => {
@@ -85,89 +98,47 @@ catMenus.forEach(catMenu => {
 
 verticleDots.forEach(verticleDot => {
     verticleDot.addEventListener('click', handleCatMenu);
-})
+});
+
+saveCat.addEventListener('click', (e) => {
+    // Stops miss input
+    if(categoryName.value.trim === '')
+    {
+        alert('Please provide a name for this category');
+        return;
+    }
+
+    const catSetup = submitCatInput(categoryName.value);
+    const newCat = new Category(catSetup); // This may cause a redeclaration problem
+    categories.push(newCat);
+    newCat.addCatOption();
+    categoryName.value = '';
+    catMakerModal.style.display = 'none';
+});
 
 catClosers.forEach(catClose => {
     catClose.addEventListener('click', (e) => {
        cancelCatMenu(e.target.parentElement);
     })
-})
+});
 
 // Going through each labelDown and initalizing a Category class, adding to the category array
 labelDowns.forEach(labelDown => {
     const newCat = new Category(labelDown);
     categories.push(newCat);
     newCat.addCatOption();
-})
-
-// Function that handles user functionality for creating a category
-function handleCatInput()
-{
-    addCatButton.style.display = 'none';
-    
-    // Creating a text input box for the category name
-    const inputBoxCat = document.createElement('input');
-    inputBoxCat.type = 'text';
-    inputBoxCat.classList.add('inputBoxCat');
-    inputBoxCat.placeholder = 'Category Name';
-
-    // This allows for the enter key to submit contents and the escape key
-    // to cancel the action
-    inputBoxCat.addEventListener('keydown', (e) => {
-        if(e.key === 'Enter')
-        {
-            submitCatInput();
-        }
-        else if(e.key === 'Escape')
-        {
-            cancelCatInput();
-        }
-    })
-
-    // Creates category name character limit, set to 13 *CAN BE CHANGED*
-    inputBoxCat.addEventListener('input', (e) => {
-        if (e.target.value.length > 13) {
-            e.target.value = e.target.value.slice(0, 13);
-        }
-    });
-
-    // Submit button created to have a visual way to submit input
-    const submitButtonCat = document.createElement('button');
-    submitButtonCat.classList.add('submitButtonCat');
-    submitButtonCat.textContent = 'Submit';
-    submitButtonCat.addEventListener('click', submitCatInput);
-
-    labelPanel.appendChild(inputBoxCat);
-    labelPanel.appendChild(submitButtonCat);
-    inputBoxCat.focus();
-
-    // Timeout stops issue where this listener would load too fast and
-    // stop the addCatButton from working at all
-    // I dont think this needs a timeout actually
-    setTimeout(() => {
-        document.addEventListener('click', outCatClick);
-    }, 10);
-}
+});
 
 // Handles input deemed acceptable and creates the actual category
 // I know this function is way too long I'll fix it later
-function submitCatInput()
+function submitCatInput(name)
 {
-    const inputBoxCat = document.querySelector('.inputBoxCat');
-    const labelTitle = inputBoxCat.value;
 
     // Prevents an accidental enter or submit
-    if(labelTitle.trim() === '')
+    if(name.trim() === '')
     {
         return;
     } 
-
-    const submitButtonCat = document.querySelector('.submitButtonCat');
-
-    // Removing things necessary for the input process
-    labelPanel.removeChild(inputBoxCat);
-    labelPanel.removeChild(submitButtonCat);
-    document.removeEventListener('click', outCatClick);
 
     // Overall container
     const labelDown = document.createElement('div');
@@ -179,7 +150,7 @@ function submitCatInput()
 
     const textSpan = document.createElement('span');
     textSpan.classList.add('catName');
-    textSpan.textContent = labelTitle;
+    textSpan.textContent = name;
 
     // Cat option div creation
     const catOptions = document.createElement('div');
@@ -256,14 +227,8 @@ function submitCatInput()
     labelDown.appendChild(newButton);
     labelDown.appendChild(catMenu);
     labelDown.appendChild(labelContent);
-    labelPanel.appendChild(labelDown);
-
-    // This limits number of categories to 11
-    if(document.querySelectorAll('.catName').length < 11) 
-    {
-        labelPanel.appendChild(addCatButton);
-        addCatButton.style.display = 'flex';
-    }
+    // labelPanel.appendChild(labelDown);
+    labelPanel.insertBefore(labelDown, addCatButton);
 
     // Allows the dropdown to actually function
     newButton.addEventListener('click', showLabels);
@@ -276,38 +241,40 @@ function submitCatInput()
     catEdit.addEventListener('click', editCat);
     catDelete.addEventListener('click', deleteCat);
     addLabBtn.addEventListener('click', handleLabInput);
+
+    return labelDown;
 }
 
 // Handles input deemed unnaceptable
-function cancelCatInput()
-{
-    // Getting and removing input box and submit button
-    const inputBoxCat = document.querySelector('.inputBoxCat');
-    const submitButtonCat = document.querySelector('.submitButtonCat');
+// function cancelCatInput()
+// {
+//     // Getting and removing input box and submit button
+//     const inputBoxCat = document.querySelector('.inputBoxCat');
+//     const submitButtonCat = document.querySelector('.submitButtonCat');
 
-    labelPanel.removeChild(inputBoxCat);
-    labelPanel.removeChild(submitButtonCat);
+//     labelPanel.removeChild(inputBoxCat);
+//     labelPanel.removeChild(submitButtonCat);
 
-    document.removeEventListener('click', outCatClick);
+//     document.removeEventListener('click', outCatClick);
 
-    addCatButton.style.display = 'flex';
-}
+//     addCatButton.style.display = 'flex';
+// }
 
 // Helper function for when user clicks outside of the input box and/or submit button
-function outCatClick(e)
-{
-    const inputBoxCat = document.querySelector('.inputBoxCat');
-    const submitButtonCat = document.querySelector('.submitButtonCat');
+// function outCatClick(e)
+// {
+//     const inputBoxCat = document.querySelector('.inputBoxCat');
+//     const submitButtonCat = document.querySelector('.submitButtonCat');
 
-    // Cancelling input assuming user didn't click the box or submit button
-    // Also checking to make sure both exist
-    if(inputBoxCat && submitButtonCat && 
-        !submitButtonCat.contains(e.target) && 
-        !inputBoxCat.contains(e.target))
-    {
-        cancelCatInput();
-    }
-}
+//     // Cancelling input assuming user didn't click the box or submit button
+//     // Also checking to make sure both exist
+//     if(inputBoxCat && submitButtonCat && 
+//         !submitButtonCat.contains(e.target) && 
+//         !inputBoxCat.contains(e.target))
+//     {
+//         cancelCatInput();
+//     }
+// }
 
 function handleCatMenu(e)
 {
