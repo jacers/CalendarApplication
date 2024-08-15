@@ -118,10 +118,23 @@ body, html
     border: 1px solid white;
 }
 
+.dropdown .optionsDropButton {
+    background-color: white;
+    color: white;
+    border: 0px;
+    cursor: pointer;
+}
+
 .dropdown img 
 {
     width: 34px;
     height: 34px;
+}
+
+.optionsDropButton img:hover
+{
+    border-radius: 100%;
+    background-color: #e0e0e0;
 }
 
 .dropdownContent
@@ -471,6 +484,41 @@ th
 #pastEventTable td
 {
     text-align: left;
+    margin-left: 20px;
+}
+
+/* Set From and To column widths for the event tables */
+#eventTable th:nth-child(3),
+#eventTable th:nth-child(4),
+#eventTable td:nth-child(3),
+#eventTable td:nth-child(4),
+#pastEventTable th:nth-child(3),
+#pastEventTable th:nth-child(4),
+#pastEventTable td:nth-child(3),
+#pastEventTable td:nth-child(4) {
+    width: 88px; /* Around 11 characters wide */
+}
+
+/* Set Name and Label column widths to be half of the remaining space*/
+#eventTable th:nth-child(1),
+#eventTable th:nth-child(2),
+#eventTable td:nth-child(1),
+#eventTable td:nth-child(2),
+#pastEventTable th:nth-child(1),
+#pastEventTable th:nth-child(2),
+#pastEventTable td:nth-child(1),
+#pastEventTable td:nth-child(2) {
+    width: calc((100% - 208px) / 2); /* Halve the remaining space and leave room for the final column */
+}
+
+/*Set the final column of the event tables to be a square*/
+#eventTable th:nth-child(5),
+#eventTable td:nth-child(5),
+#pastEventTable th:nth-child(5),
+#pastEventTable td:nth-child(5) {
+    width: 40px;
+    height: 40px;
+    text-align: center; /*Ensure all icons are centered*/
 }
 
 .labelMakerModal 

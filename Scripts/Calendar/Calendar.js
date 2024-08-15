@@ -9,7 +9,6 @@ class Event {
         this.endDate   = endDate  ; // End date, formatted as a date with no time
         this.endTime   = endTime  ; // End time, formatted as a time with no date
         this.notes     = notes    ; // Any notes of the event
-        // TODO: replace or combine with label.
         this.label     = label    ; // Label associated with the event
     }
 
@@ -268,21 +267,62 @@ searchBtn.addEventListener("click", () => {
     sortedCurrentEvents.forEach(event => {
         const row = document.createElement("tr");
 
+        // Create cell for the name
         const nameCell = document.createElement("td");
         nameCell.textContent = event.name;
         row.appendChild(nameCell);
 
+        // Create cell for the label
         const labelCell = document.createElement("td");
         labelCell.innerHTML = event.label.getLabel();
         row.appendChild(labelCell);
 
+        // Create cell for the from date
         const fromCell = document.createElement("td");
         fromCell.textContent = event.startDate;
         row.appendChild(fromCell);
 
+        // Create cell for the to date
         const toCell = document.createElement("td");
         toCell.textContent = event.endDate;
         row.appendChild(toCell);
+
+        // Create cell for the dropdown menu
+        const optionsCell = document.createElement('td');
+        const optionsDropdown = document.createElement('div');
+        optionsDropdown.className = 'dropdown';
+
+        // Create the dropdown button with image
+        const dropButton = document.createElement('button');
+        dropButton.className = 'optionsDropButton';
+        const optionsImg = document.createElement('img');
+        optionsImg.src = '../Images/verticleDots.png'; // Change to the image you want
+        optionsImg.alt = 'Toggle Panel';
+        optionsImg.style.width = '30px'; // Ensure the image fits the button
+        optionsImg.style.height = '30px'; // Ensure the image fits the button
+        dropButton.appendChild(optionsImg);
+        optionsDropdown.appendChild(dropButton);
+
+        // Create the dropdown content
+        const dropdownContent = document.createElement('div');
+        dropdownContent.className = 'dropdownContent';
+        dropdownContent.style.display = 'none'; // Hidden by default
+        dropdownContent.innerHTML = `
+            <a href="#">Edit</a>
+            <a href="#">Delete</a>
+        `;
+        optionsDropdown.appendChild(dropdownContent);
+
+        // Toggle dropdown visibility on button click
+        dropButton.addEventListener('click', function () {
+            dropdownContent.style.display = dropdownContent.style.display === 'none' ? 'block' : 'none';
+        });
+
+        // Append the dropdown to the cell
+        optionsCell.appendChild(optionsDropdown);
+
+        // Append the cell to the row
+        row.appendChild(optionsCell);
 
         eventsList.appendChild(row);
     });
@@ -291,22 +331,63 @@ searchBtn.addEventListener("click", () => {
     pastEvents.forEach(event => {
         const row = document.createElement("tr");
   
+        // Create cell for the name
         const nameCell = document.createElement("td");
         nameCell.textContent = event.name;
         row.appendChild(nameCell);
   
+        // Create cell for the label
         const labelCell = document.createElement("td");
         labelCell.innerHTML = event.label.getLabel();
         row.appendChild(labelCell);
   
+        // Create cell for the from date
         const fromCell = document.createElement("td");
         fromCell.textContent = event.startDate;
         row.appendChild(fromCell);
   
+        // Create cell for the to date
         const toCell = document.createElement("td");
         toCell.textContent = event.endDate;
         row.appendChild(toCell);
   
+        // Create cell for the dropdown menu
+        const optionsCell = document.createElement('td');
+        const optionsDropdown = document.createElement('div');
+        optionsDropdown.className = 'dropdown';
+
+        // Create the dropdown button with image
+        const dropButton = document.createElement('button');
+        dropButton.className = 'optionsDropButton';
+        const optionsImg = document.createElement('img');
+        optionsImg.src = '../Images/verticleDots.png'; // Change to the image you want
+        optionsImg.alt = 'Toggle Panel';
+        optionsImg.style.width = '30px'; // Ensure the image fits the button
+        optionsImg.style.height = '30px'; // Ensure the image fits the button
+        dropButton.appendChild(optionsImg);
+        optionsDropdown.appendChild(dropButton);
+
+        // Create the dropdown content
+        const dropdownContent = document.createElement('div');
+        dropdownContent.className = 'dropdownContent';
+        dropdownContent.style.display = 'none'; // Hidden by default
+        dropdownContent.innerHTML = `
+            <a href="#">Edit</a>
+            <a href="#">Delete</a>
+        `;
+        optionsDropdown.appendChild(dropdownContent);
+
+        // Toggle dropdown visibility on button click
+        dropButton.addEventListener('click', function () {
+            dropdownContent.style.display = dropdownContent.style.display === 'none' ? 'block' : 'none';
+        });
+
+        // Append the dropdown to the cell
+        optionsCell.appendChild(optionsDropdown);
+
+        // Append the dropdown cell to the row
+        row.appendChild(optionsCell);
+
         pastEventsList.appendChild(row);
     });
 
