@@ -295,7 +295,7 @@ function createEventsTable(event, tableElement) {
     // Create cell for the name
     const nameCell = document.createElement("td");
     nameCell.textContent = event.name;
-    
+
     if(event.location != "") {
         nameCell.innerHTML += `<br> at ${event.location}`;
     }
@@ -368,7 +368,6 @@ function createEventsTable(event, tableElement) {
         nameCell.appendChild(document.createElement("br"));   // The newline
         nameCell.appendChild(document.createTextNode("at ")); // Where the location input goes
         nameCell.appendChild(locationInput);
-
 
         // Replace label with dropdown
         labelCell.innerHTML = "";
@@ -470,7 +469,7 @@ function createEventsTable(event, tableElement) {
             startsCell.innerHTML = "";
             startsCell.textContent = event.formatDate(event.startDate);
             startsCell.innerHTML += `<br> at ${event.formatTime(event.startTime)}`;
-            
+
             endsCell.textContent = event.formatDate(event.endDate);
             endsCell.innerHTML += `<br> at ${event.formatTime(event.endTime)}`;
 
@@ -485,21 +484,21 @@ function createEventsTable(event, tableElement) {
 
     deleteEventBtn.addEventListener('click', function (e) {
         e.preventDefault();
-    
+
         // Find the index of the event in the events array
         const eventIndex = events.indexOf(event);
-    
+
         // Remove the event from the events array
         if (eventIndex > -1) {
             events.splice(eventIndex, 1);
         }
-    
+
         // Remove the corresponding row from the table
         tableElement.removeChild(row);
-    
+
         // Re-render the calendar and events list
         renderCalendar();
-    });    
+    });
 
     // Toggle dropdown visibility on button click
     dropButton.addEventListener('click', function () {
