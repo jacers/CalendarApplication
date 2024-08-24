@@ -272,443 +272,233 @@ searchBtn.addEventListener("click", () => {
     eventsList.innerHTML = ""; // Clear the current events list
     pastEventsList.innerHTML = ""; // Clear the past events list
 
-    const now = new Date();
-
     // Filter out current and past events
+    const now = new Date();
     const currentEvents = events.filter(event => new Date(event.endDate) >= now);
     const pastEvents = events.filter(event => new Date(event.endDate) < now);
 
     // Sort current events by start date
     const sortedCurrentEvents = currentEvents.sort((a, b) => new Date(a.startDate) - new Date(b.startDate));
 
-    sortedCurrentEvents.forEach((event, index) => {
-        const row = document.createElement("tr");
+    sortedCurrentEvents.forEach(event => createEventsTable(event, eventsList));
 
-        // Create cell for the name
-        const nameCell = document.createElement("td");
-        nameCell.textContent = event.name;
-        
-        if(event.location != "") {
-            nameCell.innerHTML += `<br> at ${event.location}`;
-        }
-
-        row.appendChild(nameCell);
-
-        // Create cell for the label
-        const labelCell = document.createElement("td");
-        labelCell.innerHTML = event.label.getLabel();
-        row.appendChild(labelCell);
-
-        // Create cell for the from date
-        const fromCell = document.createElement("td");
-        fromCell.textContent = event.formatDate(event.startDate);
-        fromCell.innerHTML += `<br> at ${event.formatTime(event.startTime)}`;
-        row.appendChild(fromCell);
-
-        // Create cell for the to date
-        const toCell = document.createElement("td");
-        toCell.textContent = event.formatDate(event.endDate);
-        toCell.innerHTML += `<br> at ${event.formatTime(event.endTime)}`;
-        row.appendChild(toCell);
-
-        // Create cell for the dropdown menu
-        const optionsCell = document.createElement('td');
-        const optionsDropdown = document.createElement('div');
-        optionsDropdown.className = 'dropdown';
-
-        // Create the dropdown button with image
-        const dropButton = document.createElement('button');
-        dropButton.className = 'optionsDropButton';
-        const optionsImg = document.createElement('img');
-        optionsImg.src = '../Images/verticleDots.png';
-        optionsImg.alt = 'Toggle Panel';
-        optionsImg.style.width = '30px'; // Ensure the image fits the button
-        optionsImg.style.height = '30px'; // Ensure the image fits the button
-        dropButton.appendChild(optionsImg);
-        optionsDropdown.appendChild(dropButton);
-
-        // Create the dropdown content
-        const dropdownContent = document.createElement('div');
-        dropdownContent.className = 'dropdownContent';
-        dropdownContent.style.display = 'none'; // Hidden by default
-        dropdownContent.innerHTML = `
-            <a href="#" id="editEventBtn">Edit</a>
-            <a href="#" id="deleteEventBtn">Delete</a>
-        `;
-        optionsDropdown.appendChild(dropdownContent);
-
-        const editEventBtn = dropdownContent.querySelector('#editEventBtn');
-        const deleteEventBtn = dropdownContent.querySelector('#deleteEventBtn');
-
-        // Edit button functionality
-        editEventBtn.addEventListener('click', function (e) {
-            e.preventDefault(); // Prevent default anchor behavior
-
-            // Replace name with input field
-            const nameInput = document.createElement("input");
-            nameInput.type = "text";
-            nameInput.value = event.name;
-
-            // Replace location with input field
-            const locationInput = document.createElement("input");
-            locationInput.type = "text";
-            locationInput.value = event.location || "";
-
-            // Format the name cell
-            nameCell.innerHTML = "";
-            nameCell.appendChild(nameInput);
-            nameCell.appendChild(document.createElement("br"));   // The newline
-            nameCell.appendChild(document.createTextNode("at ")); // Where the location input goes
-            nameCell.appendChild(locationInput);
-
-
-            // Replace label with dropdown
-            labelCell.innerHTML = "";
-            labelCell.appendChild(eventLabelDropdown);
-
-            // Replace from date with date input
-            const fromDateInput = document.createElement("input");
-            fromDateInput.type = "date";
-            fromDateInput.value = event.startDate;
-            fromCell.innerHTML = "";
-            fromCell.appendChild(fromDateInput);
-
-            // Replace from time with time input
-            const fromTimeInput = document.createElement("input");
-            fromTimeInput.type = "time";
-            fromTimeInput.value = event.startTime;
-            fromTimeInput.appendChild(document.createElement("br"));
-            fromCell.appendChild(fromTimeInput);
-
-            // Replace to date with date input
-            const toDateInput = document.createElement("input");
-            toDateInput.type = "date";
-            toDateInput.value = event.endDate;
-            toCell.innerHTML = "";
-            toCell.appendChild(toDateInput);
-
-            // Replace to time with time input
-            const toTimeInput = document.createElement("input");
-            toTimeInput.type = "time";
-            toTimeInput.value = event.endTime;
-            toTimeInput.appendChild(document.createElement("br"));
-            toCell.appendChild(toTimeInput);
-
-            // Change dropdown button to a checkmark button
-            const checkmarkButton = document.createElement("button");
-            checkmarkButton.innerHTML = "✔"; // You can use an image here instead
-            checkmarkButton.className = 'checkmarkButton';
-            optionsCell.innerHTML = "";
-            optionsCell.appendChild(checkmarkButton);
-
-            // Save changes when checkmark is clicked
-            checkmarkButton.addEventListener('click', function () {
-                const eventName      = nameInput.value;
-                const eventLocation  = locationInput.value;
-                const labelIndex     = eventLabelDropdown.value;
-                const eventStartDate = fromDateInput.value;
-                const eventStartTime = fromTimeInput.value;
-                const eventEndDate   = toDateInput.value;
-                const eventEndTime   = toTimeInput.value;
-
-                // Warns the user if no name is inputted
-                if (!eventName) {
-                    alert("Please name this event.");
-                    return;
-                }
-
-                // Warns the user if no label is inputted
-                if (!labelIndex || labelIndex === "select" || labelIndex === "newEvent") {
-                alert("Please label this event.");
-                return;
-                }
-
-                // Warns the user if no start or end date and time are given
-                if (!eventStartDate || !eventStartTime || !eventEndDate || !eventEndTime) {
-                    alert("Please select a date and time for the event to start and end.");
-                    return;
-                }
-
-                // Combines the dates and times of the start and end date
-                const startDateTime = new Date(`${eventStartDate}T${eventStartTime}`);
-                const endDateTime   = new Date(`${eventEndDate  }T${eventEndTime  }`);
-
-                // Warns the user if the event starts after it has ended
-                if (startDateTime >= endDateTime) {
-                    alert("The event cannot start after it has ended.");
-                    return;
-                }
-
-                const selectedLabel = labels[labelIndex];
-
-                // Update the event object
-                event.name = eventName;
-                event.location = eventLocation;
-                event.label = selectedLabel;
-                event.startDate = eventStartDate;
-                event.startTime = eventStartTime;
-                event.endDate = eventEndDate;
-                event.endTime = eventEndTime;
-
-                // Replace inputs with plain text
-                nameCell.textContent = event.name;
-                if(event.location != "") {
-                    nameCell.innerHTML += `<br> at ${event.location}`;
-                }
-
-                labelCell.innerHTML = "";
-                labelCell.innerHTML = event.label.getLabel();
-
-                fromCell.innerHTML = "";
-                fromCell.textContent = event.formatDate(event.startDate);
-                fromCell.innerHTML += `<br> at ${event.formatTime(event.startTime)}`;
-                
-                toCell.textContent = event.formatDate(event.endDate);
-                toCell.innerHTML += `<br> at ${event.formatTime(event.endTime)}`;
-
-                // Replace checkmark button with original dropdown button
-                optionsCell.innerHTML = "";
-                optionsCell.appendChild(optionsDropdown);
-
-                // Re-render the calendar and events list
-                renderCalendar();
-            });
-        });
-
-        deleteEventBtn.addEventListener('click', function (e) {
-            e.preventDefault(); // Prevent default anchor behavior
-            alert('Delete button selected!');
-        });
-
-        // Toggle dropdown visibility on button click
-        dropButton.addEventListener('click', function () {
-            dropdownContent.style.display = dropdownContent.style.display === 'none' ? 'block' : 'none';
-        });
-
-        // Append the dropdown to the cell
-        optionsCell.appendChild(optionsDropdown);
-
-        // Append the cell to the row
-        row.appendChild(optionsCell);
-
-        eventsList.appendChild(row);
-    });
-  
-    // Populate past events table
-    pastEvents.forEach((event, index) => {
-        const row = document.createElement("tr");
-  
-        // Create cell for the name
-        const nameCell = document.createElement("td");
-        nameCell.textContent = event.name;
-        if(event.location != "") {
-            nameCell.innerHTML += `<br> at ${event.location}`;
-        }
-
-        row.appendChild(nameCell);
-
-        // Create cell for the label
-        const labelCell = document.createElement("td");
-        labelCell.innerHTML = event.label.getLabel();
-        row.appendChild(labelCell);
-
-        // Create cell for the from date
-        const fromCell = document.createElement("td");
-        fromCell.textContent = event.formatDate(event.startDate);
-        fromCell.innerHTML += `<br> at ${event.formatTime(event.startTime)}`;
-        row.appendChild(fromCell);
-
-        // Create cell for the to date
-        const toCell = document.createElement("td");
-        toCell.textContent = event.formatDate(event.endDate);
-        toCell.innerHTML += `<br> at ${event.formatTime(event.endTime)}`;
-        row.appendChild(toCell);
-
-        // Create cell for the dropdown menu
-        const optionsCell = document.createElement('td');
-        const optionsDropdown = document.createElement('div');
-        optionsDropdown.className = 'dropdown';
-
-        // Create the dropdown button with image
-        const dropButton = document.createElement('button');
-        dropButton.className = 'optionsDropButton';
-        const optionsImg = document.createElement('img');
-        optionsImg.src = '../Images/verticleDots.png';
-        optionsImg.alt = 'Toggle Panel';
-        optionsImg.style.width = '30px'; // Ensure the image fits the button
-        optionsImg.style.height = '30px'; // Ensure the image fits the button
-        dropButton.appendChild(optionsImg);
-        optionsDropdown.appendChild(dropButton);
-
-        // Create the dropdown content
-        const dropdownContent = document.createElement('div');
-        dropdownContent.className = 'dropdownContent';
-        dropdownContent.style.display = 'none'; // Hidden by default
-        dropdownContent.innerHTML = `
-            <a href="#" id="editEventBtn">Edit</a>
-            <a href="#" id="deleteEventBtn">Delete</a>
-        `;
-        optionsDropdown.appendChild(dropdownContent);
-
-        const editEventBtn = dropdownContent.querySelector('#editEventBtn');
-        const deleteEventBtn = dropdownContent.querySelector('#deleteEventBtn');
-
-        // Edit button functionality
-        editEventBtn.addEventListener('click', function (e) {
-            e.preventDefault(); // Prevent default anchor behavior
-
-            // Replace name with input field
-            const nameInput = document.createElement("input");
-            nameInput.type = "text";
-            nameInput.value = event.name;
-
-            // Replace location with input field
-            const locationInput = document.createElement("input");
-            locationInput.type = "text";
-            locationInput.value = event.location || "";
-
-            // Format the name cell
-            nameCell.innerHTML = "";
-            nameCell.appendChild(nameInput);
-            nameCell.appendChild(document.createElement("br"));   // The newline
-            nameCell.appendChild(document.createTextNode("at ")); // Where the location input goes
-            nameCell.appendChild(locationInput);
-
-
-            // Replace label with dropdown
-            labelCell.innerHTML = "";
-            labelCell.appendChild(eventLabelDropdown);
-
-            // Replace from date with date input
-            const fromDateInput = document.createElement("input");
-            fromDateInput.type = "date";
-            fromDateInput.value = event.startDate;
-            fromCell.innerHTML = "";
-            fromCell.appendChild(fromDateInput);
-
-            // Replace from time with time input
-            const fromTimeInput = document.createElement("input");
-            fromTimeInput.type = "time";
-            fromTimeInput.value = event.startTime;
-            fromTimeInput.appendChild(document.createElement("br"));
-            fromCell.appendChild(fromTimeInput);
-
-            // Replace to date with date input
-            const toDateInput = document.createElement("input");
-            toDateInput.type = "date";
-            toDateInput.value = event.endDate;
-            toCell.innerHTML = "";
-            toCell.appendChild(toDateInput);
-
-            // Replace to time with time input
-            const toTimeInput = document.createElement("input");
-            toTimeInput.type = "time";
-            toTimeInput.value = event.endTime;
-            toTimeInput.appendChild(document.createElement("br"));
-            toCell.appendChild(toTimeInput);
-
-            // Change dropdown button to a checkmark button
-            const checkmarkButton = document.createElement("button");
-            checkmarkButton.innerHTML = "✔"; // You can use an image here instead
-            checkmarkButton.className = 'checkmarkButton';
-            optionsCell.innerHTML = "";
-            optionsCell.appendChild(checkmarkButton);
-
-            // Save changes when checkmark is clicked
-            checkmarkButton.addEventListener('click', function () {
-                const eventName      = nameInput.value;
-                const eventLocation  = locationInput.value;
-                const labelIndex     = eventLabelDropdown.value;
-                const eventStartDate = fromDateInput.value;
-                const eventStartTime = fromTimeInput.value;
-                const eventEndDate   = toDateInput.value;
-                const eventEndTime   = toTimeInput.value;
-
-                // Warns the user if no name is inputted
-                if (!eventName) {
-                    alert("Please name this event.");
-                    return;
-                }
-
-                // Warns the user if no label is inputted
-                if (!labelIndex || labelIndex === "select" || labelIndex === "newEvent") {
-                alert("Please label this event.");
-                return;
-                }
-
-                // Warns the user if no start or end date and time are given
-                if (!eventStartDate || !eventStartTime || !eventEndDate || !eventEndTime) {
-                    alert("Please select a date and time for the event to start and end.");
-                    return;
-                }
-
-                // Combines the dates and times of the start and end date
-                const startDateTime = new Date(`${eventStartDate}T${eventStartTime}`);
-                const endDateTime   = new Date(`${eventEndDate  }T${eventEndTime  }`);
-
-                // Warns the user if the event starts after it has ended
-                if (startDateTime >= endDateTime) {
-                    alert("The event cannot start after it has ended.");
-                    return;
-                }
-
-                const selectedLabel = labels[labelIndex];
-
-                // Update the event object
-                event.name = eventName;
-                event.location = eventLocation;
-                event.label = selectedLabel;
-                event.startDate = eventStartDate;
-                event.startTime = eventStartTime;
-                event.endDate = eventEndDate;
-                event.endTime = eventEndTime;
-
-                // Replace inputs with plain text
-                nameCell.textContent = event.name;
-                if(event.location != "") {
-                    nameCell.innerHTML += `<br> at ${event.location}`;
-                }
-
-                labelCell.innerHTML = "";
-                labelCell.innerHTML = event.label.getLabel();
-
-                fromCell.innerHTML = "";
-                fromCell.textContent = event.formatDate(event.startDate);
-                fromCell.innerHTML += `<br> at ${event.formatTime(event.startTime)}`;
-                
-                toCell.textContent = event.formatDate(event.endDate);
-                toCell.innerHTML += `<br> at ${event.formatTime(event.endTime)}`;
-
-                // Replace checkmark button with original dropdown button
-                optionsCell.innerHTML = "";
-                optionsCell.appendChild(optionsDropdown);
-
-                // Re-render the calendar and events list
-                renderCalendar();
-            });
-        });
-
-        deleteEventBtn.addEventListener('click', function (e) {
-            e.preventDefault(); // Prevent default anchor behavior
-            alert('Delete button selected!');
-        });
-
-        // Toggle dropdown visibility on button click
-        dropButton.addEventListener('click', function () {
-            dropdownContent.style.display = dropdownContent.style.display === 'none' ? 'block' : 'none';
-        });
-
-        // Append the dropdown to the cell
-        optionsCell.appendChild(optionsDropdown);
-
-        // Append the dropdown cell to the row
-        row.appendChild(optionsCell);
-
-        pastEventsList.appendChild(row);
-    });
+    pastEvents.forEach(event => createEventsTable(event, pastEventsList));
 
     eventsViewerModal.style.display = "block";
 });
+
+function createEventsTable(event, tableElement) {
+    const row = document.createElement("tr");
+
+    // Create cell for the name
+    const nameCell = document.createElement("td");
+    nameCell.textContent = event.name;
+    
+    if(event.location != "") {
+        nameCell.innerHTML += `<br> at ${event.location}`;
+    }
+
+    row.appendChild(nameCell);
+
+    // Create cell for the label
+    const labelCell = document.createElement("td");
+    labelCell.innerHTML = event.label.getLabel();
+    row.appendChild(labelCell);
+
+    // Create cell for the from date
+    const fromCell = document.createElement("td");
+    fromCell.textContent = event.formatDate(event.startDate);
+    fromCell.innerHTML += `<br> at ${event.formatTime(event.startTime)}`;
+    row.appendChild(fromCell);
+
+    // Create cell for the to date
+    const toCell = document.createElement("td");
+    toCell.textContent = event.formatDate(event.endDate);
+    toCell.innerHTML += `<br> at ${event.formatTime(event.endTime)}`;
+    row.appendChild(toCell);
+
+    // Create cell for the dropdown menu
+    const optionsCell = document.createElement('td');
+    const optionsDropdown = document.createElement('div');
+    optionsDropdown.className = 'dropdown';
+
+    // Create the dropdown button with image
+    const dropButton = document.createElement('button');
+    dropButton.className = 'optionsDropButton';
+    const optionsImg = document.createElement('img');
+    optionsImg.src = '../Images/verticleDots.png';
+    optionsImg.alt = 'Toggle Panel';
+    optionsImg.style.width = '30px'; // Ensure the image fits the button
+    optionsImg.style.height = '30px'; // Ensure the image fits the button
+    dropButton.appendChild(optionsImg);
+    optionsDropdown.appendChild(dropButton);
+
+    // Create the dropdown content
+    const dropdownContent = document.createElement('div');
+    dropdownContent.className = 'dropdownContent';
+    dropdownContent.style.display = 'none'; // Hidden by default
+    dropdownContent.innerHTML = `
+        <a href="#" id="editEventBtn">Edit</a>
+        <a href="#" id="deleteEventBtn">Delete</a>
+    `;
+    optionsDropdown.appendChild(dropdownContent);
+
+    const editEventBtn = dropdownContent.querySelector('#editEventBtn');
+    const deleteEventBtn = dropdownContent.querySelector('#deleteEventBtn');
+
+    // Edit button functionality
+    editEventBtn.addEventListener('click', function (e) {
+        e.preventDefault(); // Prevent default anchor behavior
+
+        // Replace name with input field
+        const nameInput = document.createElement("input");
+        nameInput.type = "text";
+        nameInput.value = event.name;
+
+        // Replace location with input field
+        const locationInput = document.createElement("input");
+        locationInput.type = "text";
+        locationInput.value = event.location || "";
+
+        // Format the name cell
+        nameCell.innerHTML = "";
+        nameCell.appendChild(nameInput);
+        nameCell.appendChild(document.createElement("br"));   // The newline
+        nameCell.appendChild(document.createTextNode("at ")); // Where the location input goes
+        nameCell.appendChild(locationInput);
+
+
+        // Replace label with dropdown
+        labelCell.innerHTML = "";
+        labelCell.appendChild(eventLabelDropdown);
+
+        // Replace from date with date input
+        const fromDateInput = document.createElement("input");
+        fromDateInput.type = "date";
+        fromDateInput.value = event.startDate;
+        fromCell.innerHTML = "";
+        fromCell.appendChild(fromDateInput);
+
+        // Replace from time with time input
+        const fromTimeInput = document.createElement("input");
+        fromTimeInput.type = "time";
+        fromTimeInput.value = event.startTime;
+        fromTimeInput.appendChild(document.createElement("br"));
+        fromCell.appendChild(fromTimeInput);
+
+        // Replace to date with date input
+        const toDateInput = document.createElement("input");
+        toDateInput.type = "date";
+        toDateInput.value = event.endDate;
+        toCell.innerHTML = "";
+        toCell.appendChild(toDateInput);
+
+        // Replace to time with time input
+        const toTimeInput = document.createElement("input");
+        toTimeInput.type = "time";
+        toTimeInput.value = event.endTime;
+        toTimeInput.appendChild(document.createElement("br"));
+        toCell.appendChild(toTimeInput);
+
+        // Change dropdown button to a checkmark button
+        const checkmarkButton = document.createElement("button");
+        checkmarkButton.innerHTML = "✔"; // You can use an image here instead
+        checkmarkButton.className = 'checkmarkButton';
+        optionsCell.innerHTML = "";
+        optionsCell.appendChild(checkmarkButton);
+
+        // Save changes when checkmark is clicked
+        checkmarkButton.addEventListener('click', function () {
+            const eventName      = nameInput.value;
+            const eventLocation  = locationInput.value;
+            const labelIndex     = eventLabelDropdown.value;
+            const eventStartDate = fromDateInput.value;
+            const eventStartTime = fromTimeInput.value;
+            const eventEndDate   = toDateInput.value;
+            const eventEndTime   = toTimeInput.value;
+
+            // Warns the user if no name is inputted
+            if (!eventName) {
+                alert("Please name this event.");
+                return;
+            }
+
+            // Warns the user if no label is inputted
+            if (!labelIndex || labelIndex === "select" || labelIndex === "newEvent") {
+            alert("Please label this event.");
+            return;
+            }
+
+            // Warns the user if no start or end date and time are given
+            if (!eventStartDate || !eventStartTime || !eventEndDate || !eventEndTime) {
+                alert("Please select a date and time for the event to start and end.");
+                return;
+            }
+
+            // Combines the dates and times of the start and end date
+            const startDateTime = new Date(`${eventStartDate}T${eventStartTime}`);
+            const endDateTime   = new Date(`${eventEndDate  }T${eventEndTime  }`);
+
+            // Warns the user if the event starts after it has ended
+            if (startDateTime >= endDateTime) {
+                alert("The event cannot start after it has ended.");
+                return;
+            }
+
+            const selectedLabel = labels[labelIndex];
+
+            // Update the event object
+            event.name = eventName;
+            event.location = eventLocation;
+            event.label = selectedLabel;
+            event.startDate = eventStartDate;
+            event.startTime = eventStartTime;
+            event.endDate = eventEndDate;
+            event.endTime = eventEndTime;
+
+            // Replace inputs with plain text
+            nameCell.textContent = event.name;
+            if(event.location != "") {
+                nameCell.innerHTML += `<br> at ${event.location}`;
+            }
+
+            labelCell.innerHTML = "";
+            labelCell.innerHTML = event.label.getLabel();
+
+            fromCell.innerHTML = "";
+            fromCell.textContent = event.formatDate(event.startDate);
+            fromCell.innerHTML += `<br> at ${event.formatTime(event.startTime)}`;
+            
+            toCell.textContent = event.formatDate(event.endDate);
+            toCell.innerHTML += `<br> at ${event.formatTime(event.endTime)}`;
+
+            // Replace checkmark button with original dropdown button
+            optionsCell.innerHTML = "";
+            optionsCell.appendChild(optionsDropdown);
+
+            // Re-render the calendar and events list
+            renderCalendar();
+        });
+    });
+
+    deleteEventBtn.addEventListener('click', function (e) {
+        e.preventDefault(); // Prevent default anchor behavior
+        alert('Delete button selected!');
+    });
+
+    // Toggle dropdown visibility on button click
+    dropButton.addEventListener('click', function () {
+        dropdownContent.style.display = dropdownContent.style.display === 'none' ? 'block' : 'none';
+    });
+
+    // Append the dropdown to the cell
+    optionsCell.appendChild(optionsDropdown);
+
+    // Append the cell to the row
+    row.appendChild(optionsCell);
+
+    tableElement.appendChild(row);
+}
 
 // Search bar for the eventViewerModal
 function searchEvents() {
