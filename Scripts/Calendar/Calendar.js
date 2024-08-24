@@ -30,7 +30,6 @@ class Event {
         return dateObj.toLocaleDateString('en-US', options);
     }
 
-
     // Formats a time as H:MM AM/PM
     formatTime(time) {
         const [hours, minutes] = time.split(':');
@@ -280,13 +279,16 @@ searchBtn.addEventListener("click", () => {
     // Sort current events by start date
     const sortedCurrentEvents = currentEvents.sort((a, b) => new Date(a.startDate) - new Date(b.startDate));
 
+    // Creates a table for the current events
     sortedCurrentEvents.forEach(event => createEventsTable(event, eventsList));
 
+    // Creates a table for the past events
     pastEvents.forEach(event => createEventsTable(event, pastEventsList));
 
     eventsViewerModal.style.display = "block";
 });
 
+// Function to aid the creation of current and past events tables
 function createEventsTable(event, tableElement) {
     const row = document.createElement("tr");
 
@@ -306,16 +308,16 @@ function createEventsTable(event, tableElement) {
     row.appendChild(labelCell);
 
     // Create cell for the from date
-    const fromCell = document.createElement("td");
-    fromCell.textContent = event.formatDate(event.startDate);
-    fromCell.innerHTML += `<br> at ${event.formatTime(event.startTime)}`;
-    row.appendChild(fromCell);
+    const startsCell = document.createElement("td");
+    startsCell.textContent = event.formatDate(event.startDate);
+    startsCell.innerHTML += `<br> at ${event.formatTime(event.startTime)}`;
+    row.appendChild(startsCell);
 
     // Create cell for the to date
-    const toCell = document.createElement("td");
-    toCell.textContent = event.formatDate(event.endDate);
-    toCell.innerHTML += `<br> at ${event.formatTime(event.endTime)}`;
-    row.appendChild(toCell);
+    const endsCell = document.createElement("td");
+    endsCell.textContent = event.formatDate(event.endDate);
+    endsCell.innerHTML += `<br> at ${event.formatTime(event.endTime)}`;
+    row.appendChild(endsCell);
 
     // Create cell for the dropdown menu
     const optionsCell = document.createElement('td');
@@ -376,29 +378,29 @@ function createEventsTable(event, tableElement) {
         const fromDateInput = document.createElement("input");
         fromDateInput.type = "date";
         fromDateInput.value = event.startDate;
-        fromCell.innerHTML = "";
-        fromCell.appendChild(fromDateInput);
+        startsCell.innerHTML = "";
+        startsCell.appendChild(fromDateInput);
 
         // Replace from time with time input
         const fromTimeInput = document.createElement("input");
         fromTimeInput.type = "time";
         fromTimeInput.value = event.startTime;
         fromTimeInput.appendChild(document.createElement("br"));
-        fromCell.appendChild(fromTimeInput);
+        startsCell.appendChild(fromTimeInput);
 
         // Replace to date with date input
         const toDateInput = document.createElement("input");
         toDateInput.type = "date";
         toDateInput.value = event.endDate;
-        toCell.innerHTML = "";
-        toCell.appendChild(toDateInput);
+        endsCell.innerHTML = "";
+        endsCell.appendChild(toDateInput);
 
         // Replace to time with time input
         const toTimeInput = document.createElement("input");
         toTimeInput.type = "time";
         toTimeInput.value = event.endTime;
         toTimeInput.appendChild(document.createElement("br"));
-        toCell.appendChild(toTimeInput);
+        endsCell.appendChild(toTimeInput);
 
         // Change dropdown button to a checkmark button
         const checkmarkButton = document.createElement("button");
@@ -465,12 +467,12 @@ function createEventsTable(event, tableElement) {
             labelCell.innerHTML = "";
             labelCell.innerHTML = event.label.getLabel();
 
-            fromCell.innerHTML = "";
-            fromCell.textContent = event.formatDate(event.startDate);
-            fromCell.innerHTML += `<br> at ${event.formatTime(event.startTime)}`;
+            startsCell.innerHTML = "";
+            startsCell.textContent = event.formatDate(event.startDate);
+            startsCell.innerHTML += `<br> at ${event.formatTime(event.startTime)}`;
             
-            toCell.textContent = event.formatDate(event.endDate);
-            toCell.innerHTML += `<br> at ${event.formatTime(event.endTime)}`;
+            endsCell.textContent = event.formatDate(event.endDate);
+            endsCell.innerHTML += `<br> at ${event.formatTime(event.endTime)}`;
 
             // Replace checkmark button with original dropdown button
             optionsCell.innerHTML = "";
@@ -482,9 +484,22 @@ function createEventsTable(event, tableElement) {
     });
 
     deleteEventBtn.addEventListener('click', function (e) {
-        e.preventDefault(); // Prevent default anchor behavior
-        alert('Delete button selected!');
-    });
+        e.preventDefault();
+    
+        // Find the index of the event in the events array
+        const eventIndex = events.indexOf(event);
+    
+        // Remove the event from the events array
+        if (eventIndex > -1) {
+            events.splice(eventIndex, 1);
+        }
+    
+        // Remove the corresponding row from the table
+        tableElement.removeChild(row);
+    
+        // Re-render the calendar and events list
+        renderCalendar();
+    });    
 
     // Toggle dropdown visibility on button click
     dropButton.addEventListener('click', function () {
