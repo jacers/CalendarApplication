@@ -273,6 +273,44 @@
         </div>
     </div>
 
+    <!-- View events modal -->
+    <div id="eventsViewerModal" class="eventsModal">
+        <div class="eventsViewerModal-content">
+            <!-- Close button -->
+          <span class="closeEventsViewer">x</span> <!--The x icon-->
+          <h1>Search Events</h1>
+          <input type="text" id="searchInput" onkeyup="searchEvents()" placeholder="Search for events..." title="Type in an event name">
+          <!-- Active Events Table -->
+          <h2>Active Events</h2>
+          <table id="eventTable">
+              <thead>
+                 <tr>
+                  <th>Event</th>
+                  <th>Label</th>
+                  <th>Starts</th>
+                  <th>Ends</th>
+                  <th></th> 
+                 </tr>
+              </thead>
+              <tbody id="eventList"></tbody>
+          </table>
+          <!-- Past Events Table -->
+          <h2>Past Events</h2>
+          <table id="pastEventTable">
+              <thead>
+                 <tr>
+                  <th>Event</th>
+                  <th>Label</th>
+                  <th>Starts</th>
+                  <th>Ends</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="pastEventList"></tbody>
+          </table>
+          </div>
+      </div>
+
     <!-- Label maker modal sub-menu within new event modal -->
     <div id = "labelMakerModal" class = "labelMakerModal">
         <div class = "newEventModal-content">
@@ -297,44 +335,6 @@
                 <!-- Save button -->
                 <button id = "saveLabel">Save</button>
             </div>
-        </div>
-    </div>
-
-    <!-- View events modal -->
-    <div id="eventsViewerModal" class="eventsModal">
-      <div class="eventsViewerModal-content">
-        <!-- Close button -->
-        <span class="closeEventsViewer">x</span> <!--The x icon-->
-        <h1>Search Events</h1>
-        <input type="text" id="searchInput" onkeyup="searchEvents()" placeholder="Search for events..." title="Type in an event name">
-        <!-- Active Events Table -->
-        <h2>Active Events</h2>
-        <table id="eventTable">
-            <thead>
-               <tr>
-                <th>Name</th>
-                <th>Label</th>
-                <th>From</th>
-                <th>To</th>
-                <th></th> 
-               </tr>
-            </thead>
-            <tbody id="eventList"></tbody>
-        </table>
-        <!-- Past Events Table -->
-        <h2>Past Events</h2>
-        <table id="pastEventTable">
-            <thead>
-               <tr>
-                <th>Name</th>
-                <th>Label</th>
-                <th>From</th>
-                <th>To</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody id="pastEventList"></tbody>
-        </table>
         </div>
     </div>
 

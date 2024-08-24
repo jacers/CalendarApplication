@@ -496,7 +496,7 @@ th
 #pastEventTable th:nth-child(4),
 #pastEventTable td:nth-child(3),
 #pastEventTable td:nth-child(4) {
-    width: 88px; /* Around 11 characters wide */
+    width: 150px;
 }
 
 /* Set Name and Label column widths to be half of the remaining space*/
@@ -508,7 +508,7 @@ th
 #pastEventTable th:nth-child(2),
 #pastEventTable td:nth-child(1),
 #pastEventTable td:nth-child(2) {
-    width: calc((100% - 208px) / 2); /* Halve the remaining space and leave room for the final column */
+    width: calc((100% - 340 px) / 2); /* Halve the remaining space and leave room for the final column */
 }
 
 /*Set the final column of the event tables to be a square*/
