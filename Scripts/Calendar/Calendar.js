@@ -88,6 +88,18 @@ class Label {
         }
     }
 
+    // Updates name and emoji after change, changes html if label is present as an option
+    changeNameAndEmoji(name, emoji) {
+        this.name = name;
+        this.emoji = emoji;
+
+        const targetLabOption = eventLabelDropdown.querySelector(`option[value="${this.id}"]`);
+        if(targetLabOption)
+        {
+            targetLabOption.innerHTML = this.getEmojiAndName();
+        }
+    }
+
 }
 
 // Selecting DOM elements (Elements in the CalendarPage.html)
@@ -128,13 +140,33 @@ const eventLabelDropdown = document.getElementById("eventLabelDropdown");
 const labelMakerModal    = document.getElementById("labelMakerModal"   );
 const closeLabelMakerBtn = document.querySelector (".closeLabelMaker"  );
 const emojiPreview       = document.getElementById("emojiPreview"      );
+const emojiPreviewEdit   = document.getElementById("emojiPreviewEdit" );
 const saveLabelBtn       = document.getElementById("saveLabel"         );
+
+// Emoji Picker for the maker modal
+const emojiPicker = document. querySelector ("emoji-picker");
+// Need to make another one of these that works for label edit
+emojiPicker.addEventListener("emoji-click", (event) => {
+    labelEmoji = event.detail.unicode;
+    emojiPreview.innerText = labelEmoji;
+});
+
+// Emoji picker for the editor modal
+const emojiEditPicker = document.querySelector("#emojiEditPicker");
+emojiEditPicker.addEventListener("emoji-click", (event) => {
+    labelEmoji = event.detail.unicode; 
+    emojiPreviewEdit.innerText = labelEmoji;
+})
+
+
 
 // Modal for category maker
 const catMakerModal = document.querySelector('.catMakerModal');
 const closeNewCat = document.querySelector('.closeNewCat');
 const saveCat = document.querySelector('.saveCat');
 const categoryName = document.querySelector('#categoryName');
+const catEditorModal = document.querySelector('.catEditorModal'); // Will be moved soon
+const labEditorModal = document.querySelector('.labelEditorModal'); // Will be moved soon
 
 // Event variables
 // TODO: Consistent formatting
@@ -631,9 +663,7 @@ eventCatDropdown.addEventListener("change", () => {
     const value = categories[valueRaw];
     if(!(prevValueRaw === 'select' || prevValueRaw === 'newCategory'))
     {
-        console.log('was not select or new category')
         const prevValue = categories[prevValueRaw];
-        console.log(`prevValue is ${prevValue}`)
         prevValue.removeLabels();
     }
 
@@ -672,7 +702,9 @@ window.addEventListener("click", (event) => {
         event.target == newEventModal     ||
         event.target == labelMakerModal   ||
         event.target == eventsViewerModal ||
-        event.target == catMakerModal) 
+        event.target == catMakerModal     ||
+        event.target == catEditorModal    ||
+        event.target == labEditorModal) 
     {
         // TODO: Consistent formatting
         colorPickerModal .style.display = "none";
@@ -680,6 +712,8 @@ window.addEventListener("click", (event) => {
         labelMakerModal  .style.display = "none";
         eventsViewerModal.style.display = "none";
         catMakerModal    .style.display = "none";
+        catEditorModal   .style.display = "none";
+        labEditorModal   .style.display = "none";
     }
 });
 
@@ -763,8 +797,6 @@ saveEventBtn.addEventListener("click", () => {
 saveLabelBtn.addEventListener("click", () => {
     const labelName = document.getElementById("labelName").value;
     const labelColor = document.getElementById("labelColor").value;
-    // labelEmoji = document.getElementById("emojiPreview").value;
-    labelEmoji = '😐'; // temp please fix this emoji preview doesn't work rn
 
     // Warns the user if no name is inputted
     if (!labelName) {
@@ -787,8 +819,12 @@ saveLabelBtn.addEventListener("click", () => {
 
     const newLabel = new Label(labelName, labelEmoji, labelColor);
     
-    newLabel.addLabelOption(); // New method does what old code did
     labels.push(newLabel);
+    submitLabInput(newLabel); // Adding newLabel to label panel
+
+    // Adding to proper category
+    const associatedCat = categories[eventCatDropdown.value];
+    associatedCat.addLabel(newLabel);
 
     // Reset the label maker modal
     document.getElementById("labelName").value = "";

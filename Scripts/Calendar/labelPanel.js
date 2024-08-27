@@ -4,7 +4,6 @@ const labelPanel = document.querySelector(".labelPanel");
 // Buttons
 const allLabelBtn = document.querySelectorAll('.labelBtn');
 const labelHideShow = document.querySelector(".labelHideShow");
-const allLabButtons = document.querySelectorAll('.addLabBtn');
 
 // Event listener for the dropdown of labels
 allLabelBtn.forEach(button => {

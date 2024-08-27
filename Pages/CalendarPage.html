@@ -65,23 +65,15 @@
                             <span class="labelArrow">⌃</span>
                         </div>
                     </button>
-                    <div class="catMenu">
-                        <span class="catClose">x</span>
-                        <button class="catEdit">Edit</button>
-                        <button class="catDelete">Delete</button>
-                    </div>
                     <div class="labelContent">
                         <label>
-                            <input type="checkbox" checked>Meetings
+                            <input type="checkbox" checked>💼 Meetings
                             <img src="../Images/verticleDots.png" alt="verticle dots">
                         </label>
                         <label>
-                            <input type="checkbox" checked>Projects
+                            <input type="checkbox" checked>🛠️ Projects
                             <img src="../Images/verticleDots.png" alt="verticle dots">
                         </label>
-                        <button class="labelBtn addLabBtn">
-                            <span class="labText">Add Label</span> <span class="labPlusSign">+</span>
-                        </button>
                     </div>
                 </div>
                 <div class="labelDown">
@@ -94,23 +86,15 @@
                             <span class="labelArrow">⌃</span>
                         </div>
                     </button>
-                    <div class="catMenu">
-                        <span class="catClose">x</span>
-                        <button class="catEdit">Edit</button>
-                        <button class="catDelete">Delete</button>
-                    </div>
                     <div class="labelContent">
                         <label>
-                            <input type="checkbox" checked>Birthdays
+                            <input type="checkbox" checked>🎂 Birthdays
                             <img src="../Images/verticleDots.png" alt="verticle dots">
                         </label>
                         <label>
-                            <input type="checkbox" checked>Appointments
+                            <input type="checkbox" checked>⏰ Appointments
                             <img src="../Images/verticleDots.png" alt="verticle dots">
                         </label>
-                        <button class="labelBtn addLabBtn">
-                            <span class="labText">Add Label</span> <span class="labPlusSign">+</span>
-                        </button>
                     </div>
                 </div>
                 <div class="labelDown">
@@ -123,23 +107,15 @@
                             <span class="labelArrow">⌃</span>
                         </div>
                     </button>
-                    <div class="catMenu">
-                        <span class="catClose">x</span>
-                        <button class="catEdit">Edit</button>
-                        <button class="catDelete">Delete</button>
-                    </div>
                     <div class="labelContent">
                         <label>
-                            <input type="checkbox" checked>US Holidays
+                            <input type="checkbox" checked>🗽 US Holidays
                             <img src="../Images/verticleDots.png" alt="verticle dots">
                         </label>
                         <label>
-                            <input type="checkbox" checked>Local Events
+                            <input type="checkbox" checked>📍 Local Events
                             <img src="../Images/verticleDots.png" alt="verticle dots">
                         </label>
-                        <button class="labelBtn addLabBtn">
-                            <span class="labText">Add Label</span> <span class="labPlusSign">+</span>
-                        </button>
                     </div>
                 </div>
                 <button class="labelBtn" id="addCat">
@@ -330,7 +306,7 @@
             <div>
                 <!-- Name input -->
                 <label for = "eventName">Name:</label>
-                <input type = "text" id="labelName" name="labelName">
+                <input type = "text" id="labelName" name="labelName" maxlength="13">
             </div>
             <div class = "labelColorPicker">
                 <!-- Color picker -->
@@ -343,6 +319,35 @@
             <div>
                 <!-- Save button -->
                 <button id = "saveLabel">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Label editor modal -->
+    <div class = "labelEditorModal">
+        <div class = "labelEditorModal-content">
+            <!-- Back button -->
+            <span class = "closeLabelEditor">⬅</span> <!-- The back arrow icon -->
+            <!-- Header -->
+            <h2>Edit Label</h2>
+            <div>
+                <!-- Name input -->
+                <label for = "eventName">Name:</label> <!-- Change this at some point -->
+                <input type = "text" id="labelEditName" name="labelName" maxlength="13">
+            </div>
+            <div class = "labelColorEdit">
+                <!-- Color picker -->
+                <input type = "color" id = "labelColorEdit" value="#ffffff">
+            </div>
+            <!-- View of current emoji-->>
+            <div id = "emojiPreviewEdit"></div>
+            <!-- Emoji picker light mode-->
+            <emoji-picker id="emojiEditPicker" class="light"></emoji-picker>
+            <div class="labConfirmBtns">
+                <!-- Save button -->
+                <button class = "saveLabelEdit">Save</button>
+                <!-- Delete button -->
+                <button class="deleteLab">Delete</button>
             </div>
         </div>
     </div>
@@ -363,6 +368,30 @@
             </div>
             <!-- Save button -->
             <button class = "saveCat">Save</button>
+        </div>
+    </div>
+
+    <!-- Category Editor Modal -->
+    <div class="catEditorModal">
+        <div class="catEditorModel-content">
+            <div class="catHeader">
+                <!-- Header -->
+                <h2>Edit Category</h2>
+                <!-- Close button -->
+                <span class="closeEditCat">x</span>
+            </div>
+            <div>
+                <!-- Name input -->
+                <label for = "categoryName">Name:</label>
+                <input type = "text" id="categoryNameEdited" name="labelName" maxlength="13">
+            </div>
+            <div class="catConfirmBtns">
+                <!-- Save button -->
+                <button class="saveEditCat">Save</button>
+
+                <!-- Delete button -->
+                <button class="deleteCat">Delete</button>
+            </div>
         </div>
     </div>
 

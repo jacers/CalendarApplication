@@ -307,4 +307,121 @@
 .submitButtonLab:hover
 {
     background-color: #e0e0e0;
-} 
+}
+
+.catEditorModal
+{
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.4);
+    padding-top: 60px;
+}
+
+.catEditorModel-content
+{
+    display: flex;
+    flex-direction: column;
+    background-color: #fefefe;
+    margin: 12% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 30%;
+}
+
+.closeEditCat
+{
+    display: flex;
+    justify-content: right;
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.closeEditCat:hover,
+.closeEditCat:focus
+{
+    color: black; /* Gives the x a thicker color when hovered over */
+    cursor: pointer; /* Changes the cursor to a pointer when hovering over the x */
+}
+
+.catConfirmBtns
+{
+    margin-top: 35px;
+    width: 100%;
+}
+
+.saveEditCat,
+.deleteCat
+{
+    width: 25%;
+    margin-left: 0 !important;
+}
+
+.deleteCat
+{
+    margin-left: 30px !important;
+}
+
+.labelEditorModal 
+{
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.labelEditorModal-content
+{
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 40%;  
+}
+
+.closeLabelEditor
+{
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.closeLabelEditor:hover,
+.closeLabelEditor:focus 
+{
+    color: black; /* Gives the x a thicker color when hovered over */
+    cursor: pointer; /* Changes the cursor to a pointer when hovering over the x */
+}
+
+#labelEditName
+{
+    margin-bottom: 4%;
+}
+
+.labConfirmBtns
+{
+    margin-top: 35px;
+    width: 100%;
+}
+
+.saveLabelEdit,
+.deleteLab
+{
+    width: 25%;
+    margin-left: 0 !important;
+}
+
+.deleteLab
+{
+    margin-left: 30px !important;
+}
