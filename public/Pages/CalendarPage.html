@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset = "UTF-8">
+    <meta name = "viewport" content = "width=device-width, initial-scale=1.0">
+    <title>Calendar Application - Calendar</title>
+    <link rel = "stylesheet" href = "../../src/Styles/CalendarStyles.css">
+</head>
+<body>
+    <div class = "calendarContainer">
+        <header class = "calendarHeader">
+            <h1>CalendarName</h1>
+
+            <!-- This is the month navgation display at the top of the website -->
+            <div class = "monthNavigation">
+                <button id = "prevButton">&lt;</button> <!-- Can be &lt; -->
+                <h2 id = "monthYearDisplay">Month Year</h2>
+                <button id = "nextButton">&gt;</button> <!-- Can be $gt; -->
+            </div>
+
+            <!-- This is the search bar display at the top of the website -->
+            <div class = "searchBar">
+                <input type = "text" class = "searchBarInput" placeholder = "Search.... bleh">
+                <button class = searchBarButton>Search</button>
+            </div>
+
+            <!-- This is to allow users to switch between what view they want currently displayed -->
+            <div class = "viewSelection">
+                <select id="viewSelectionContent">
+                    <option value = "month" selected>Month</option>
+                    <option value = "day" >Day</option>
+                    <option value = "year" >Year</option>
+                    <option value = "week" >Week</option>
+                </select>
+            </div>
+
+            <!-- This is the dropdown selection located in the top right corner of the page -->
+            <div class = "dropdownLinks">
+                <button class = "dropButton">&#9776;</button>
+                <div class = "dropdownContent">
+                    <a href = "../../index.html">Home</a>
+                    <a href = "../../index.html">Login</a>
+                    <a href = "SettingPage.html">Setting</a>
+                </div>
+            </div>
+            
+        </header>
+        <div class = "calendar">
+            <div class = "calendarBody">
+                <div class = "days"> </div>
+            </div>
+        </div>
+    </div>
+    <script src = "../../src/Scripts/Calendar/Views.js"></script> <!-- This has to be first because following script depends on it -->
+    <script src = "../../src/Scripts/Calendar/Calendar.js"></script>
+</body>
+</html>

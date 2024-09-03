@@ -1,0 +1,127 @@
+/* Validation Indicators*/
+.valid::before
+{
+    content: "\2714"; /* Checkmark symbol */
+    color: green;
+    margin-right: 5px; /* Giving a 5px space between the symbol and words */
+}
+
+.invalid::before
+{
+    content: "\2718"; /* X symbol */
+    color: red;
+    margin-right: 5px; /* Giving a 5px space between the symbol and words */
+}
+
+/* Basic Styling (For every webpage) */
+html, body /* Ensure the viewport is set correctly or at least centered and somewhat organized */
+{
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    font-family: Arial, Helvetica, sans-serif;
+    box-sizing: border-box;
+}
+
+header /* Color for all text under header section */
+{
+    color: white;
+    font-family: Georgia, serif;
+}
+
+.container /* Flexbox container to center the content */
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Ensure it takes at least the full viewport height */
+    padding: 20px; /* Add some padding for small screens */
+    background-color: #7ba683; /* Colors the HTML webpage */
+    color: black; /* Color of the text */
+}
+
+main /* Center the main content and make it responsive */
+{
+    background: #d1cba9; /* Colors the container or the main web content that it sits in */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Can be removed if we do not like the shadow(s) */
+    width: 100%;
+    max-width: 500px; /* Limit the maximum width for larger screens */
+}
+
+/* Form Styling */
+.FormGroup /* Adding space under each gorm group so that they are not too close to each other */
+{
+    margin-bottom: 15px;
+}
+
+.FormGroup label /* Gives the label its own section and separates it from other components */
+{
+    display: block;
+    margin-bottom: 5px;
+}
+
+.FormGroup input /* Styles for the elements inside the form groups */
+{
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+/* Button Styles */
+.FormAction /* Container style of the submit button */
+{
+    text-align: center;
+    margin-top: 20px;
+}
+
+.FormAction button /* Styles the button itself */
+{
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    background-color: #7ec999;
+    color: white;
+    font-size: 16px;
+    cursor: pointer; /* Changes the cursor to a pointer button hovering over the button (Can be removed) */
+}
+
+.FormAction button /* The background of the button changes when the cursor is over it */
+{
+    background-color: #376753;
+}
+
+/* Password requirements styling */
+#PasswordRequirements
+{
+    list-style-type: none; /* Removes the default bullet points */
+    padding: 0;
+}
+
+#PasswordRequirements li /* Adds a bit of separation between the list items */
+{
+    margin: 5px 0;
+}
+
+/* Link styling for registration*/
+.Link
+{
+    text-align: center;
+    margin-top: 20px;
+}
+
+.Link a
+{
+    color: rgb(51, 72, 209);
+    text-decoration: none; /* Removes the underline that is present under each link */
+}
+
+.Link a
+{
+    text-decoration: underline; /* Adds the underline when hovering over it (Can be removed if desired) */
+}

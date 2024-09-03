@@ -1,0 +1,61 @@
+
+<!DOCTYPE html>
+<html lang = "en">
+<head> 
+    <meta charset = "UTF-8">
+    <meta name = "viewport" content = "width=device-width, initial-scale=1.0">
+    <title>HomePage</title>
+    <link rel = "stylesheet" href = "src/Styles/HomePageStyles.css">
+</head>
+<body>
+    <div id = "container">
+        <div id = "LeftPanel">
+            <div id = "WelcomeSection">
+                <h1>Welcome to Our UnamedCalendar (Plz give name)!</h1>
+                <p>Your go-to place for all your scheduling needs AHSDKJSBDAJSBF.</p>
+            </div>
+        </div>
+        <div id = "RightPanel">
+            <div id = "AuthenticationSection">
+                <!-- Login Form -->
+                <form id = "LoginSection" class = "AuthenticationForm">
+                    <h2>Log In</h2>
+                    <input type = "email" id = "LEmailAddress" placeholder = "Email Address" required>
+                    <input type = "password" id = "LPassword" placeholder = "Password" required>
+                    <!-- Yes the button wording is redundant, but please do not change, it will not work with Firebase otherwise -->
+                    <button type = "button" id = "LoginButton">Log In</button>
+
+                    <div>
+                        <button id = "googleSignInButton">Sign In with Google</button>
+                        <button id = "logoutButton">Log Out</button>
+                    </div>
+
+                    <p>Don't have an account? <a href = "#" id = "RegistrationLink">Create an account here</a></p>
+                    <p>Or continue as a <a href = "public/Pages/CalendarPage.html">guest</a></p>
+                </form>
+                
+                <!-- Registration Form -->
+                <form id = "RegistrationForm" class = "AuthenticationForm" style = "display: none;">
+                    <h2>Create an Account</h2>
+                    <input type =  "text" id = "RFirstName" placeholder = "First Name" required>
+                    <input type = "text" id = "RLastName" placeholder = "Last Name" required>
+                    <input type = "email" id = "REmailAddress" placeholder = "Email Address" required>
+                    <input type = "password" id = "RPassword" placeholder =  "Password" required>
+                    <ul id="PasswordRequirements">
+                        <li>At least 6-24 characters</li>
+                        <li>At least one special character</li>
+                        <li>At least one number</li>
+                        <li>At least one uppercase letter</li>
+                        <li>At least one lowercase letter</li>
+                    </ul>
+                    <!-- Yes the button wording is redundant, but please do not change, it will not work with Firebase otherwise -->
+                    <button type = "button" id = "RegisterButton">Create Account</button>
+                    <p>Already have an account? <a href = "#" id = "LoginLink">Log in here</a></p>
+                </form>
+        </div>
+    </div>
+    <script src = "src/Scripts/Home/HomeAnimation.js"></script>
+    <script src = "src/Scripts/Accounts/PasswordCheck.js"></script>
+    <script type = module src = "src/Scripts/Accounts/AuthenticationForms.js"></script>
+</body>
+</html>
