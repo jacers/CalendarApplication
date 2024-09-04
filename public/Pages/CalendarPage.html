@@ -4,6 +4,7 @@
     <meta charset = "UTF-8">
     <meta name = "viewport" content = "width=device-width, initial-scale=1.0">
     <title>Calendar Application - Calendar</title>
+
     <script type="module" src="https://cdn.jsdelivr.net/npm/emoji-picker-element@^1/index.js"></script>
 
     <!-- Fonts -->
@@ -27,6 +28,22 @@
                 <h2 id = "monthYearDisplay">Month Year</h2>
                 <button id = "nextButton">&gt;</button> <!-- Can be $gt; -->
             </div>
+          
+          
+          <!-- Trying to reconnect, idk if we really need this with teh switch in plans -->
+          <!-- This is to allow users to switch between what view they want currently displayed -->
+            <div class = "viewSelection">
+                <select id="viewSelectionContent">
+                    <option value = "month" selected>Month</option>
+                    <option value = "day" >Day</option>
+                    <option value = "year" >Year</option>
+                    <option value = "week" >Week</option>
+                </select>
+            </div>
+          
+          
+          
+  
             <div class="userFunctions">
                 <!-- New Event Button -->
                 <button class="newEventBtn" id="openNewEvent">
@@ -45,8 +62,9 @@
                         <img src="../../src/Images/whiteDropdown.png" alt="Toggle Panel">
                     </button>
                     <div class = "dropdownContent">
-                        <a href = "../Pages/HomePage.html">Home</a>
-                        <a href = "../Pages/LoginPage.html">Login</a>
+                        <a href = "../../index.html">Home</a>
+                        <a href = "../../index.html">Login</a>
+                        <a href = "SettingPage.html">Setting</a>
                     </div>
                 </div>
             </div>
@@ -410,10 +428,10 @@
     </div>
 </footer>
 
+<script src = "../../src/Scripts/Calendar/Views.js"></script> <!-- This has to be first because following script depends on it -->
 <script src = "../../src/Scripts/Calendar/Calendar.js"></script>
 <script src="../../src/Scripts/Calendar/labelPanel.js"></script>
 <script src="../../src/Scripts/Calendar/labelPanelLabel.js"></script>
 <script src="../../src/Scripts/Calendar/labelPanelCategory.js"></script>
-
 </body>
 </html>

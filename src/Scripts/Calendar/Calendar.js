@@ -1,3 +1,4 @@
+
 // Constructs a new event to be added to the calendar
 class Event {
     constructor(name, location, startDate, startTime, endDate, endTime, notes, label) {
@@ -109,6 +110,9 @@ const nextBtn          = document.getElementById("nextButton"      );
 const monthYearDisplay = document.getElementById("monthYearDisplay");
 const daysContainer    = document.querySelector (".days"           );
 
+// Will most likely be removed (Just trying to resolve conflicts as of now)
+const viewSelectionContent = document.getElementById("viewSelectionContent");
+
 // Modal for color picker; will appear in front of and disable other elements
 const openModalBtn = document.getElementById("openModalBtn");
 const modal = document.getElementById("colorPickerModal");
@@ -184,8 +188,97 @@ const thursdayFillColorInput = document.getElementById("thursdayFillColor");
 const fridayFillColorInput = document.getElementById("fridayFillColor");
 const saturdayFillColorInput = document.getElementById("saturdayFillColor");
 
+
 // Initializing the "current" date to display to user
 let currentDate = new Date();
+
+
+
+
+/*
+
+// Creating an instance of Views from the Views class
+const views = new Views(currentDate, daysContainer, monthYearDisplay);
+
+// Event listeners for buttons to change the date
+prevBtn.addEventListener("click", () => {
+
+    // Creating a variable that contains the value of the user selction
+    const currentView = viewSelectionContent.value;
+
+    if (currentView === "month") {
+        currentDate.setMonth(currentDate.getMonth() - 1);
+        views.renderCalendarMonth();
+    } else if (currentView === "year") {
+        currentDate.setFullYear(currentDate.getFullYear() - 1);
+        views.renderCalendarYear();
+    } else if (currentView === "week") {
+        currentDate.setDate(currentDate.getDate() - 7);
+        views.renderCalendarWeek();
+    } else if (currentView === "day") {
+        currentDate.setDate(currentDate.getDate() - 1);
+        views.renderCalendarDay();
+    }
+});
+
+nextBtn.addEventListener("click", () => {
+
+    // Creating a variable that contains the value of the user selction
+    const currentView = viewSelectionContent.value;
+
+    if (currentView === "month") {
+        currentDate.setMonth(currentDate.getMonth() + 1);
+        views.renderCalendarMonth();
+    } else if (currentView === "year") {
+        currentDate.setFullYear(currentDate.getFullYear() + 1);
+        views.renderCalendarYear();
+    } else if (currentView === "week") {
+        currentDate.setDate(currentDate.getDate() + 7);
+        views.renderCalendarWeek();
+    } else if (currentView === "day") {
+        currentDate.setDate(currentDate.getDate() + 1);
+        views.renderCalendarDay();
+    }
+});
+
+
+// The current calendar look upon opening the page (The initial render)
+// Can be changed to something else (this is temporary to see if the views are "working")
+views.renderCalendarMonth();
+
+// Event listener for selection change in the view (Users will choose what view they would like to see)
+viewSelectionContent.addEventListener("change", function() {
+    const selectedValue = this.value;
+
+    // Clear previous content if necessary (which probably will if view is changed)
+    daysContainer.innerHTML = "";
+
+    switch (selectedValue) 
+    {
+        case "month":
+            daysContainer.classList.remove("dayViewContainer", "yearViewContainer", "weekViewContainer");
+            views.renderCalendarMonth();
+            break;
+        case "day":
+            daysContainer.classList.remove("yearViewContainer", "weekViewContainer", "monthViewContainer");
+            views.renderCalendarDay();
+            break;
+        case "year":
+            daysContainer.classList.remove("weekViewContainer", "monthViewContainer", "dayViewContainer");
+            views.renderCalendarYear();
+            break;
+        case "week":
+            daysContainer.classList.remove("dayViewContainer", "yearViewContainer", "monthViewContainer");
+            views.renderCalendarWeek();
+            break;
+    }
+});
+
+// Trigger the change event on page load to set the default view
+viewSelectionContent.dispatchEvent(new Event("change"));
+/*
+
+
 
 // Function that returns events for a specific day
 function getEventsForDay(day) {
@@ -848,3 +941,4 @@ saturdayFillColorInput .addEventListener("input", updateDayColors);
 // The current calendar look upon opening the page
 renderCalendar();
 updateDayColors();
+

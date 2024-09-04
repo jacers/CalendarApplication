@@ -10,10 +10,12 @@ Notes: Connected to RegistrationPage.html
 
 // Waiting for the HTML document to be fully loaded before performing any actions
 document.addEventListener("DOMContentLoaded", function()
-{
+
+{ 
     // Retrieve references to the HTML elements based on the IDs we gave them
     var registrationForm = document.getElementById("RegistrationForm");
-    var passwordInput = document.getElementById("Password");
+    var passwordInput = document.getElementById("RPassword");
+
     var passwordRequirements = document.getElementById("PasswordRequirements").getElementsByTagName("li");
 
     // Adding an event listener to the form itself (meaning the submit button)
@@ -32,6 +34,9 @@ document.addEventListener("DOMContentLoaded", function()
         if (!isValidPassword)
         {
             passwordInput.setCustomValidity("Please meet all of the password requirements.");
+
+            passwordInput.reportValidity();
+
             return;
         } else {
             passwordInput.setCustomValidity("");

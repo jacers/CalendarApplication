@@ -1,9 +1,13 @@
+
+/* Basic Styling */
+
 body, html 
 {
     margin: 0;
     padding: 0;
     width: 100%;
     height: 100%;
+
     font-family: "Open Sans", sans-serif;
     background-color: #7ba683; /* Same green background as before in PrimaryStyles*/
     display: flex;
@@ -30,6 +34,10 @@ body, html
     padding: 0;
 }
 
+
+
+/* Header */
+
 .calendarHeader 
 {
     display: flex;
@@ -42,6 +50,8 @@ body, html
     font-family: Georgia, serif;
     box-sizing: border-box;
 }
+
+
 
 .labelHideShow 
 {
@@ -98,10 +108,13 @@ body, html
 
 /* Dropdown Menu Styles */
 .dropdown 
+
 {
     position: relative;
     display: inline-block;
 }
+
+
 
 .userFunctions 
 {
@@ -139,6 +152,7 @@ body, html
 
 .dropdownContent
 .dropdownContent {
+
     display: none;
     position: absolute;
     right: 0;
@@ -161,15 +175,54 @@ body, html
     background-color: #f1f1f1;
 }
 
+
 .dropdown:hover .dropdownContent 
+
 {
     display: block;
 }
+
 
 .dropdown:hover .dropButton 
 {
     background-color: #3e8e41;
 }
+
+
+/* Day view styles 
+.dayView 
+{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border: 1px solid #ddd;
+    background-color: #fff;
+}
+
+.dayView .hour 
+{
+    position: absolute;
+    width: 100%;
+    border-bottom: 1px solid #eee;
+    height: 60px; 
+}
+
+.dayView .hour span 
+{
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    font-size: 14px;
+    color: #666;
+}
+
+.dayViewContainer 
+{
+    flex-grow: 1;
+}
+*/
+
+
 
 .userFunctions .newEventBtn 
 {
@@ -273,6 +326,20 @@ body, html
     flex-direction: column;
 }
 
+
+
+/* Month view styles 
+.monthViewContainer 
+{
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-auto-rows: 1fr;
+    gap: 1px;
+}
+*/
+
+
+
 .weekdays 
 {
     display: flex;
@@ -295,13 +362,19 @@ body, html
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     grid-auto-rows: 1fr; /* Make rows fill the available space */
+
+    /* gap: 1px;  Small gap between days */
 }
 
 .days div 
 {
     display: flex;
     justify-content: center;
+
+    /* align-items: center;*/
+
     align-items: top;
+
     padding: 10px;
     text-align: center;
     cursor: pointer; /* Changes the cursor to a pointer when hovering over the days */
@@ -312,6 +385,114 @@ body, html
 {
     color: #ccc; /* Sets the color for days not in current month */
 }
+
+
+
+/* Year view container 
+.yearViewContainer 
+{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 10px;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+ Individual month container
+.month 
+{
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 10px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+ Month title
+.month h3 
+{
+    margin: 0 0 10px 0;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+ Month days grid
+.monthDaysGrid 
+{
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-auto-rows: 1fr;
+    gap: 2px;
+    width: 100%;
+}
+
+ Individual day in month view 
+.yearDay 
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+    height: 30px;
+    cursor: pointer;
+}
+
+
+ Empty day placeholder 
+.emptyDay 
+{
+    background-color: transparent;
+    border: 1px solid transparent;
+}
+
+
+
+ Week view container
+.weekViewContainer {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: auto 1fr;
+    gap: 1px;
+    box-sizing: border-box;
+    height: 100%;
+}
+
+ Weekday headers 
+.weekdayHeader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f0f0;
+    font-weight: bold;
+    border: 1px solid #ddd;
+    height: 50px;
+}
+
+ Weekday blocks 
+.weekdayBlock {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    cursor: pointer;
+    padding: 10px;
+    height: 100%; 
+}
+
+ IDK IF THIS IS REALLY NEEDED (just some random thing i added. Was thinking about
+allowing users to also change views by clicking on the calendar themselves) 
+Please keep in mind this just makes the clicking ability visible-ish
+.weekdayBlock:hover {
+    background-color: #f0f0f0;
+}
+*/
+
 
 .colorPickerModal 
 {
@@ -734,3 +915,4 @@ emoji-picker
     width: 34px;
     height: 34px;
 }
+

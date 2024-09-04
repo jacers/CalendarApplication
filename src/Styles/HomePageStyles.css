@@ -1,0 +1,100 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+#container {
+    display: flex;
+    height: 100vh;
+}
+
+#LeftPanel, #RightPanel {
+    width: 50%;
+    padding: 20px;
+}
+
+#LeftPanel {
+    background-color: #376753;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+#WelcomeSection h1 {
+    margin: 0;
+    font-size: 2.5em;
+    color: white;
+}
+
+#WelcomeSection p {
+    font-size: 1.2em;
+    color: white;
+}
+
+#RightPanel {
+    background-color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.AuthenticationForm {
+    width: 80%;
+    max-width: 400px;
+    margin: 0 auto;
+    text-align: center; 
+}
+
+.AuthenticationForm input {
+    display: block;
+    width: calc(100% - 20px);
+    margin: 10px auto;
+    padding: 10px;
+    font-size: 1em;
+}
+
+.AuthenticationForm button {
+    background-color: #376753;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+}
+
+.AuthenticationForm button:hover {
+    background-color: #3e8e41;
+}
+
+.AuthenticationForm p {
+    margin: 10px 0;
+}
+
+/* PasswordRequirements Styles */
+#PasswordRequirements {
+    list-style: none;
+    padding: 0;
+    text-align: left;
+    margin: 10px auto;
+    font-size: 0.9em;
+}
+
+#PasswordRequirements li {
+    margin-bottom: 5px;
+}
+
+.valid::before
+{
+    content: "\2714"; 
+    color: green;
+    margin-right: 5px; 
+}
+
+.invalid::before
+{
+    content: "\2718"; 
+    color: red;
+    margin-right: 5px; 
+}
+
