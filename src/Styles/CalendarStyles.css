@@ -1,16 +1,29 @@
+
 /* Basic Styling */
+
 body, html 
 {
     margin: 0;
     padding: 0;
     width: 100%;
     height: 100%;
-    font-family: Arial, sans-serif;
+
+    font-family: "Open Sans", sans-serif;
     background-color: #7ba683; /* Same green background as before in PrimaryStyles*/
+    display: flex;
+    flex-direction: column;
 }
 
+.open-sans-font
+{
+  font-family: "Open Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 100;
+  font-style: normal;
+  font-variation-settings:
+    "wdth" 100;
+}
 
-/* Styling for the container that holds the calendar views */
 .calendarContainer 
 {
     display: flex;
@@ -22,7 +35,9 @@ body, html
 }
 
 
+
 /* Header */
+
 .calendarHeader 
 {
     display: flex;
@@ -36,66 +51,108 @@ body, html
     box-sizing: border-box;
 }
 
+
+
+.labelHideShow 
+{
+    background-color: #376753;
+    border: 1px solid white;
+    cursor: pointer;
+}
+
+.labelHideShow img 
+{
+    width: 34px;
+    height: 34px;
+}
+
+.labelHideShow:hover
+{
+    background-color: #3e8e41;
+}
+
+.calendarHeader 
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 10px;
+    background-color: #376753; /* Background color of the header */
+    color: #fff; /* Color of the header text */
+    font-family: Georgia, serif;
+    box-sizing: border-box;
+}
+
 .calendarHeader h1 /* Removes the extra "space" above the calendar */
 {
     margin: 0;
 }
 
-.calendar 
+#prevButton, 
+#nextButton 
 {
-    background-color: #fff; /* White background for calendar */
-    border-radius: 0; /* Remove border-radius to make the calendar touch the edges */
-    width: 100%;
-    height: 100%;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
+    background-color: transparent;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    transition: color 0.3s ease;
 }
 
-/* The date view at the top that users see */
-.monthNavigation 
+#prevButton:hover, 
+#nextButton:hover 
 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 10px;
-    background-color: #376753; /* Background color for month navigation */
-    color: #fff; /* Color of month text */
-    border-top: none; /* Remove top border-radius */
+    color: #ccc; /* Lighten text color on hover */
 }
 
-.monthNavigation h2 
-{
-    margin: 0 20px;
-}
+/* Dropdown Menu Styles */
+.dropdown 
 
-.calendarBody 
-{
-    flex-grow: 1; /* Allowing the calendar to expand to fill any remaining vertical space */
-    display: flex;
-    flex-direction: column;
-}
-
-
-/* Styling for the dropdown menu */
-.dropdownLinks 
 {
     position: relative;
     display: inline-block;
 }
 
-.dropdownLinks .dropButton 
+
+
+.userFunctions 
 {
+    /* Solution to keeping drop button functionality 
+    and the search button correctly formated */
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.dropdown .dropButton {
     background-color: #376753;
     color: white;
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid white; /* Border color around the dropdown button */
+    border: 1px solid white;
+}
+
+.dropdown .optionsDropButton {
+    background-color: white;
+    color: white;
+    border: 0px;
     cursor: pointer;
 }
 
-.dropdownContent 
+.dropdown img 
 {
+    width: 34px;
+    height: 34px;
+}
+
+.optionsDropButton img:hover
+{
+    border-radius: 100%;
+    background-color: #e0e0e0;
+}
+
+.dropdownContent
+.dropdownContent {
+
     display: none;
     position: absolute;
     right: 0;
@@ -118,18 +175,21 @@ body, html
     background-color: #f1f1f1;
 }
 
-.dropdownLinks:hover .dropdownContent 
+
+.dropdown:hover .dropdownContent 
+
 {
     display: block;
 }
 
-.dropdownLinks:hover .dropButton 
+
+.dropdown:hover .dropButton 
 {
     background-color: #3e8e41;
 }
 
 
-/* Day view styles */
+/* Day view styles 
 .dayView 
 {
     position: relative;
@@ -144,7 +204,7 @@ body, html
     position: absolute;
     width: 100%;
     border-bottom: 1px solid #eee;
-    height: 60px; /* Each hour is represented by a 60px height (the gray line) */
+    height: 60px; 
 }
 
 .dayView .hour span 
@@ -159,18 +219,141 @@ body, html
 .dayViewContainer 
 {
     flex-grow: 1;
+}
+*/
+
+
+
+.userFunctions .newEventBtn 
+{
+    background-color: #376753;
+    border: 1px solid white;
+    cursor: pointer;
+}
+
+.userFunctions .newEventBtn:hover 
+{
+    background-color: #3e8e41;
+}
+
+.userFunctions .newEventBtn img 
+{
+    width: 34px;
+    height: 34px;
+}
+
+.userFunctions .customizeBtn
+{
+    background-color: #376753;
+    border: 1px solid white;
+    cursor: pointer;
+}
+
+.userFunctions .customizeBtn:hover 
+{
+    background-color: #3e8e41;
+}
+
+.userFunctions .customizeBtn img 
+{
+    width: 34px;
+    height: 34px;
+}
+
+.userFunctions .searchBtn 
+{
+    background-color: #376753;
+    border: 1px solid white;
+    cursor: pointer;
+}
+
+.userFunctions .searchBtn:hover 
+{
+    background-color: #3e8e41;
+}
+
+.userFunctions .searchBtn img 
+{
+    width: 34px;
+    height: 34px;
+}
+
+.mainContent
+{
+    width: 100%;
+    height: calc(100% - 60px);
+    display: flex;
+    flex-direction: row;
+}
+
+.calendar 
+{
+    background-color: #fff; /* White background for calendar */
+    border-radius: 0; /*Remove border-radius to make the calendar touch the edges*/
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+.monthNavigation 
+{
+    width: 290px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #376753; /* Background color for month navigation */
+    color: #f0f0f0; /* Color of month text */
+    border-top: none; /* Remove top border-radius */
+}
+
+.monthNavigation h2 
+{
+    margin: 0 20px;
+}
+
+.monthNavigation button
+{
+    cursor: pointer;
+}
+
+.calendarBody 
+{
+    flex-grow: 1; /* Allowing the calendar to expand to fill any remaining vertical space */
     display: flex;
     flex-direction: column;
 }
 
 
-/* Month view styles */
+
+/* Month view styles 
 .monthViewContainer 
 {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     grid-auto-rows: 1fr;
     gap: 1px;
+}
+*/
+
+
+
+.weekdays 
+{
+    display: flex;
+    justify-content: space-around;
+    background-color: #ffffff; /* Colors the background of the weekday display */
+    padding: 5px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.weekdays div 
+{
+    flex: 1;
+    text-align: center;
+    font-weight: bold;
 }
 
 .days 
@@ -179,14 +362,19 @@ body, html
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     grid-auto-rows: 1fr; /* Make rows fill the available space */
-    gap: 1px; /* Small gap between days */
+
+    /* gap: 1px;  Small gap between days */
 }
 
 .days div 
 {
     display: flex;
     justify-content: center;
-    align-items: center;
+
+    /* align-items: center;*/
+
+    align-items: top;
+
     padding: 10px;
     text-align: center;
     cursor: pointer; /* Changes the cursor to a pointer when hovering over the days */
@@ -199,7 +387,8 @@ body, html
 }
 
 
-/* Year view container */
+
+/* Year view container 
 .yearViewContainer 
 {
     display: grid;
@@ -210,7 +399,7 @@ body, html
     box-sizing: border-box;
 }
 
-/* Individual month container */
+ Individual month container
 .month 
 {
     background-color: #fff;
@@ -222,7 +411,7 @@ body, html
     align-items: center;
 }
 
-/* Month title */
+ Month title
 .month h3 
 {
     margin: 0 0 10px 0;
@@ -231,7 +420,7 @@ body, html
     font-weight: bold;
 }
 
-/* Month days grid */
+ Month days grid
 .monthDaysGrid 
 {
     display: grid;
@@ -241,7 +430,7 @@ body, html
     width: 100%;
 }
 
-/* Individual day in month view */
+ Individual day in month view 
 .yearDay 
 {
     display: flex;
@@ -254,7 +443,7 @@ body, html
 }
 
 
-/* Empty day placeholder */
+ Empty day placeholder 
 .emptyDay 
 {
     background-color: transparent;
@@ -263,17 +452,17 @@ body, html
 
 
 
-/* Week view container */
+ Week view container
 .weekViewContainer {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    grid-template-rows: auto 1fr; /* Two rows: one for headers and one for content */
+    grid-template-rows: auto 1fr;
     gap: 1px;
     box-sizing: border-box;
-    height: 100%; /* Fill the entire container height */
+    height: 100%;
 }
 
-/* Weekday headers */
+ Weekday headers 
 .weekdayHeader {
     display: flex;
     justify-content: center;
@@ -281,10 +470,10 @@ body, html
     background-color: #f0f0f0;
     font-weight: bold;
     border: 1px solid #ddd;
-    height: 50px; /* Fixed height for the header */
+    height: 50px;
 }
 
-/* Weekday blocks */
+ Weekday blocks 
 .weekdayBlock {
     display: flex;
     justify-content: center;
@@ -293,13 +482,437 @@ body, html
     border: 1px solid #ddd;
     cursor: pointer;
     padding: 10px;
-    height: 100%; /* Ensure it fills the remaining space */
+    height: 100%; 
 }
 
-/* IDK IF THIS IS REALLY NEEDED (just some random thing i added. Was thinking about
+ IDK IF THIS IS REALLY NEEDED (just some random thing i added. Was thinking about
 allowing users to also change views by clicking on the calendar themselves) 
-Please keep in mind this just makes the clicking ability visible-ish*/
+Please keep in mind this just makes the clicking ability visible-ish
 .weekdayBlock:hover {
-    background-color: #f0f0f0; /* Change background on hover */
+    background-color: #f0f0f0;
+}
+*/
+
+
+.colorPickerModal 
+{
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.4);
+    padding-top: 60px;
+    overflow: auto /* Ensures scroll wheel appears if modal goes off screen*/
+}
+
+.colorPickerModal-content 
+{
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    overflow-y: auto; /* Ensures scroll wheel appears if modal goes off screen*/
+}
+
+.closeColorPicker 
+{
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.closeColorPicker:hover,
+.closeColorPicker:focus 
+{
+    color: black; /* Gives the x a thicker color when hovered over */
+    cursor: pointer; /* Changes the cursor to a pointer when hovering over the x */
+}
+
+.newEventModal 
+{
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.2);
+    padding-top: 60px;
+    overflow: auto /* Ensures scroll wheel appears if modal goes off screen*/
+}
+
+.newEventModal-content
+{
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    overflow-y: auto; /* Ensures scroll wheel appears if modal goes off screen*/
+}
+
+.form-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.form-group label {
+    width: 100px;
+    margin-right: 10px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea,
+.form-group button {
+    flex: 0;
+}
+
+.closeNewEvent
+{
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.closeNewEvent:hover,
+.closeNewEvent:focus 
+{
+    color: black; /* Gives the x a thicker color when hovered over */
+    cursor: pointer; /* Changes the cursor to a pointer when hovering over the x */
+}
+
+.eventsModal
+{
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    padding-top: 60px;
+    overflow: auto /* Ensures scroll wheel appears if modal goes off screen*/
+}
+
+.eventsViewerModal-content
+{
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width:
+     80%;
+}
+
+.catLabInputs {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+#labInputs {
+    display: none;
+}
+
+#eventLabelDropdown {
+    width: 125px;
+}
+
+#labInputs {
+    display: none;
+}
+
+#eventLabelDropdown {
+    width: 125px;
+}
+
+.closeEventsViewer
+{
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.closeEventsViewer:hover,
+.closeEventsViewer:focus
+{
+    color: black; /* Gives the x a thicker color when hovered over */
+    cursor: pointer; /* Changes the cursor to a pointer when hovering over the x */
+}
+
+/*Styling for general tables*/
+table
+{
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td
+{
+    border: 1px solid #ddd;
+}
+
+th
+{
+    background-color: #f2f2f2;
+}
+
+.colorPickerTable th,
+.colorPickerTable td
+{
+    text-align: center;
+}
+
+.colorPickerTable tbody tr td
+{
+    text-align: center;
+}
+
+.colorPickerTable tbody tr td:first-child,
+.colorPickerTable tbody tr th:first-child
+{
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+#eventTable th,
+#eventTable td,
+#pastEventTable th,
+#pastEventTable td
+{
+    text-align: left;
+    margin-left: 20px;
+}
+
+/* Set From and To column widths for the event tables */
+#eventTable th:nth-child(3),
+#eventTable th:nth-child(4),
+#eventTable td:nth-child(3),
+#eventTable td:nth-child(4),
+#pastEventTable th:nth-child(3),
+#pastEventTable th:nth-child(4),
+#pastEventTable td:nth-child(3),
+#pastEventTable td:nth-child(4) {
+    width: 150px;
+}
+
+/* Set Name and Label column widths to be half of the remaining space*/
+#eventTable th:nth-child(1),
+#eventTable th:nth-child(2),
+#eventTable td:nth-child(1),
+#eventTable td:nth-child(2),
+#pastEventTable th:nth-child(1),
+#pastEventTable th:nth-child(2),
+#pastEventTable td:nth-child(1),
+#pastEventTable td:nth-child(2) {
+    width: calc((100% - 340 px) / 2); /* Halve the remaining space and leave room for the final column */
+}
+
+/*Set the final column of the event tables to be a square*/
+#eventTable th:nth-child(5),
+#eventTable td:nth-child(5),
+#pastEventTable th:nth-child(5),
+#pastEventTable td:nth-child(5) {
+    width: 40px;
+    height: 40px;
+    text-align: center; /*Ensure all icons are centered*/
+}
+
+.labelMakerModal 
+{
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.4);
+    padding-top: 60px;
+    overflow: auto /* Ensures scroll wheel appears if modal goes off screen*/
+}
+
+.labelMakerModal-content
+{
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50%;
+    overflow-y: auto; /* Ensures scroll wheel appears if modal goes off screen*/
+}
+
+.closeLabelMaker
+{
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.closeLabelMaker:hover,
+.closeLabelMaker:focus 
+{
+    color: black; /* Gives the x a thicker color when hovered over */
+    cursor: pointer; /* Changes the cursor to a pointer when hovering over the x */
+}
+
+/* TODO: This is supposed to make it so the dropdown menu in the new label maker has a background color but it doesn't work*/
+option
+{
+    background-color: inherit;
+}
+
+emoji-picker
+{
+    width: 350px;
+    height: 300px;
+}
+
+.catMakerModal
+{
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.4);
+    padding-top: 60px;
+}
+
+.catMakerModel-content
+{
+    display: flex;
+    flex-direction: column;
+    background-color: #fefefe;
+    margin: 12% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 30%;
+}
+
+.catHeader
+{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#categoryName
+{
+    margin-bottom: 4%;
+}
+
+.closeNewCat
+{
+    display: flex;
+    justify-content: right;
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.closeNewCat:hover,
+.closeNewCat:focus
+{
+    color: black; /* Gives the x a thicker color when hovered over */
+    cursor: pointer; /* Changes the cursor to a pointer when hovering over the x */
+}
+
+.saveCat
+{
+    width: 20%;
+    margin: 0;
+}
+
+/* Dropdown Menu Styles */
+.dropdown 
+{
+    position: relative;
+    display: inline-block;
+}
+
+.userFunctions 
+{
+    /* Solution to keeping drop button functionality 
+    and the search button correctly formated */
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.dropdown .dropButton 
+{
+    background-color: #376753;
+    color: white;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #fff; /* Border color around the dropdown button */
+    cursor: pointer;
+}
+
+.dropdownContent
+{
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.4);
+    z-index: 1;
+}
+
+.dropdownContent a 
+{
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdownContent a:hover 
+{
+    background-color: #f1f1f1;
+}
+
+.dropdown:hover .dropdownContent 
+{
+    display: block;
+}
+
+.dropdown:hover .dropButton 
+{
+    background-color: #3e8e41;
+}
+
+.userFunctions .searchBtn 
+{
+    background-color: #376753;
+    border: 1px solid white;
+    cursor: pointer;
+}
+
+.userFunctions .searchBtn:hover 
+{
+    background-color: #3e8e41;
+}
+
+.userFunctions .searchBtn img 
+{
+    width: 34px;
+    height: 34px;
 }
 
