@@ -278,7 +278,7 @@ function submitCatInput(name)
 
     // Actual verticle dots image creation
     const dotImage = document.createElement('img');
-    dotImage.src = "../Images/verticleDots.png";
+    dotImage.src = "../../src/Images/verticleDots.png";
     dotImage.alt = "verticle dots";
 
     // Arrow up creation

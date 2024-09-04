@@ -389,7 +389,7 @@ function createEventsTable(event, tableElement) {
     const dropButton = document.createElement('button');
     dropButton.className = 'optionsDropButton';
     const optionsImg = document.createElement('img');
-    optionsImg.src = '../Images/verticleDots.png';
+    optionsImg.src = '../../src/Images/verticleDots.png'; // PLEASE MAKE SURE I RECONNECTED THIS CORRECTLY SORRY
     optionsImg.alt = 'Toggle Panel';
     optionsImg.style.width = '30px'; // Ensure the image fits the button
     optionsImg.style.height = '30px'; // Ensure the image fits the button
