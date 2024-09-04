@@ -11,15 +11,15 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto&display=swap" rel="stylesheet">
     <!-- Styles -->
-    <link rel = "stylesheet" href = "../Styles/CalendarStyles.css">
-    <link rel="stylesheet" href="../Styles/LabelPanelStyles.css">
+    <link rel = "stylesheet" href = "../../src/Styles/CalendarStyles.css">
+    <link rel="stylesheet" href="../../src/Styles/LabelPanelStyles.css">
 </head>
 <body>
     <div class = "calendarContainer">
         <!-- Top of the webpage-->
         <header class = "calendarHeader">
             <button class="labelHideShow">
-                <img src="../Images/whiteLeftPanelClose.png" alt="Toggle Panel">
+                <img src="../../src/Images/whiteLeftPanelClose.png" alt="Toggle Panel">
             </button>            
             <h1>CalendarName</h1>
             <div class = "monthNavigation">
@@ -30,23 +30,23 @@
             <div class="userFunctions">
                 <!-- New Event Button -->
                 <button class="newEventBtn" id="openNewEvent">
-                    <img src="../Images/whitePlus.png" alt="New Event">
+                    <img src="../../src/Images/whitePlus.png" alt="New Event">
                 </button>
                 <!-- Customize Button -->
                 <button class="customizeBtn" id = "openColorPickerBtn">
-                    <img src="../Images/whitePalette.png" alt="Customize">
+                    <img src="../../src/Images/whitePalette.png" alt="Customize">
                 </button>
                 <!-- Search Button -->
                 <button class="searchBtn" id="openEventsViewer">
-                    <img src="../Images/whiteMagGlass.png" alt="Search">
+                    <img src="../../src/Images/whiteMagGlass.png" alt="Search">
                 </button>
                 <div class = "dropdown">
                     <button class = "dropButton">
-                        <img src="../Images/whiteDropdown.png" alt="Toggle Panel">
+                        <img src="../../src/Images/whiteDropdown.png" alt="Toggle Panel">
                     </button>
                     <div class = "dropdownContent">
-                        <a href = "HomePage.html">Home</a>
-                        <a href = "LoginPage.html">Login</a>
+                        <a href = "../Pages/HomePage.html">Home</a>
+                        <a href = "../Pages/LoginPage.html">Login</a>
                     </div>
                 </div>
             </div>
@@ -60,7 +60,7 @@
                         <span class="catName">Work</span> 
                         <div class="catOptions">
                             <span class="verticleDots">
-                                <img src="../Images/verticleDots.png" alt="verticle dots">
+                                <img src="../../src/Images/verticleDots.png" alt="verticle dots">
                             </span>
                             <span class="labelArrow">⌃</span>
                         </div>
@@ -68,11 +68,11 @@
                     <div class="labelContent">
                         <label>
                             <input type="checkbox" checked>💼 Meetings
-                            <img src="../Images/verticleDots.png" alt="verticle dots">
+                            <img src="../../src/Images/verticleDots.png" alt="verticle dots">
                         </label>
                         <label>
                             <input type="checkbox" checked>🛠️ Projects
-                            <img src="../Images/verticleDots.png" alt="verticle dots">
+                            <img src="../../src/Images/verticleDots.png" alt="verticle dots">
                         </label>
                     </div>
                 </div>
@@ -81,7 +81,7 @@
                         <span class="catName">Personal</span>
                         <div class="catOptions">
                             <span class="verticleDots">
-                                <img src="../Images/verticleDots.png" alt="verticle dots">
+                                <img src="../../src/Images/verticleDots.png" alt="verticle dots">
                             </span>
                             <span class="labelArrow">⌃</span>
                         </div>
@@ -89,11 +89,11 @@
                     <div class="labelContent">
                         <label>
                             <input type="checkbox" checked>🎂 Birthdays
-                            <img src="../Images/verticleDots.png" alt="verticle dots">
+                            <img src="../../src/Images/verticleDots.png" alt="verticle dots">
                         </label>
                         <label>
                             <input type="checkbox" checked>⏰ Appointments
-                            <img src="../Images/verticleDots.png" alt="verticle dots">
+                            <img src="../../src/Images/verticleDots.png" alt="verticle dots">
                         </label>
                     </div>
                 </div>
@@ -102,7 +102,7 @@
                         <span class="catName">Other</span>
                         <div class="catOptions">
                             <span class="verticleDots">
-                                <img src="../Images/verticleDots.png" alt="verticle dots">
+                                <img src="../../src/Images/verticleDots.png" alt="verticle dots">
                             </span>
                             <span class="labelArrow">⌃</span>
                         </div>
@@ -110,11 +110,11 @@
                     <div class="labelContent">
                         <label>
                             <input type="checkbox" checked>🗽 US Holidays
-                            <img src="../Images/verticleDots.png" alt="verticle dots">
+                            <img src="../../src/Images/verticleDots.png" alt="verticle dots">
                         </label>
                         <label>
                             <input type="checkbox" checked>📍 Local Events
-                            <img src="../Images/verticleDots.png" alt="verticle dots">
+                            <img src="../../src/Images/verticleDots.png" alt="verticle dots">
                         </label>
                     </div>
                 </div>
@@ -410,10 +410,10 @@
     </div>
 </footer>
 
-<script src = "../Scripts/Calendar/Calendar.js"></script>
-<script src="../Scripts/Calendar/labelPanel.js"></script>
-<script src="../Scripts/Calendar/labelPanelLabel.js"></script>
-<script src="../Scripts/Calendar/labelPanelCategory.js"></script>
+<script src = "../../src/Scripts/Calendar/Calendar.js"></script>
+<script src="../../src/Scripts/Calendar/labelPanel.js"></script>
+<script src="../../src/Scripts/Calendar/labelPanelLabel.js"></script>
+<script src="../../src/Scripts/Calendar/labelPanelCategory.js"></script>
 
 </body>
 </html>

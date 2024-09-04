@@ -35,7 +35,7 @@ function submitLabInput(label)
 
     // Creation of label dots
     const newDots = document.createElement('img');
-    newDots.src = "../Images/verticleDots.png";
+    newDots.src = "../../src/Images/verticleDots.png"; // MAKE SURE CONNECTIONS IS CORRECT
     newDots.alt = "verticle dots";
 
     // Appending of proper elements
@@ -83,7 +83,7 @@ saveLabelEdit.addEventListener('click', (e) => {
     // Setting the HTML, necessary with custom checkbox
     const newLabelHTML = `
     <input type="checkbox" checked>${labelEmoji} ${newName}
-    <img src="../Images/verticleDots.png" alt="verticle dots">`;
+    <img src="../../src/Images/verticleDots.png" alt="verticle dots">`; // MAKE SURE CONNECTION IS CORRECT
 
     // Getting the color
     const newColor = labelColorEdit.value; // This implies a lot be careful

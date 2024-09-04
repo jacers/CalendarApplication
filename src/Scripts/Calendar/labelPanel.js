@@ -17,10 +17,10 @@ labelHideShow.addEventListener('click', (e) => {
 
     if (currentDisplay === 'block') {
         labelPanel.style.display = 'none';
-        button.src = '../Images/whiteLeftPanelOpen.png'; // Show image when panel is hidden
+        button.src = '../../src/Images/whitePanelOpen.png'; // Show image when panel is hidden MAKE SURE CONNECTIONS ARE CORRECT
     } else {
         labelPanel.style.display = 'block';
-        button.src = '../Images/whiteLeftPanelClose.png'; // Hide image when panel is shown
+        button.src = '../../src/Images/whiteLeftPanelClose.png'; // Hide image when panel is shown
     }
 });
 
