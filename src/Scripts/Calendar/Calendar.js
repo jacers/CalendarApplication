@@ -276,7 +276,7 @@ viewSelectionContent.addEventListener("change", function() {
 
 // Trigger the change event on page load to set the default view
 viewSelectionContent.dispatchEvent(new Event("change"));
-/*
+*/
 
 
 
