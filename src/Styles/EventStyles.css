@@ -1,0 +1,195 @@
+.newEventModal 
+{
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.2);
+    padding-top: 60px;
+    overflow: auto /* Ensures scroll wheel appears if modal goes off screen*/
+}
+
+.newEventModal-content
+{
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    overflow-y: auto; /* Ensures scroll wheel appears if modal goes off screen*/
+}
+
+.form-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.form-group label {
+    width: 100px;
+    margin-right: 10px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea,
+.form-group button {
+    flex: 0;
+}
+
+.closeNewEvent
+{
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.closeNewEvent:hover,
+.closeNewEvent:focus 
+{
+    color: black; /* Gives the x a thicker color when hovered over */
+    cursor: pointer; /* Changes the cursor to a pointer when hovering over the x */
+}
+
+.eventsModal
+{
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    padding-top: 60px;
+    overflow: auto /* Ensures scroll wheel appears if modal goes off screen*/
+}
+
+.eventsViewerModal-content
+{
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width:
+     80%;
+}
+
+.catLabInputs {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+#labInputs {
+    display: none;
+}
+
+#eventLabelDropdown {
+    width: 125px;
+}
+
+#labInputs {
+    display: none;
+}
+
+#eventLabelDropdown {
+    width: 125px;
+}
+
+.closeEventsViewer
+{
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.closeEventsViewer:hover,
+.closeEventsViewer:focus
+{
+    color: black; /* Gives the x a thicker color when hovered over */
+    cursor: pointer; /* Changes the cursor to a pointer when hovering over the x */
+}
+
+/*Styling for general tables*/
+table
+{
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td
+{
+    border: 1px solid #ddd;
+}
+
+th
+{
+    background-color: #f2f2f2;
+}
+
+.colorPickerTable th,
+.colorPickerTable td
+{
+    text-align: center;
+}
+
+.colorPickerTable tbody tr td
+{
+    text-align: center;
+}
+
+.colorPickerTable tbody tr td:first-child,
+.colorPickerTable tbody tr th:first-child
+{
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+#eventTable th,
+#eventTable td,
+#pastEventTable th,
+#pastEventTable td
+{
+    text-align: left;
+    margin-left: 20px;
+}
+
+/* Set From and To column widths for the event tables */
+#eventTable th:nth-child(3),
+#eventTable th:nth-child(4),
+#eventTable td:nth-child(3),
+#eventTable td:nth-child(4),
+#pastEventTable th:nth-child(3),
+#pastEventTable th:nth-child(4),
+#pastEventTable td:nth-child(3),
+#pastEventTable td:nth-child(4) {
+    width: 150px;
+}
+
+/* Set Name and Label column widths to be half of the remaining space*/
+#eventTable th:nth-child(1),
+#eventTable th:nth-child(2),
+#eventTable td:nth-child(1),
+#eventTable td:nth-child(2),
+#pastEventTable th:nth-child(1),
+#pastEventTable th:nth-child(2),
+#pastEventTable td:nth-child(1),
+#pastEventTable td:nth-child(2) {
+    width: calc((100% - 340 px) / 2); /* Halve the remaining space and leave room for the final column */
+}
+
+/*Set the final column of the event tables to be a square*/
+#eventTable th:nth-child(5),
+#eventTable td:nth-child(5),
+#pastEventTable th:nth-child(5),
+#pastEventTable td:nth-child(5) {
+    width: 40px;
+    height: 40px;
+    text-align: center; /*Ensure all icons are centered*/
+}
