@@ -2,6 +2,7 @@
 const allLabels = document.querySelectorAll('.labelContent label');
 const labelDots = document.querySelectorAll('label img');
 const allLabelCont = document.querySelectorAll('.labelContent');
+const allCheckBoxes = document.querySelectorAll('.labelContent input');
 
 // Lab editor elements
 const closeLabelEditor = document.querySelector('.closeLabelEditor');
@@ -23,6 +24,7 @@ class Label {
         this.emoji = emoji; // Emoji associated with the label
         this.color = color; // Color associated with the label
         this.id = labels.length; // Doing this so Labels can be removed
+        this.isChecked = true;
     }
 
     // Combines and returns the name and emoji parameters
@@ -165,6 +167,23 @@ function openLabEditor(e)
     labelEmoji = prevLabEmoji;
 }
 
+// Event listener that adds the functionality to visually remove events when label is un-checked
+allCheckBoxes.forEach(checkBox => {
+    checkBox.addEventListener('change', () => {
+        const checkLabel = getLabByName(checkBox.parentElement.textContent.trim().slice(2));
+        if(checkLabel.isChecked == true)
+        {
+            checkLabel.isChecked = false;
+        }
+        else
+        {
+            checkLabel.isChecked = true;
+        }
+
+        renderCalendar();
+    });
+})
+
 // Event listener that allows verticle dots associated with each label to open editor modal
 labelDots.forEach(labelDot => {
     labelDot.addEventListener('click', openLabEditor);
@@ -254,7 +273,6 @@ function deleteLabHelper()
     associatedCat.addLabels();
 }
 
-
 // Helper function that returns the label instance when given the name
 function getLabByName(name)
 {
@@ -266,3 +284,4 @@ function findAssociatedCat(label)
 {
     return categories.find(category => category.catLabels.includes(label));
 }
+

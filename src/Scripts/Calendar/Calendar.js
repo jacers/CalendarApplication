@@ -164,6 +164,12 @@ function renderCalendar() {
         // Get events for the day and adds the emoji and colors from the labels
         const dayEvents = getEventsForDay(i - 1);
         dayEvents.forEach(event => {
+
+            // Not showing events with unchecked labels
+            if((event.label.isChecked == false))
+            {
+                return;
+            }
             const eventBlock = document.createElement("div");
             eventBlock.classList.add("eventBlock");
 
