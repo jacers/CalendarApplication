@@ -31,4 +31,3 @@ document.addEventListener("DOMContentLoaded", function() {
     // Default view
     showSection(profileContent); 
 });
-

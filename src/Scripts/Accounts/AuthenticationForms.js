@@ -1,16 +1,48 @@
+/*
+Author: Lyndsey Dong
+Language: Javascript
+Purpose: This file performs authtication functions, such as registration, logging in, and signing out.
+Notes: Connected to ../../..index.html
+*/
+
 import { auth, database, signInWithEmailAndPassword, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, signOut} from '../Firebase.js';
 import { setDoc, doc } from 'firebase/firestore';
+import { checkEmpty, checkPasswordRequirements} from './PasswordCheck.js';
 
 // Sign Up with Email and Password
 async function register(email, password, firstName, lastName) {
-  // Getting the emailAddress section
+  
+  // Getting the sections from the register 
   const emailField = document.getElementById("REmailAddress");
+  const passwordField = document.getElementById("RPassword");
+  const firstField = document.getElementById("RFirstName");
+  const lastField = document.getElementById("RLastName");
 
   // Clear previous validity messages
   emailField.setCustomValidity("");
+  passwordField.setCustomValidity("");
+  firstField.setCustomValidity("");
+  lastField.setCustomValidity("");
 
   // Checking and trying to create an account
   try {
+
+    // Checking to see if password meets the requirements
+    if(!checkPasswordRequirements(password))
+    {
+      throw new Error("auth/requirements-not-met");
+    }
+
+    // Checking to see if first name or last name is empty
+    if(checkEmpty(firstName))
+    {
+      throw new Error("auth/empty-first");
+    }
+    else if(checkEmpty(lastName))
+    {
+      throw new Error("auth/empty-last");
+    }
+
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
 
@@ -27,21 +59,36 @@ async function register(email, password, firstName, lastName) {
   } catch (error) {
 
     // Just testing messages
-    console.error('Error signing up:', error.message);
+    console.error("Error signing up:", error.message);
 
     // Displaying error code based on the error messages thrown
-    switch (error.code) 
+    switch (error.code || error.message) 
     {
-      case 'auth/email-already-in-use':
-        emailField.setCustomValidity('This email address is already in use.');
+      case "auth/email-already-in-use":
+        emailField.setCustomValidity("This email address is already in use.");
         break;
-      case 'auth/invalid-email':
-        emailField.setCustomValidity('The email address is not valid.');
+      case "auth/invalid-email":
+        emailField.setCustomValidity("The email address is not valid.");
+        break;
+      case "auth/missing-password":
+        passwordField.setCustomValidity("Please fill in the password field");
+        break;
+      case "auth/requirements-not-met":
+        passwordField.setCustomValidity("Please meet the password requirements.");
+        break;
+      case "auth/empty-first":
+        firstField.setCustomValidity("Please fill in this field.");
+        break;
+      case "auth/empty-last":
+        lastField.setCustomValidity("Please fill in this field.");
         break;
     }
 
     // Trigger form validation
     emailField.reportValidity();
+    passwordField.reportValidity();
+    lastField.reportValidity();
+    firstField.reportValidity();
   }
 }
 

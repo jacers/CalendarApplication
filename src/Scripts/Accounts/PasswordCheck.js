@@ -2,8 +2,8 @@
 Author: Lyndsey Dong
 Language: Javascript
 Purpose: This file performs checks on whether or not the entered password meets the requirements
-         and displays the according response.
-Notes: Connected to RegistrationPage.html
+         and displays the according response (Dynamic checker)
+Notes: Connected to ../../..index.html
 */
 
 // OPTIONAL: We can add in focus onto the texts or element boxes when an error occurs (I believe it can also be done in HTML)
@@ -13,38 +13,8 @@ document.addEventListener("DOMContentLoaded", function()
 
 { 
     // Retrieve references to the HTML elements based on the IDs we gave them
-    var registrationForm = document.getElementById("RegistrationForm");
     var passwordInput = document.getElementById("RPassword");
-
     var passwordRequirements = document.getElementById("PasswordRequirements").getElementsByTagName("li");
-
-    // Adding an event listener to the form itself (meaning the submit button)
-    registrationForm.addEventListener("submit", function(event)
-    {
-        // Prevent actual form submission so that checks on password can be performed
-        event.preventDefault();
-
-        // Getting the value of the password input
-        var password = passwordInput.value;
-
-        // Calls the function (at the bottom) to determine if the password meets the requirements
-        var isValidPassword = checkPasswordRequirements(password);
-
-        // Custom Message Loop for Password
-        if (!isValidPassword)
-        {
-            passwordInput.setCustomValidity("Please meet all of the password requirements.");
-
-            passwordInput.reportValidity();
-
-            return;
-        } else {
-            passwordInput.setCustomValidity("");
-        }
-
-        // If the password is valid, the form can be submitted (to database)
-        this.submit();
-    });
 
     // The following will be the dynamically updating list that users will see for the password requirements
     passwordInput.addEventListener("input", function()
@@ -116,7 +86,7 @@ document.addEventListener("DOMContentLoaded", function()
 
 // This function is to check whether or not the password meets the requirements and
 // displays the custom validation message accordingly
-function checkPasswordRequirements(password)
+export function checkPasswordRequirements(password)
 {
     // Checking all the requirements at once and returning the results
     return password.length >= 6 &&
@@ -125,4 +95,11 @@ function checkPasswordRequirements(password)
            /\d/.test(password) &&
            /[A-Z]/.test(password) &&
            /[a-z]/.test(password);
+}
+
+// This function is to check if the given input is empty
+export function checkEmpty(input)
+{
+    // Trimes the given input and checks if its empty
+    return input.trim() === "";
 }

@@ -1,3 +1,11 @@
+/*
+Author: Lyndsey Dong
+Language: Javascript
+Purpose: This file will import and export any needed Firebase functions and provides connectivity to Firebase
+Notes: Connected to ../../..index.html
+*/
+
+
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
