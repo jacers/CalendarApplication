@@ -9,7 +9,6 @@ body, html
     height: 100%;
 
     font-family: "Open Sans", sans-serif;
-    background-color: #7ba683; /* Same green background as before in PrimaryStyles*/
     display: flex;
     flex-direction: column;
 }
@@ -34,8 +33,6 @@ body, html
     padding: 0;
 }
 
-
-
 /* Header */
 
 .calendarHeader 
@@ -50,8 +47,6 @@ body, html
     font-family: Georgia, serif;
     box-sizing: border-box;
 }
-
-
 
 .labelHideShow 
 {
@@ -319,16 +314,31 @@ body, html
 .days div 
 {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
 
-    /* align-items: center;*/
-
-    align-items: top;
-
-    padding: 10px;
-    text-align: center;
+    padding: 3px;
     cursor: pointer; /* Changes the cursor to a pointer when hovering over the days */
-    border: 1px solid #ddd; /* Add border around each day */
+    border: 1px solid #ddd; /*Add border around each day*/
+    box-sizing: border-box;
+}
+
+.days .dayNum
+{
+    border: none;
+    margin-bottom: 3px;
+}
+
+.days .eventBlock
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 5px;
+    border-radius: 5%;
+    width: 100%;
+    border: 1px solid black;
 }
 
 .days .otherMonth 

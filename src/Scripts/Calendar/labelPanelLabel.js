@@ -93,13 +93,6 @@ saveLabelBtn.addEventListener("click", () => {
         return;
     }
 
-    // Warns the user if no color is inputted
-    // Note: Should not happen under normal circumstances
-    if (!labelColor) {
-        alert("Please provide an emoji for the label.");
-        return;
-    }
-
     const newLabel = new Label(labelName, labelEmoji, labelColor);
     
     labels.push(newLabel);
@@ -135,6 +128,8 @@ function submitLabInput(label)
     const checkbox = document.createElement('input');
     checkbox.type = 'checkbox';
     checkbox.checked = true;
+    checkbox.style.background = label.color;
+    checkbox.style.setProperty('--checkmark-color', adjustTextColor(label.color));
 
     // Creation of label dots
     const newDots = document.createElement('img');
@@ -198,24 +193,32 @@ saveLabelEdit.addEventListener('click', (e) => {
     // Getting name
     const newName = labelEditName.value.trim();
 
+    // Getting the color
+    const newColor = labelColorEdit.value;
+    const checkColor = adjustTextColor(newColor);
+
     // Setting the HTML, necessary with custom checkbox
     const newLabelHTML = `
-    <input type="checkbox" checked>${labelEmoji} ${newName}
+    <input type="checkbox" style="background-color: ${newColor}; color: ${checkColor};" checked>
+    ${labelEmoji} ${newName}
     <img src="../../src/Images/verticleDots.png" alt="verticle dots">`; // MAKE SURE CONNECTION IS CORRECT
-
-    // Getting the color
-    const newColor = labelColorEdit.value; // This implies a lot be careful
 
     // Update the innerHTML of the label element
     prevLab.innerHTML = newLabelHTML;
+
+    // Target the checkbox and set the color of the checkmark
+    const checkbox = prevLab.querySelector('input[type="checkbox"]');
+    checkbox.style.setProperty('--checkmark-color', checkColor); // Dynamic checkmark color
 
     // Need to re-add the event listener since we're making new HTML
     const newLabelDot = prevLab.querySelector('img');
     newLabelDot.addEventListener('click', openLabEditor);
 
     prevLabInstance.changeNameAndEmoji(newName, labelEmoji);
+    prevLabInstance.color = newColor;
 
     labEditorModal.style.display = 'none';
+    renderCalendar() // I know this is janky as hell but I'm not a perfect person
 })
 
 deleteLab.addEventListener('click', (e) => {

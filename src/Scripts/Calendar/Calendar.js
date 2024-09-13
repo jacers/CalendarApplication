@@ -85,16 +85,33 @@ const saturdayFillColorInput = document.getElementById("saturdayFillColor");
 // Initializing the "current" date to display to user
 let currentDate = new Date();
 
+// // Function that returns events for a specific day
+// function getEventsForDay(day) {
+//     return events.filter(event => {
+//         const eventStart = new Date(event.startDate);
+//         const eventEnd = new Date(event.endDate);
+//         const currentDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
+
+//         return currentDay >= eventStart && currentDay <= eventEnd;
+//     });
+// }
+
+// Helper function to normalize date (removes time)
+function normalizeDate(date) {
+    return new Date(date.getFullYear(), date.getMonth(), date.getDate());
+}
+
 // Function that returns events for a specific day
 function getEventsForDay(day) {
     return events.filter(event => {
-        const eventStart = new Date(event.startDate);
-        const eventEnd = new Date(event.endDate);
-        const currentDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
+        const eventStart = normalizeDate(new Date(event.startDate)); // Strip time from start date
+        const eventEnd = normalizeDate(new Date(event.endDate)); // Strip time from end date
+        const currentDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), day); // The current day being rendered
 
         return currentDay >= eventStart && currentDay <= eventEnd;
     });
 }
+
 
 // Function to have the whole calendar displayed
 function renderCalendar() {
@@ -136,20 +153,31 @@ function renderCalendar() {
     // Loop to render the days in the current month
     for (let i = 1; i <= daysInMonth; i++) {
         // Div elements will be created for each day of the current month
+        const dayNum = document.createElement("div");
+        dayNum.classList.add('dayNum')
         const dayElement = document.createElement("div");
 
         // Sets the day numbers to 1 (and overwrites the previous month days number)
-        dayElement.innerHTML = `${i}`;
+        dayNum.innerHTML = `${i}`;
+        dayElement.appendChild(dayNum);
 
         // Get events for the day and adds the emoji and colors from the labels
-        const dayEvents = getEventsForDay(i);
+        const dayEvents = getEventsForDay(i - 1);
         dayEvents.forEach(event => {
-            // Create a emoji element
-            const emojiPreview = document.createElement("preview");
-            emojiPreview.innerHTML = `<br>${event.label.getEmojiAndColor()}`;
+            const eventBlock = document.createElement("div");
+            eventBlock.classList.add("eventBlock");
 
-            // Add the emoji to the calendar
-            dayElement.appendChild(emojiPreview);
+            const eventText = document.createElement("span");
+            eventText.classList.add("eventText");
+            eventText.innerHTML = `${event.label.emoji} ${event.name}`;
+            eventBlock.appendChild(eventText);
+
+            //eventBlock.innerHTML = `${event.label.emoji} ${event.name}`;
+
+            eventBlock.style.background = event.label.color;
+            eventBlock.style.color = adjustTextColor(event.label.color);
+
+            dayElement.appendChild(eventBlock);
         });
 
         // Sets the days of the week to their respective colors

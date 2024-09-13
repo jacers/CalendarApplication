@@ -157,7 +157,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
     font-size: 10px;
-    color: white;
+    color: var(--checkmark-color, white);
 }
 
 .labelContent img

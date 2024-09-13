@@ -356,3 +356,6 @@ function submitCatInput(name)
 
     return labelDown;
 }
+
+// Pls don't forget to remove this k thanks
+createExampleEvents();

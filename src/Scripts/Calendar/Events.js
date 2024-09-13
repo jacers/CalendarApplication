@@ -428,3 +428,57 @@ function searchEvents() {
         }
     }
 }
+
+// Function to convert a hex color to RGB
+function hexToRgb(hex) {
+    // Remove the '#' if it's there
+    hex = hex.replace('#', '');
+    
+    // Parse the hex into RGB components
+    let bigint = parseInt(hex, 16);
+    let r = (bigint >> 16) & 255;
+    let g = (bigint >> 8) & 255;
+    let b = bigint & 255;
+    
+    return { r, g, b };
+}
+
+// Function to calculate brightness based on RGB values
+function getBrightness({ r, g, b }) {
+    // Use the luminance formula to get the brightness
+    return (r * 299 + g * 587 + b * 114) / 1000;
+}
+
+// Function to change the text color based on the background color
+function adjustTextColor(backgroundColorHex) {
+    let rgb = hexToRgb(backgroundColorHex);
+    let brightness = getBrightness(rgb);
+    
+    // If the brightness is high, use dark text; otherwise, use light text
+    if (brightness > 128) {
+        return 'black';
+    } else {
+        return 'white';
+    }
+}
+
+function createExampleEvents()
+{
+    // Label is Meetings from work
+    const E1 = new Event("Sponsor", "Felgar 300", "2024-09-11", "11:10", "2024-09-18", "11:50", "This meeting is stupid", labels[0]);
+    events.push(E1);
+
+    // Label is appointments from personal
+    const E2 = new Event("Doctor", "Norman Regional", "2024-09-12", "9:00", "2024-09-12", "9:50", "GP Checkup", labels[3]);
+    events.push(E2);
+
+    // Label is local events from other
+    const E3 = new Event("NMF", "Main Street", "2024-09-14", "10:00", "2024-09-21", "10:50", "", labels[5]);
+    events.push(E3);
+
+    // label is projects from work
+    const E4 = new Event("Finish Events", "The streets", "2024-09-11", "5:00", "2024-09-18", "6:00", "", labels[1]);
+    events.push(E4);
+
+    renderCalendar();
+}
