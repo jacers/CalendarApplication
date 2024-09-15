@@ -1,7 +1,7 @@
 /*
 Author: Lyndsey Dong
 Language: Javascript
-Purpose: This file performs authtication functions, such as registration, logging in, and signing out.
+Purpose: This file performs authtication functions, such as registration and loggin in.
 Notes: Connected to ../../..index.html
 */
 
@@ -13,16 +13,16 @@ import { checkEmpty, checkPasswordRequirements} from './PasswordCheck.js';
 async function register(email, password, firstName, lastName) {
   
   // Getting the sections from the register 
-  const emailField = document.getElementById("REmailAddress");
-  const passwordField = document.getElementById("RPassword");
-  const firstField = document.getElementById("RFirstName");
-  const lastField = document.getElementById("RLastName");
+  const emailFieldR = document.getElementById("REmailAddress");
+  const passwordFieldR = document.getElementById("RPassword");
+  const firstFieldR = document.getElementById("RFirstName");
+  const lastFieldR = document.getElementById("RLastName");
 
   // Clear previous validity messages
-  emailField.setCustomValidity("");
-  passwordField.setCustomValidity("");
-  firstField.setCustomValidity("");
-  lastField.setCustomValidity("");
+  emailFieldR.setCustomValidity("");
+  passwordFieldR.setCustomValidity("");
+  firstFieldR.setCustomValidity("");
+  lastFieldR.setCustomValidity("");
 
   // Checking and trying to create an account
   try {
@@ -56,6 +56,9 @@ async function register(email, password, firstName, lastName) {
 
     console.log("User signed up and data stored:", userCredential.user);
 
+    // Redirect user to the login window
+    window.location.href = "../../index.html";
+
   } catch (error) {
 
     // Just testing messages
@@ -65,36 +68,41 @@ async function register(email, password, firstName, lastName) {
     switch (error.code || error.message) 
     {
       case "auth/email-already-in-use":
-        emailField.setCustomValidity("This email address is already in use.");
-        break;
-      case "auth/invalid-email":
-        emailField.setCustomValidity("The email address is not valid.");
+        emailFieldR.setCustomValidity("This email address is already in use.");
         break;
       case "auth/missing-password":
-        passwordField.setCustomValidity("Please fill in the password field");
+        passwordFieldR.setCustomValidity("Please fill in this field.");
         break;
       case "auth/requirements-not-met":
-        passwordField.setCustomValidity("Please meet the password requirements.");
+        passwordFieldR.setCustomValidity("Please meet the password requirements.");
         break;
       case "auth/empty-first":
-        firstField.setCustomValidity("Please fill in this field.");
+        firstFieldR.setCustomValidity("Please fill in this field.");
         break;
       case "auth/empty-last":
-        lastField.setCustomValidity("Please fill in this field.");
+        lastFieldR.setCustomValidity("Please fill in this field.");
         break;
     }
 
     // Trigger form validation
-    emailField.reportValidity();
-    passwordField.reportValidity();
-    lastField.reportValidity();
-    firstField.reportValidity();
+    emailFieldR.reportValidity();
+    passwordFieldR.reportValidity();
+    lastFieldR.reportValidity();
+    firstFieldR.reportValidity();
   }
 }
 
 // Sign In with Email and Password
 async function loginWithEP(email, password) 
 {
+  // Getting the required fields to display errors
+  const emailFieldL = document.getElementById("LEmailAddress");
+  const passwordFieldL = document.getElementById("LPassword");
+
+  // Clearing any previous validation messages
+  emailFieldL.setCustomValidity("");
+  passwordFieldL.setCustomValidity("");
+
   try 
   {
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
@@ -102,7 +110,26 @@ async function loginWithEP(email, password)
     window.location.href = "../../../public/Pages/CalendarPage.html"; // Or another page
 
   } catch (error) {
+
+    // Error message for console
     console.error('Error signing in:', error.message);
+
+    switch(error.code || error.message)
+    {
+      case "auth/invalid-email":
+        emailFieldL.setCustomValidity("Please input valid email.")
+        break;
+      case "auth/missing-password":
+        passwordFieldL.setCustomValidity("Please fill in this field.")
+        break;
+      case "auth/invalid-credential":
+        passwordFieldL.setCustomValidity("The provided email or password is incorrect.")
+        break;
+    }
+
+    // Trigger validaition
+    emailFieldL.reportValidity();
+    passwordFieldL.reportValidity();
   }
 }
 
@@ -140,19 +167,3 @@ document.getElementById("googleSignInButton").addEventListener("click", () => {
   // This does an auto signin after user has already signed in once
   signInWithGoogle();
 });
-
-// Logout function (Will be moved, just had to add it because i was stuck in logged in)
-async function logout() {
-  try {
-    await signOut(auth);
-    console.log('User signed out');
-    
-    // Redirect to the login page or home page after signing out
-    window.location.href = "login.html"; // Or another page
-  } catch (error) {
-    console.error('Error signing out:', error.message);
-  }
-}
-
-// Logout button
-document.getElementById("logoutButton").addEventListener("click", logout);

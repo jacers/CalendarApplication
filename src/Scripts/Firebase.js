@@ -2,15 +2,14 @@
 Author: Lyndsey Dong
 Language: Javascript
 Purpose: This file will import and export any needed Firebase functions and provides connectivity to Firebase
-Notes: Connected to ../../..index.html
+Notes: Connected to ../../index.html
 */
 
 
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth';
-
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from 'firebase/auth';
 
 // Adding in Firestore
 import {getFirestore, doc, setDoc, collection, addDoc} from "firebase/firestore";
@@ -49,5 +48,6 @@ export {
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
   signInWithPopup,
-  signOut
+  signOut,
+  onAuthStateChanged
 };

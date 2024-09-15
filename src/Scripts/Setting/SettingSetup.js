@@ -1,3 +1,10 @@
+/*
+Author: Lyndsey Dong
+Language: Javascript
+Purpose: This file shows users the different views of Settings according to what they click on.
+Notes: Connected to ../../index.html
+*/
+
 document.addEventListener("DOMContentLoaded", function() {
     const accountHeader = document.getElementById("AccountHeader");
     const profileBtn = document.getElementById("Profile");
