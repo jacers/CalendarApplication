@@ -14,7 +14,8 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: 'index.html',
-        other: '/Pages/Calendar.html', // Add additional HTML files if needed
+        calendar: "/Pages/CalendarPage.html",
+        setting: "/Pages/SettingPage.html",
       }
     }
   }
