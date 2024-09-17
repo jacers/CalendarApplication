@@ -102,6 +102,11 @@ const closeLabelMakerBtn = document.querySelector (".closeLabelMaker"  );
 const emojiPreview       = document.getElementById("emojiPreview"      );
 const saveLabelBtn       = document.getElementById("saveLabel"         );
 
+const dayEventsViewerModal = document.getElementById("dayEventsViewerModal");
+const closeDayEventsModal = document.querySelector(".closeDayEventsModal");
+const selectedDayElement = document.getElementById("selectedDay");
+const dayEventList = document.getElementById("dayEventList");
+
 const emojiPicker = document.querySelector("emoji-picker");
 emojiPicker.addEventListener("emoji-click", (event) => {
     labelEmoji = event.detail.unicode;
@@ -131,6 +136,7 @@ function getEventsForDay(day) {
     return events.filter(event => {
         const eventStart = new Date(event.startDate);
         const eventEnd = new Date(event.endDate);
+        eventEnd.setDate(eventEnd.getDate() + 1); // Makes sure the full range is included on the calendar view
         const currentDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
 
         return currentDay >= eventStart && currentDay <= eventEnd;
@@ -191,6 +197,9 @@ function renderCalendar() {
 
             // Add the emoji to the calendar
             dayElement.appendChild(emojiPreview);
+
+            // Adds an event listener to each date to open an event viewer for that date
+            dayElement.addEventListener("click", () => openDayEventsModal(i));
         });
 
         // Sets the days of the week to their respective colors
@@ -214,8 +223,6 @@ function renderCalendar() {
         dayElement.innerHTML = `${i}<br>`
         daysContainer.appendChild(dayElement);
     }
-    
-    
 }
 
 // TODO: Consistent formatting
@@ -570,6 +577,22 @@ function searchEvents() {
 // Event listener to close the event viewer modal
 closeEventsViewerBtn.addEventListener("click", () => {
     eventsViewerModal.style.display = "none";
+});
+
+// Event listener to open the day event viewer modal
+function openDayEventsModal(day) {
+    selectedDayElement.textContent = `${currentDate.toLocaleString("default", { month: "long" })} ${day}, ${currentDate.getFullYear()}`;
+    dayEventList.innerHTML = ""; // Clear the current events list
+
+    const dayEvents = getEventsForDay(day);
+    dayEvents.forEach(event => createEventsTable(event, dayEventList));
+
+    dayEventsViewerModal.style.display = "block";
+}
+
+// Event listener to open the day event viewer modal
+closeDayEventsModal.addEventListener("click", () => {
+    dayEventsViewerModal.style.display = "none";
 });
 
 // Add listener to the dropdown menu

@@ -311,6 +311,28 @@
           </div>
       </div>
 
+    <!-- View day events modal -->
+    <div id="dayEventsViewerModal" class="dayEventsModal">
+        <div class="eventsViewerModal-content">
+            <!-- Close button -->
+            <span class="closeDayEventsModal">x</span> <!--The x icon-->
+            <h1><span id = "selectedDay"></span></h1>
+            <!-- Active Events Table -->
+            <table id="dayEventTable">
+                <thead>
+                  <tr>
+                   <th>Event</th>
+                   <th>Label</th>
+                   <th>Starts</th>
+                   <th>Ends</th>
+                   <th></th> 
+                  </tr>
+              </thead>
+              <tbody id="dayEventList"></tbody>
+          </table>
+          </div>
+      </div>
+
     <!-- Label maker modal sub-menu within new event modal -->
     <div id = "labelMakerModal" class = "labelMakerModal">
         <div class = "newEventModal-content">
