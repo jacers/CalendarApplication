@@ -100,7 +100,8 @@
     width: 125px;
 }
 
-.closeEventsViewer
+.closeEventsViewer,
+.closeDayEventsViewer
 {
     color: #aaa;
     float: right;
@@ -113,6 +114,32 @@
 {
     color: black; /* Gives the x a thicker color when hovered over */
     cursor: pointer; /* Changes the cursor to a pointer when hovering over the x */
+}
+
+.dayEventsModal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    padding-top: 60px;
+    overflow: auto; /* Enables scrolling if modal content goes off screen */
+}
+
+.closeDayEventsModal {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.closeDayEventsModal:hover,
+.closeDayEventsModal:focus {
+    color: black; /* Gives the x a thicker color when hovered over */
 }
 
 /*Styling for general tables*/
@@ -154,7 +181,9 @@ th
 #eventTable th,
 #eventTable td,
 #pastEventTable th,
-#pastEventTable td
+#pastEventTable td,
+#dayEventTable th,
+#dayEventTable td
 {
     text-align: left;
     margin-left: 20px;
@@ -168,7 +197,11 @@ th
 #pastEventTable th:nth-child(3),
 #pastEventTable th:nth-child(4),
 #pastEventTable td:nth-child(3),
-#pastEventTable td:nth-child(4) {
+#pastEventTable td:nth-child(4),
+#dayEventTable th:nth-child(3),
+#dayEventTable th:nth-child(4),
+#dayEventTable td:nth-child(3),
+#dayEventTable td:nth-child(4) {
     width: 150px;
 }
 
@@ -180,7 +213,11 @@ th
 #pastEventTable th:nth-child(1),
 #pastEventTable th:nth-child(2),
 #pastEventTable td:nth-child(1),
-#pastEventTable td:nth-child(2) {
+#pastEventTable td:nth-child(2),
+#dayEventTable th:nth-child(1),
+#dayEventTable th:nth-child(2),
+#dayEventTable td:nth-child(1),
+#dayEventTable td:nth-child(2) {
     width: calc((100% - 340 px) / 2); /* Halve the remaining space and leave room for the final column */
 }
 
@@ -188,7 +225,9 @@ th
 #eventTable th:nth-child(5),
 #eventTable td:nth-child(5),
 #pastEventTable th:nth-child(5),
-#pastEventTable td:nth-child(5) {
+#pastEventTable td:nth-child(5),
+#dayEventTable th:nth-child(5),
+#dayEventTable td:nth-child(5) {
     width: 40px;
     height: 40px;
     text-align: center; /*Ensure all icons are centered*/

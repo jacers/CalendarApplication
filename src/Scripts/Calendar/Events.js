@@ -139,6 +139,17 @@ searchBtn.addEventListener("click", () => {
     eventsViewerModal.style.display = "block";
 });
 
+// Event listener to open the day event viewer modal
+function openDayEventsModal(day) {
+    selectedDayElement.textContent = `${currentDate.toLocaleString("default", { month: "long" })} ${day}, ${currentDate.getFullYear()}`;
+    dayEventList.innerHTML = ""; // Clear the current events list
+
+    const dayEvents = getEventsForDay(day);
+    dayEvents.forEach(event => createEventsTable(event, dayEventList));
+
+    dayEventsViewerModal.style.display = "block";
+}
+
 // Function to aid the creation of current and past events tables
 function createEventsTable(event, tableElement) {
     const row = document.createElement("tr");

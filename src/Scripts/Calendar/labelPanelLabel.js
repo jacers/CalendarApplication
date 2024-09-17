@@ -289,4 +289,3 @@ function findAssociatedCat(label)
 {
     return categories.find(category => category.catLabels.includes(label));
 }
-

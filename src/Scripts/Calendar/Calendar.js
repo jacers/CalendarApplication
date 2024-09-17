@@ -1,4 +1,3 @@
-
 // Selecting DOM elements (Elements in the CalendarPage.html)
 const prevBtn = document.getElementById("prevButton");
 const nextBtn = document.getElementById("nextButton");
@@ -31,8 +30,13 @@ const searchBtn = document.getElementById("openEventsViewer");
 const closeEventsViewerBtn = document.querySelector(".closeEventsViewer");
 const eventsViewerModal = document.getElementById("eventsViewerModal");
 
+// Modal to view events within a day; will appear in front of and disable other elements
+const dayEventsViewerModal = document.getElementById("dayEventsViewerModal");
+const closeDayEventsModal = document.querySelector(".closeDayEventsModal");
+const selectedDayElement = document.getElementById("selectedDay");
+const dayEventList = document.getElementById("dayEventList");
+
 // Modal for label maker; will appear in front of and disable other elements
-// TODO: Consistent formatting
 const eventLabelDropdown = document.getElementById("eventLabelDropdown");
 const labelMakerModal = document.getElementById("labelMakerModal");
 const closeLabelMakerBtn = document.querySelector (".closeLabelMaker");
@@ -54,8 +58,6 @@ emojiEditPicker.addEventListener("emoji-click", (event) => {
     labelEmoji = event.detail.unicode; 
     emojiPreviewEdit.innerText = labelEmoji;
 })
-
-
 
 // Modal for category maker
 const catMakerModal = document.querySelector('.catMakerModal');
@@ -93,12 +95,12 @@ function getEventsForDay(day, month = currentDate.getMonth(), year = currentDate
     return events.filter(event => {
         const eventStart = normalizeDate(new Date(event.startDate)); // Strip time from start date
         const eventEnd = normalizeDate(new Date(event.endDate)); // Strip time from end date
+        eventEnd.setDate(eventEnd.getDate() + 1); // Makes sure the full range is included on the calendar view
         const currentDay = new Date(year, month, day); // The current day being rendered
 
         return currentDay >= eventStart && currentDay <= eventEnd;
     });
 }
-
 
 // Function to have the whole calendar displayed
 function renderCalendar() {
@@ -203,6 +205,8 @@ function renderCalendar() {
             dayElement.style.border = "2px solid #376753";  
         }
 
+        // Adds an event listener to each date to open an event viewer for that date
+        dayElement.addEventListener("click", () => openDayEventsModal(i));
 
         // Appending the numbered days to the current month to the calendar display
         daysContainer.appendChild(dayElement);
@@ -239,9 +243,7 @@ function renderCalendar() {
         });
         
         daysContainer.appendChild(dayElement);
-    }
-    
-    
+    }   
 }
 
 // TODO: Consistent formatting
@@ -270,8 +272,6 @@ nextBtn.addEventListener("click", () => {
     updateDayColors();
 });
 
-
-
 // Event listener to open the color picker modal
 openColorPickerBtn.addEventListener("click", () => {
     colorPickerModal.style.display = "block";
@@ -285,6 +285,11 @@ closeColorPickerBtn.addEventListener("click", () => {
 // Event listener to close the event viewer modal
 closeEventsViewerBtn.addEventListener("click", () => {
     eventsViewerModal.style.display = "none";
+});
+
+// Event listener to open the day event viewer modal
+closeDayEventsModal.addEventListener("click", () => {
+    dayEventsViewerModal.style.display = "none";
 });
 
 // Close any of the modals if the user clicks outside of it
@@ -320,4 +325,3 @@ saturdayFillColorInput .addEventListener("input", updateDayColors);
 // The current calendar look upon opening the page
 renderCalendar();
 updateDayColors();
-
