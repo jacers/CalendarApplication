@@ -15,16 +15,17 @@ export default defineConfig({
     outDir: 'dist', // Directory where build files will be output
     rollupOptions: {
       input: {
-        main: path.resolve(__dirname, 'index.html'),
-        calendar: path.resolve(__dirname, 'public/Pages/CalendarPage.html'),
+        main: path.resolve(__dirname, 'index.html'), // Specifying what pages to server
+        calendar: path.resolve(__dirname, 'public/Pages/CalendarPage.html'), 
         setting: path.resolve(__dirname, 'public/Pages/SettingPage.html'),
       },
     },
   },
 
-  // To handle static assets
+  // To handle static assets, if any (IDK if we really have any that aren't ebing served as of now)
   publicDir: 'public',
 
+  // THIS FINALLY ACKNOWLEGES THAT WE HAVE FILE IN SRC
   resolve: {
     alias: {
       '@': path.resolve(__dirname, 'src'),

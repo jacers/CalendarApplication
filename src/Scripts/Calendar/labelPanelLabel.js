@@ -19,12 +19,11 @@ let prevLabInstance = '';
 
 class Label {
     constructor(name, emoji, color) {
-        // TODO: Consistent formatting
-        this.name  = name ; // Name of the label
+        this.name = name ; // Name of the label
         this.emoji = emoji; // Emoji associated with the label
         this.color = color; // Color associated with the label
         this.id = labels.length; // Doing this so Labels can be removed
-        this.isChecked = true;
+        this.isChecked = true; // Determines if the checkbox is marked
     }
 
     // Combines and returns the name and emoji parameters
@@ -58,8 +57,7 @@ class Label {
     removeLabelOption() {
         const eventLabelDropdown = document.querySelector('#eventLabelDropdown');
         const optionToRemove = eventLabelDropdown.querySelector(`option[value="${this.id}"]`);
-        if(optionToRemove)
-        {
+        if(optionToRemove) {
             optionToRemove.remove();
         }
     }
@@ -70,8 +68,7 @@ class Label {
         this.emoji = emoji;
 
         const targetLabOption = eventLabelDropdown.querySelector(`option[value="${this.id}"]`);
-        if(targetLabOption)
-        {
+        if(targetLabOption) {
             targetLabOption.innerHTML = this.getEmojiAndName();
         }
     }
@@ -115,8 +112,7 @@ saveLabelBtn.addEventListener("click", () => {
 });
 
 // Handles the creation of the new label entry on the label panel
-function submitLabInput(label)
-{
+function submitLabInput(label) {
     const labelTitle = label.getEmojiAndName(); 
 
     // working backwards to get proper labelContent
@@ -150,8 +146,7 @@ function submitLabInput(label)
 }
 
 // Opens the label editor modal
-function openLabEditor(e)
-{
+function openLabEditor(e) {
     e.preventDefault(); // Stopping checkbox from being toggled
     labEditorModal.style.display = 'block';
 
@@ -176,12 +171,9 @@ allCheckBoxes.forEach(checkBox => {
 function addCheckFunctionality(e)
 {
     const checkLabel = getLabByName(e.target.parentElement.textContent.trim().slice(2));
-        if(checkLabel.isChecked == true)
-        {
+        if(checkLabel.isChecked == true) {
             checkLabel.isChecked = false;
-        }
-        else
-        {
+        } else {
             checkLabel.isChecked = true;
         }
 
@@ -207,8 +199,7 @@ function openlabelMakerModal() {
 }
 
 saveLabelEdit.addEventListener('click', (e) => {
-    if(labelEditName.value.trim() === '')
-    {
+    if(labelEditName.value.trim() === '') {
         alert('Please provide a name for this label');
         return;
     }
@@ -247,19 +238,15 @@ saveLabelEdit.addEventListener('click', (e) => {
 
 deleteLab.addEventListener('click', (e) => {
     const labConfirmation = confirm(`Are you sure you want to delete \"${prevLabName}\"?`);
-    if(labConfirmation)
-    {
+    if(labConfirmation) {
         deleteLabHelper();
-    }
-    else
-    {
+    } else {
         return;
     }
     labEditorModal.style.display = 'none';
 })
 
-function deleteLabHelper()
-{
+function deleteLabHelper() {
     // Getting associated category
     const associatedCat = findAssociatedCat(prevLabInstance);
     associatedCat.removeLabels();
@@ -279,13 +266,11 @@ function deleteLabHelper()
 }
 
 // Helper function that returns the label instance when given the name
-function getLabByName(name)
-{
+function getLabByName(name) {
     return labels.find(label => label.name.trim() === name.trim());
 }
 
 // Helper function that returns the associated category
-function findAssociatedCat(label)
-{
+function findAssociatedCat(label) {
     return categories.find(category => category.catLabels.includes(label));
 }

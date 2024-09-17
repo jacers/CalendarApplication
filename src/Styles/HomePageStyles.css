@@ -1,4 +1,5 @@
-body {
+body
+{
     margin: 0;
     font-family: "Open Sans", sans-serif;
 }
@@ -13,17 +14,20 @@ body {
     "wdth" 100;
 }
 
-#container {
+#container
+{
     display: flex;
     height: 100vh;
 }
 
-#LeftPanel, #RightPanel {
+#LeftPanel, #RightPanel
+{
     width: 50%;
     padding: 20px;
 }
 
-#LeftPanel {
+#LeftPanel
+{
     background-color: #376753;
     display: flex;
     justify-content: center;
@@ -31,32 +35,37 @@ body {
     text-align: center;
 }
 
-#WelcomeSection h1 {
+#WelcomeSection h1
+{
     margin: 0;
     font-size: 2.5em;
     color: white;
 }
 
-#WelcomeSection p {
+#WelcomeSection p
+{
     font-size: 1.2em;
     color: white;
 }
 
-#RightPanel {
+#RightPanel
+{
     background-color: #ffffff;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.AuthenticationForm {
+.AuthenticationForm
+{
     width: 80%;
     max-width: 400px;
     margin: 0 auto;
     text-align: center; 
 }
 
-.AuthenticationForm input {
+.AuthenticationForm input
+{
     display: block;
     width: calc(100% - 20px);
     margin: 10px auto;
@@ -64,7 +73,8 @@ body {
     font-size: 1em;
 }
 
-.AuthenticationForm button {
+.AuthenticationForm button
+{
     background-color: #376753;
     color: white;
     border: 1px solid white;
@@ -74,16 +84,19 @@ body {
 
 }
 
-.AuthenticationForm button:hover {
+.AuthenticationForm button:hover
+{
     background-color: #3e8e41;
 }
 
-.AuthenticationForm p {
+.AuthenticationForm p
+{
     margin: 10px 0;
 }
 
 /* PasswordRequirements Styles */
-#PasswordRequirements {
+#PasswordRequirements
+{
     list-style: none;
     padding: 0;
     text-align: left;
@@ -91,7 +104,8 @@ body {
     font-size: 0.9em;
 }
 
-#PasswordRequirements li {
+#PasswordRequirements li
+{
     margin-bottom: 5px;
 }
 

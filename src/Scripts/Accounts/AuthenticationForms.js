@@ -47,8 +47,7 @@ async function register(email, password, firstName, lastName) {
     const user = userCredential.user;
 
     // Store user information in Firestore
-    await setDoc(doc(database, "Users", user.uid), 
-    {
+    await setDoc(doc(database, "Users", user.uid), {
       EmailAddress: user.email,
       FirstName: firstName,
       LastName: lastName

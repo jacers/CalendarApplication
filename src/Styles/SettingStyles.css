@@ -1,8 +1,10 @@
-/* Global body styles */
-body {
+
+body
+{
     margin: 0;
     font-family: "Open Sans", sans-serif;
 }
+
 
 /* Open Sans font settings */
 .open-sans-font {
@@ -15,6 +17,7 @@ body {
 
 /* Header styles */
 #CalendarHeader {
+
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -27,20 +30,40 @@ body {
     height: 80px; /* DONT TOUCH, its finally matching the calendar height */
 }
 
-#CalendarHeader h1 {
-    margin: 0; /* Remove default margin */
+#CalendarHeader h1
+{
+    margin: 0;
 }
 
-/* Dropdown menu styles */
-.dropdownLinks {
+#CalendarHeader nav
+{
+    display: flex;
+    align-items: center;
+}
+
+#CalendarHeader #MenuButton
+{
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.dropdownLinks
+{
+
     position: relative;
     display: inline-block;
 }
 
-.dropdown .dropButton {
-    background-color: #376753; /* Match background color */
-    color: white; /* Match text color */
-    padding:  5px 10px;
+.dropButton
+{
+    background-color: #376753;
+    color: white;
+    border: 1px solid white;
+    padding: 10px;
+    cursor: pointer;
     font-size: 16px;
     border: 1px solid #fff; /* Border color */
     cursor: pointer;
@@ -50,7 +73,8 @@ body {
     
 }
 
-.dropdownContent {
+.dropdownContent
+{
     display: none;
     position: absolute;
     right: 0;
@@ -60,7 +84,8 @@ body {
     z-index: 1;
 }
 
-.dropdownContent a {
+.dropdownContent a
+{
     color: black;
     padding: 12px 16px;
     text-decoration: none;
@@ -86,6 +111,7 @@ body {
 
 /* Settings container and sidebar styles */
 #SettingsContainer {
+
     display: flex;
     height: calc(100vh - 80px); /* Full height minus header */
 }
@@ -97,36 +123,43 @@ body {
     box-shadow: 1px 0 0px rgba(0, 0, 0, 0.1);
 }
 
-.SidebarHeader {
+.SidebarHeader
+{
     font-weight: bold;
     padding: 10px;
     cursor: pointer;
 }
 
-.SidebarItem {
+.SidebarItem
+{
     padding: 10px;
     cursor: pointer;
 }
 
-.SidebarItem:hover {
+.SidebarItem:hover
+{
     background-color: #ddd;
 }
 
-.hidden {
+.hidden
+{
     display: none;
 }
 
-#content {
+#content
+{
     flex: 1;
     padding: 20px;
     overflow-y: auto;
 }
 
-.ContentSection {
+.ContentSection
+{
     display: none;
 }
 
-.ContentSection.active {
+.ContentSection.active
+{
     display: block;
 }
 
@@ -143,7 +176,8 @@ button {
 /* Input and label styles */
 input[type="text"],
 input[type="email"],
-input[type="password"] {
+input[type="password"]
+{
     display: block;
     margin-top: 5px;
     padding: 10px;
@@ -153,7 +187,8 @@ input[type="password"] {
     border-radius: 4px;
 }
 
-label {
+label
+{
     display: block;
     margin-top: 10px;
 }

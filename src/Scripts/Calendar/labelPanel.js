@@ -25,28 +25,24 @@ labelHideShow.addEventListener('click', (e) => {
 });
 
  // Functionality for the dropdown of categories
-function showLabels(e)
-{
+function showLabels(e) {
     const button = e.currentTarget;
     const labelDown = button.closest('.labelDown');
     const labelArrow = button.querySelector('.labelArrow');
 
     // Will come up with something better later, works for now
-    if(labelDown === null || labelArrow === null)
-    {
+    if(labelDown === null || labelArrow === null){
         return;
     }
 
     const labelContent = labelDown.querySelector('.labelContent');
 
     // Sets proper display and arrow type
-    if (labelContent.style.display === 'block') 
-    {
+    if (labelContent.style.display === 'block') {
         labelContent.style.display = 'none';
         labelArrow.textContent = '⌃';
     } 
-    else 
-    {
+    else {
         labelContent.style.display = 'block';
         labelArrow.textContent = '⌵';
     }

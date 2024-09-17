@@ -4,9 +4,6 @@ const nextBtn = document.getElementById("nextButton");
 const monthYearDisplay = document.getElementById("monthYearDisplay");
 const daysContainer = document.querySelector (".days");
 
-// Will most likely be removed (Just trying to resolve conflicts as of now)
-const viewSelectionContent = document.getElementById("viewSelectionContent");
-
 // Modal for color picker; will appear in front of and disable other elements
 const openModalBtn = document.getElementById("openModalBtn");
 const modal = document.getElementById("colorPickerModal");
@@ -64,8 +61,8 @@ const catMakerModal = document.querySelector('.catMakerModal');
 const closeNewCat = document.querySelector('.closeNewCat');
 const saveCat = document.querySelector('.saveCat');
 const categoryName = document.querySelector('#categoryName');
-const catEditorModal = document.querySelector('.catEditorModal'); // Will be moved soon
-const labEditorModal = document.querySelector('.labelEditorModal'); // Will be moved soon
+const catEditorModal = document.querySelector('.catEditorModal'); 
+const labEditorModal = document.querySelector('.labelEditorModal'); 
 
 // Event variables
 let labelEmoji = ""; // Variable to store selected emoji
@@ -95,7 +92,7 @@ function getEventsForDay(day, month = currentDate.getMonth(), year = currentDate
     return events.filter(event => {
         const eventStart = normalizeDate(new Date(event.startDate)); // Strip time from start date
         const eventEnd = normalizeDate(new Date(event.endDate)); // Strip time from end date
-        eventEnd.setDate(eventEnd.getDate() + 1); // Makes sure the full range is included on the calendar view
+        //eventEnd.setDate(eventEnd.getDate() + 1); // Makes sure the full range is included on the calendar view
         const currentDay = new Date(year, month, day); // The current day being rendered
 
         return currentDay >= eventStart && currentDay <= eventEnd;
@@ -145,7 +142,7 @@ function renderCalendar() {
     for (let i = 1; i <= daysInMonth; i++) {
         // Div elements will be created for each day of the current month
 
-        // Creating separete nuber for styling purposes
+        // Creating separete number for styling purposes
         const dayNum = document.createElement("div");
         dayNum.classList.add('dayNum')
 
@@ -166,14 +163,12 @@ function renderCalendar() {
         });
 
         dayEvents.forEach(event => {
-
             // Not showing events with unchecked labels
-            if((event.label.isChecked == false))
-            {
+            if((event.label.isChecked == false)) {
                 return;
             }
 
-            // div that contains all event blocks
+            // Div that contains all event blocks
             const eventBlock = document.createElement("div");
             eventBlock.classList.add("eventBlock");
 
@@ -182,8 +177,7 @@ function renderCalendar() {
             eventText.innerHTML = `${event.label.emoji} ${event.name}`;
             eventBlock.appendChild(eventText);
 
-            // Setting event background to it's label's color and adjusting it's text
-            // so it is readable
+            // Setting event background to it's label's color and adjusting it's text so it is readable
             eventBlock.style.background = event.label.color;
             eventBlock.style.color = adjustTextColor(event.label.color);
 
@@ -196,17 +190,15 @@ function renderCalendar() {
         dayElement.classList.add(daysOfWeek[dayOfWeek]);
 
         // Adds small border around the day if it is the current day
-        if (
-            today.getDate() === i && 
-            today.getMonth() === currentDate.getMonth() && 
-            today.getFullYear() === currentDate.getFullYear()) 
-        {
+        if (today.getDate() === i &&
+            today.getMonth() === currentDate.getMonth() &&
+            today.getFullYear() === currentDate.getFullYear()) {
             // Change the background color for today's date
             dayElement.style.border = "2px solid #376753";  
         }
 
         // Adds an event listener to each date to open an event viewer for that date
-        dayElement.addEventListener("click", () => openDayEventsModal(i));
+        dayElement.addEventListener("click", () => openDayEventsModal(i - 1));
 
         // Appending the numbered days to the current month to the calendar display
         daysContainer.appendChild(dayElement);
@@ -246,16 +238,27 @@ function renderCalendar() {
     }   
 }
 
-// TODO: Consistent formatting
 // Function to update day colors after selecting a new one
 function updateDayColors() {
-    document.querySelectorAll('.sunday').forEach(day => day.style.backgroundColor = sundayFillColorInput   .value);
-    document.querySelectorAll('.monday').forEach(day => day.style.backgroundColor = mondayFillColorInput   .value);
-    document.querySelectorAll('.tuesday').forEach(day => day.style.backgroundColor = tuesdayFillColorInput  .value);
+    document.querySelectorAll('.sunday').forEach(day => day.style.backgroundColor = sundayFillColorInput.value);
+    document.querySelectorAll('.monday').forEach(day => day.style.backgroundColor = mondayFillColorInput.value);
+    document.querySelectorAll('.tuesday').forEach(day => day.style.backgroundColor = tuesdayFillColorInput.value);
     document.querySelectorAll('.wednesday').forEach(day => day.style.backgroundColor = wednesdayFillColorInput.value);
-    document.querySelectorAll('.thursday').forEach(day => day.style.backgroundColor = thursdayFillColorInput .value);
-    document.querySelectorAll('.friday').forEach(day => day.style.backgroundColor = fridayFillColorInput   .value);
-    document.querySelectorAll('.saturday').forEach(day => day.style.backgroundColor = saturdayFillColorInput .value);
+    document.querySelectorAll('.thursday').forEach(day => day.style.backgroundColor = thursdayFillColorInput.value);
+    document.querySelectorAll('.friday').forEach(day => day.style.backgroundColor = fridayFillColorInput.value);
+    document.querySelectorAll('.saturday').forEach(day => day.style.backgroundColor = saturdayFillColorInput.value);
+}
+
+// Getting more holidays based on the year we're in
+let previousYear = currentDate.getFullYear();
+
+function updateYear(newYear)
+{
+    if(newYear !== previousYear)
+    {
+        previousYear = newYear;
+        fetchHolidays(newYear);
+    }
 }
 
 // Event listener to go backward a month
@@ -268,6 +271,9 @@ prevBtn.addEventListener("click", () => {
 // Event listener to go forward a month
 nextBtn.addEventListener("click", () => {
     currentDate.setMonth(currentDate.getMonth() + 1);
+
+    updateYear(currentDate.getFullYear());
+
     renderCalendar();
     updateDayColors();
 });
@@ -300,16 +306,14 @@ window.addEventListener("click", (event) => {
         event.target == eventsViewerModal ||
         event.target == catMakerModal     ||
         event.target == catEditorModal    ||
-        event.target == labEditorModal) 
-    {
-        // TODO: Consistent formatting
-        colorPickerModal .style.display = "none";
-        newEventModal    .style.display = "none";
-        labelMakerModal  .style.display = "none";
+        event.target == labEditorModal) {
+        colorPickerModal.style.display = "none";
+        newEventModal.style.display = "none";
+        labelMakerModal.style.display = "none";
         eventsViewerModal.style.display = "none";
-        catMakerModal    .style.display = "none";
-        catEditorModal   .style.display = "none";
-        labEditorModal   .style.display = "none";
+        catMakerModal.style.display = "none";
+        catEditorModal.style.display = "none";
+        labEditorModal.style.display = "none";
     }
 });
 

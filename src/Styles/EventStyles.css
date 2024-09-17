@@ -36,7 +36,8 @@
 .form-group input,
 .form-group select,
 .form-group textarea,
-.form-group button {
+.form-group button
+{
     flex: 0;
 }
 
@@ -79,24 +80,29 @@
      80%;
 }
 
-.catLabInputs {
+.catLabInputs
+{
     display: inline-block;
     margin-right: 10px;
 }
 
-#labInputs {
+#labInputs
+{
     display: none;
 }
 
-#eventLabelDropdown {
+#eventLabelDropdown
+{
     width: 125px;
 }
 
-#labInputs {
+#labInputs
+{
     display: none;
 }
 
-#eventLabelDropdown {
+#eventLabelDropdown
+{
     width: 125px;
 }
 
@@ -116,7 +122,8 @@
     cursor: pointer; /* Changes the cursor to a pointer when hovering over the x */
 }
 
-.dayEventsModal {
+.dayEventsModal
+{
     display: none;
     position: fixed;
     z-index: 1;
@@ -129,7 +136,8 @@
     overflow: auto; /* Enables scrolling if modal content goes off screen */
 }
 
-.closeDayEventsModal {
+.closeDayEventsModal
+{
     color: #aaa;
     float: right;
     font-size: 28px;
@@ -138,7 +146,8 @@
 }
 
 .closeDayEventsModal:hover,
-.closeDayEventsModal:focus {
+.closeDayEventsModal:focus
+{
     color: black; /* Gives the x a thicker color when hovered over */
 }
 
@@ -201,7 +210,8 @@ th
 #dayEventTable th:nth-child(3),
 #dayEventTable th:nth-child(4),
 #dayEventTable td:nth-child(3),
-#dayEventTable td:nth-child(4) {
+#dayEventTable td:nth-child(4)
+{
     width: 150px;
 }
 
@@ -217,7 +227,8 @@ th
 #dayEventTable th:nth-child(1),
 #dayEventTable th:nth-child(2),
 #dayEventTable td:nth-child(1),
-#dayEventTable td:nth-child(2) {
+#dayEventTable td:nth-child(2)
+{
     width: calc((100% - 340 px) / 2); /* Halve the remaining space and leave room for the final column */
 }
 
@@ -227,7 +238,8 @@ th
 #pastEventTable th:nth-child(5),
 #pastEventTable td:nth-child(5),
 #dayEventTable th:nth-child(5),
-#dayEventTable td:nth-child(5) {
+#dayEventTable td:nth-child(5)
+{
     width: 40px;
     height: 40px;
     text-align: center; /*Ensure all icons are centered*/
