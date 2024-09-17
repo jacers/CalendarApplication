@@ -132,6 +132,7 @@ function submitLabInput(label)
     checkbox.checked = true;
     checkbox.style.background = label.color;
     checkbox.style.setProperty('--checkmark-color', adjustTextColor(label.color));
+    checkbox.addEventListener('change', addCheckFunctionality);
 
     // Creation of label dots
     const newDots = document.createElement('img');
@@ -169,8 +170,12 @@ function openLabEditor(e)
 
 // Event listener that adds the functionality to visually remove events when label is un-checked
 allCheckBoxes.forEach(checkBox => {
-    checkBox.addEventListener('change', () => {
-        const checkLabel = getLabByName(checkBox.parentElement.textContent.trim().slice(2));
+    checkBox.addEventListener('change', addCheckFunctionality);
+})
+
+function addCheckFunctionality(e)
+{
+    const checkLabel = getLabByName(e.target.parentElement.textContent.trim().slice(2));
         if(checkLabel.isChecked == true)
         {
             checkLabel.isChecked = false;
@@ -181,8 +186,7 @@ allCheckBoxes.forEach(checkBox => {
         }
 
         renderCalendar();
-    });
-})
+}
 
 // Event listener that allows verticle dots associated with each label to open editor modal
 labelDots.forEach(labelDot => {
@@ -228,6 +232,7 @@ saveLabelEdit.addEventListener('click', (e) => {
     // Target the checkbox and set the color of the checkmark
     const checkbox = prevLab.querySelector('input[type="checkbox"]');
     checkbox.style.setProperty('--checkmark-color', checkColor); // Dynamic checkmark color
+    checkbox.addEventListener('change', addCheckFunctionality);
 
     // Need to re-add the event listener since we're making new HTML
     const newLabelDot = prevLab.querySelector('img');

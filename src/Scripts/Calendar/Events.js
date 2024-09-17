@@ -94,17 +94,6 @@ saveEventBtn.addEventListener("click", () => {
     // Add the new event to the events array
     events.push(newEvent);
 
-    // TODO: This is only to help debugging, may need to be deleted or commented out later.
-    console.log("Event Name:           ", eventName                      );
-    console.log("Event Location:       ", eventLocation                  );
-    console.log("Event Start:          ", startDateTime                  );
-    console.log("Event End:            ", endDateTime                    );
-    console.log("Event Notes:          ", eventNotes                     );
-    console.log("Label Name:           ", selectedLabel.name             );
-    console.log("Label Emoji:          ", selectedLabel.emoji            );
-    console.log("Label Color:          ", selectedLabel.color            );
-    console.log("Label Name and Emoji: ", selectedLabel.getEmojiAndName());
-
     // Clear the input fields
     // TODO: Consistent formatting
     document.getElementById("eventName"     ).value = "";
@@ -479,6 +468,10 @@ function createExampleEvents()
     // label is projects from work
     const E4 = new Event("Finish Events", "The streets", "2024-09-11", "5:00", "2024-09-18", "6:00", "", labels[1]);
     events.push(E4);
+
+    // label is birthdays
+    const E5 = new Event("Long birthday", "house", "2024-09-29", "10:00", "2024-10-6", "11:00", "", labels[2]);
+    events.push(E5);
 
     renderCalendar();
 }

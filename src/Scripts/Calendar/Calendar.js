@@ -80,21 +80,8 @@ const thursdayFillColorInput = document.getElementById("thursdayFillColor");
 const fridayFillColorInput = document.getElementById("fridayFillColor");
 const saturdayFillColorInput = document.getElementById("saturdayFillColor");
 
-// BEGIN CALENDAR FUNCTIONALITY
-
 // Initializing the "current" date to display to user
 let currentDate = new Date();
-
-// // Function that returns events for a specific day
-// function getEventsForDay(day) {
-//     return events.filter(event => {
-//         const eventStart = new Date(event.startDate);
-//         const eventEnd = new Date(event.endDate);
-//         const currentDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
-
-//         return currentDay >= eventStart && currentDay <= eventEnd;
-//     });
-// }
 
 // Helper function to normalize date (removes time)
 function normalizeDate(date) {
@@ -102,11 +89,11 @@ function normalizeDate(date) {
 }
 
 // Function that returns events for a specific day
-function getEventsForDay(day) {
+function getEventsForDay(day, month = currentDate.getMonth(), year = currentDate.getFullYear()) {
     return events.filter(event => {
         const eventStart = normalizeDate(new Date(event.startDate)); // Strip time from start date
         const eventEnd = normalizeDate(new Date(event.endDate)); // Strip time from end date
-        const currentDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), day); // The current day being rendered
+        const currentDay = new Date(year, month, day); // The current day being rendered
 
         return currentDay >= eventStart && currentDay <= eventEnd;
     });
@@ -149,12 +136,18 @@ function renderCalendar() {
         daysContainer.appendChild(dayElement);
     }
     
+    // Getting todays date
+    const today = new Date();
 
     // Loop to render the days in the current month
     for (let i = 1; i <= daysInMonth; i++) {
         // Div elements will be created for each day of the current month
+
+        // Creating separete nuber for styling purposes
         const dayNum = document.createElement("div");
         dayNum.classList.add('dayNum')
+
+        // Main day div
         const dayElement = document.createElement("div");
 
         // Sets the day numbers to 1 (and overwrites the previous month days number)
@@ -163,6 +156,13 @@ function renderCalendar() {
 
         // Get events for the day and adds the emoji and colors from the labels
         const dayEvents = getEventsForDay(i - 1);
+
+        dayEvents.sort((a, b) => {
+            const startA = new Date(a.startDate + 'T' + a.startTime);  // Combine startDate and startTime
+            const startB = new Date(b.startDate + 'T' + b.startTime);  // Combine startDate and startTime
+            return startA - startB;  // Sort by earliest to latest
+        });
+
         dayEvents.forEach(event => {
 
             // Not showing events with unchecked labels
@@ -170,16 +170,18 @@ function renderCalendar() {
             {
                 return;
             }
+
+            // div that contains all event blocks
             const eventBlock = document.createElement("div");
             eventBlock.classList.add("eventBlock");
 
+            // Seperate text for if we decide to have some way to shorten it
             const eventText = document.createElement("span");
-            eventText.classList.add("eventText");
             eventText.innerHTML = `${event.label.emoji} ${event.name}`;
             eventBlock.appendChild(eventText);
 
-            //eventBlock.innerHTML = `${event.label.emoji} ${event.name}`;
-
+            // Setting event background to it's label's color and adjusting it's text
+            // so it is readable
             eventBlock.style.background = event.label.color;
             eventBlock.style.color = adjustTextColor(event.label.color);
 
@@ -191,6 +193,17 @@ function renderCalendar() {
         const daysOfWeek = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
         dayElement.classList.add(daysOfWeek[dayOfWeek]);
 
+        // Adds small border around the day if it is the current day
+        if (
+            today.getDate() === i && 
+            today.getMonth() === currentDate.getMonth() && 
+            today.getFullYear() === currentDate.getFullYear()) 
+        {
+            // Change the background color for today's date
+            dayElement.style.border = "2px solid #376753";  
+        }
+
+
         // Appending the numbered days to the current month to the calendar display
         daysContainer.appendChild(dayElement);
     }
@@ -200,11 +213,31 @@ function renderCalendar() {
     const nextMonthDays = 42 - totalDisplayedDays; // 42 = 7 days * 6 weeks
     
     // Loop to render in next month's days to fill out the remaning empty boxes
-    // OPTIONAL CAN BE REMOVED
     for (let i = 1; i <= nextMonthDays; i++) {
         const dayElement = document.createElement("div");
         dayElement.classList.add("otherMonth");
         dayElement.innerHTML = `${i}<br>`
+
+        // Get events for the day from the next month
+        const nextMonthEvents = getEventsForDay(i, currentDate.getMonth() + 1, currentDate.getFullYear());
+        
+        // Going through each event and adding it graphically to calendar
+        nextMonthEvents.forEach(event => {
+            const eventBlock = document.createElement("div");
+            eventBlock.classList.add("eventBlock");
+
+            const eventText = document.createElement("span");
+            eventText.classList.add("dayNum");
+            eventText.innerHTML = `${event.label.emoji} ${event.name}`;
+            eventBlock.appendChild(eventText);
+
+            // Set event styles (background color, text color)
+            eventBlock.style.background = event.label.color;
+            eventBlock.style.color = adjustTextColor(event.label.color);
+
+            dayElement.appendChild(eventBlock);
+        });
+        
         daysContainer.appendChild(dayElement);
     }
     
@@ -237,7 +270,7 @@ nextBtn.addEventListener("click", () => {
     updateDayColors();
 });
 
-// END CALENDAR FUNCTIONALITY
+
 
 // Event listener to open the color picker modal
 openColorPickerBtn.addEventListener("click", () => {
