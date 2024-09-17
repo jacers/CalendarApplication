@@ -10,7 +10,7 @@ import { defineConfig } from 'vite';
 export default defineConfig({
   root: '.', // Set this to the directory containing your HTML files
   build: {
-    outDir: '../dist', // Output directory for built files, adjust as needed
+    outDir: 'dist', // Output directory for built files, adjust as needed
     rollupOptions: {
       input: {
         main: 'index.html',
