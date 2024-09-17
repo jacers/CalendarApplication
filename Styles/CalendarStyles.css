@@ -391,7 +391,7 @@ body, html
 .form-group select,
 .form-group textarea,
 .form-group button {
-    flex: 1;
+    flex: 0;
 }
 
 .closeNewEvent
@@ -409,7 +409,8 @@ body, html
     cursor: pointer; /* Changes the cursor to a pointer when hovering over the x */
 }
 
-.eventsModal
+.eventsModal,
+.dayEventsModal
 {
     display: none;
     position: fixed;
@@ -423,7 +424,8 @@ body, html
     overflow: auto /* Ensures scroll wheel appears if modal goes off screen*/
 }
 
-.eventsViewerModal-content
+.eventsViewerModal-content,
+.dayEventsViewerModal-content
 {
     background-color: #fefefe;
     margin: 5% auto;
@@ -433,7 +435,8 @@ body, html
     overflow-y: auto; /* Ensures scroll wheel appears if modal goes off screen*/
 }
 
-.closeEventsViewer
+.closeEventsViewer,
+.closeDayEventsViewer
 {
     color: #aaa;
     float: right;
@@ -442,7 +445,9 @@ body, html
 }
 
 .closeEventsViewer:hover,
-.closeEventsViewer:focus
+.closeEventsViewer:focus,
+.closeDayEventsViewer:hover,
+.closeDayEventsViewer:focus
 {
     color: black; /* Gives the x a thicker color when hovered over */
     cursor: pointer; /* Changes the cursor to a pointer when hovering over the x */
@@ -487,7 +492,9 @@ th
 #eventTable th,
 #eventTable td,
 #pastEventTable th,
-#pastEventTable td
+#pastEventTable td,
+#dayEventTable th,
+#dayEventTable td
 {
     text-align: left;
     margin-left: 20px;
@@ -501,7 +508,11 @@ th
 #pastEventTable th:nth-child(3),
 #pastEventTable th:nth-child(4),
 #pastEventTable td:nth-child(3),
-#pastEventTable td:nth-child(4) {
+#pastEventTable td:nth-child(4),
+#dayEventTable th:nth-child(3),
+#dayEventTable th:nth-child(4),
+#dayEventTable td:nth-child(3),
+#dayEventTable td:nth-child(4) {
     width: 150px;
 }
 
