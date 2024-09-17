@@ -5,7 +5,7 @@
     <meta name = "viewport" content = "width=device-width, initial-scale=1.0">
     <title>Calendar Application - Calendar</title>
 
-    <script type="module" src="https://cdn.jsdelivr.net/npm/emoji-picker-element@^1/index.js"></script>
+    <script type = "module" src="https://cdn.jsdelivr.net/npm/emoji-picker-element@^1/index.js"></script>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -23,7 +23,7 @@
             <button class="labelHideShow">
                 <img src="../../src/Images/whiteLeftPanelClose.png" alt="Toggle Panel">
             </button>            
-            <h1>CalendarName</h1>
+            <h1>SimplCal</h1>
             <div class = "monthNavigation">
                 <button id = "prevButton">&lt;</button> <!-- Can be &lt; -->
                 <h2 id = "monthYearDisplay">Month Year</h2>
@@ -49,8 +49,8 @@
                     </button>
                     <div class = "dropdownContent">
                         <a href = "../../index.html">Home</a>
-                        <a href = "../../index.html">Login</a>
-                        <a href = "SettingPage.html">Setting</a>
+                        <a id = "SettingLink" href = "SettingPage.html">Setting</a>
+                        <a id = "AuthenticationLink" href = "#">Login</a>
                     </div>
                 </div>
             </div>
@@ -441,5 +441,6 @@
 <script src="../../src/Scripts/Calendar/labelPanel.js"></script>
 <script src="../../src/Scripts/Calendar/labelPanelLabel.js"></script>
 <script src="../../src/Scripts/Calendar/labelPanelCategory.js"></script>
+<script type = "module" src = "/src/Scripts/Accounts/UserAccess.js"></script>
 </body>
 </html>
