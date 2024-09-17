@@ -118,6 +118,18 @@ class Category
     }
 }
 
+// Event listener to open the category maker modal
+function openCatMaker()
+{
+    catMakerModal.style.display = 'block';
+    categoryName.focus();
+}
+
+// Event listener to close the label maker modal
+closeLabelMakerBtn.addEventListener("click", () => {
+    labelMakerModal.style.display = "none";
+});
+
 // Going through each labelDown and initalizing a Category class, adding to the category array
 labelDowns.forEach(labelDown => {
     const newCat = new Category(labelDown);
@@ -132,6 +144,43 @@ addCatButton.addEventListener('click', openCatMaker);
 closeNewCat.addEventListener('click', (e) => {
     catMakerModal.style.display = 'none';
 });
+
+// Add listener to the category dropdown menu
+let prevValueRaw = eventCatDropdown.value
+eventCatDropdown.addEventListener("change", () => {
+    const valueRaw = eventCatDropdown.value
+    
+    if(valueRaw === "newCategory")
+    {
+        openCatMaker();
+        eventCatDropdown.value = "select"; // Reset the dropdown to the default option
+        return; // want to stop other functionality
+    }
+    // Back to default if select
+    if(valueRaw === "select")
+    {
+        labelInput.style.display = 'none';
+        return;
+    }
+
+    // Getting proper category class and removing old labels if applicable
+    const value = categories[valueRaw];
+    if(!(prevValueRaw === 'select' || prevValueRaw === 'newCategory'))
+    {
+        const prevValue = categories[prevValueRaw];
+        prevValue.removeLabels();
+    }
+
+    // Check if labelInput div is none and changing if it is
+    if(window.getComputedStyle(labelInput).display == 'none')
+    {
+        labelInput.style.display = 'inline-block';
+    } 
+
+    // Changing out labels based on the category
+    prevValueRaw = valueRaw; // Updating previous value to current value
+    value.addLabels();
+})
 
 function openCatEditor(e)
 {
@@ -307,3 +356,6 @@ function submitCatInput(name)
 
     return labelDown;
 }
+
+// Pls don't forget to remove this k thanks
+createExampleEvents();

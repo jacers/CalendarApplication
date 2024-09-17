@@ -1,114 +1,8 @@
-
-// Constructs a new event to be added to the calendar
-class Event {
-    constructor(name, location, startDate, startTime, endDate, endTime, notes, label) {
-        this.name = name; // Name of the event
-        this.location = location; // Location where the event takes place
-        this.startDate = startDate; // Start date, formatted as a date with no time
-        this.startTime = startTime; // Start time, formatted as a time with no date
-        this.endDate = endDate; // End date, formatted as a date with no time
-        this.endTime = endTime; // End time, formatted as a time with no date
-        this.notes = notes; // Any notes of the event
-        this.label = label; // Label associated with the event
-    }
-
-    // Combines and returns the startDate and startTime parameters
-    getStart() {
-        return new Date(`${this.startDate}T${this.startTime}`)
-    }
-
-    // Combines and returns the endDate and endTime parameters
-    getEnd() {
-        return new Date(`${this.endDate}T${this.endTime}`)
-    }
-
-    // Formats a date as Month Day, Year
-    formatDate(date) {
-        const options = { year: 'numeric', month: 'long', day: 'numeric' };
-        const dateObj = new Date(date);
-        // Adjust for timezone offset; without this, the date will be one day off
-        dateObj.setMinutes(dateObj.getMinutes() + dateObj.getTimezoneOffset());
-        return dateObj.toLocaleDateString('en-US', options);
-    }
-
-    // Formats a time as H:MM AM/PM
-    formatTime(time) {
-        const [hours, minutes] = time.split(':');
-        const date = new Date();
-        date.setHours(parseInt(hours, 10));
-        date.setMinutes(parseInt(minutes, 10));
-        const options = { hour: 'numeric', minute: 'numeric', hour12: true };
-        return date.toLocaleTimeString('en-US', options);
-    }
-}
-
-// Constructs a new label to be added to events
-class Label {
-    constructor(name, emoji, color) {
-        // TODO: Consistent formatting
-        this.name  = name ; // Name of the label
-        this.emoji = emoji; // Emoji associated with the label
-        this.color = color; // Color associated with the label
-        this.id = labels.length; // Doing this so Labels can be removed
-    }
-
-    // Combines and returns the name and emoji parameters
-    getEmojiAndName() {
-        return `${this.emoji} ${this.name}`;
-    }
-
-    getEmojiAndColor() {
-        return `<span style="background-color:${this.color}; border-radius: 5px; padding: 2px 4px;">${this.emoji}</span>`;
-    }
-
-    getLabel() {
-        return `${this.getEmojiAndColor()} ${this.name}`;
-    }
-
-    // Adds the label to the options under the event label dropdown selector
-    addLabelOption() {
-        const eventLabelDropdown = document.querySelector('#eventLabelDropdown');
-        const newLabelOption = eventLabelDropdown.querySelector('option[value="newEvent"]');
-        const newOption = document.createElement('option');
-
-        // Giving new option proper value and name/emoji
-        newOption.value = this.id;
-        newOption.innerHTML = this.getEmojiAndName();
-
-        // Inserting this before the new label option to maintain consistency and readability
-        newLabelOption.parentNode.insertBefore(newOption, newLabelOption);
-    }
-
-    // Removes the label from the options under the event label dropdown selector
-    removeLabelOption() {
-        const eventLabelDropdown = document.querySelector('#eventLabelDropdown');
-        const optionToRemove = eventLabelDropdown.querySelector(`option[value="${this.id}"]`);
-        if(optionToRemove)
-        {
-            optionToRemove.remove();
-        }
-    }
-
-    // Updates name and emoji after change, changes html if label is present as an option
-    changeNameAndEmoji(name, emoji) {
-        this.name = name;
-        this.emoji = emoji;
-
-        const targetLabOption = eventLabelDropdown.querySelector(`option[value="${this.id}"]`);
-        if(targetLabOption)
-        {
-            targetLabOption.innerHTML = this.getEmojiAndName();
-        }
-    }
-
-}
-
 // Selecting DOM elements (Elements in the CalendarPage.html)
-// TODO: Consistent formatting
-const prevBtn          = document.getElementById("prevButton"      );
-const nextBtn          = document.getElementById("nextButton"      );
+const prevBtn = document.getElementById("prevButton");
+const nextBtn = document.getElementById("nextButton");
 const monthYearDisplay = document.getElementById("monthYearDisplay");
-const daysContainer    = document.querySelector (".days"           );
+const daysContainer = document.querySelector (".days");
 
 // Will most likely be removed (Just trying to resolve conflicts as of now)
 const viewSelectionContent = document.getElementById("viewSelectionContent");
@@ -118,34 +12,37 @@ const openModalBtn = document.getElementById("openModalBtn");
 const modal = document.getElementById("colorPickerModal");
 const closeModalBtn = document.querySelector (".close");
 
-// TODO: Consistent formatting
-const openColorPickerBtn  = document.getElementById("openColorPickerBtn");
-const colorPickerModal    = document.getElementById("colorPickerModal"  );
-const closeColorPickerBtn = document.querySelector (".closeColorPicker" );
+// Color picker's user interaction elements
+const openColorPickerBtn = document.getElementById("openColorPickerBtn");
+const colorPickerModal = document.getElementById("colorPickerModal"  );
+const closeColorPickerBtn = document.querySelector(".closeColorPicker" );
 
 // Modal for new event; will appear in front of and disable other elements
-// TODO: Consistent formatting
-const openNewEventBtn  = document.getElementById("openNewEvent"    );
-const newEventModal    = document.getElementById("newEventModal"   );
-const closeNewEventBtn = document.querySelector (".closeNewEvent"  );
+const openNewEventBtn = document.getElementById("openNewEvent");
+const newEventModal = document.getElementById("newEventModal");
+const closeNewEventBtn = document.querySelector (".closeNewEvent");
 const eventCatDropdown = document.querySelector("#eventCatDropdown");
-const labelInput       = document.querySelector("#labInputs"       );
-const saveEventBtn     = document.getElementById("saveEvent"       );
+const labelInput = document.querySelector("#labInputs");
+const saveEventBtn = document.getElementById("saveEvent");
 
 // Modal to view events; will appear in front of and disable other elements
-// TODO: Consistent formatting
-const searchBtn  = document.getElementById("openEventsViewer" );
+const searchBtn = document.getElementById("openEventsViewer");
 const closeEventsViewerBtn = document.querySelector(".closeEventsViewer");
-const eventsViewerModal    = document.getElementById("eventsViewerModal");
+const eventsViewerModal = document.getElementById("eventsViewerModal");
+
+// Modal to view events within a day; will appear in front of and disable other elements
+const dayEventsViewerModal = document.getElementById("dayEventsViewerModal");
+const closeDayEventsModal = document.querySelector(".closeDayEventsModal");
+const selectedDayElement = document.getElementById("selectedDay");
+const dayEventList = document.getElementById("dayEventList");
 
 // Modal for label maker; will appear in front of and disable other elements
-// TODO: Consistent formatting
 const eventLabelDropdown = document.getElementById("eventLabelDropdown");
-const labelMakerModal    = document.getElementById("labelMakerModal"   );
-const closeLabelMakerBtn = document.querySelector (".closeLabelMaker"  );
-const emojiPreview       = document.getElementById("emojiPreview"      );
-const emojiPreviewEdit   = document.getElementById("emojiPreviewEdit" );
-const saveLabelBtn       = document.getElementById("saveLabel"         );
+const labelMakerModal = document.getElementById("labelMakerModal");
+const closeLabelMakerBtn = document.querySelector (".closeLabelMaker");
+const emojiPreview = document.getElementById("emojiPreview");
+const emojiPreviewEdit = document.getElementById("emojiPreviewEdit");
+const saveLabelBtn = document.getElementById("saveLabel");
 
 // Emoji Picker for the maker modal
 const emojiPicker = document. querySelector ("emoji-picker");
@@ -162,8 +59,6 @@ emojiEditPicker.addEventListener("emoji-click", (event) => {
     emojiPreviewEdit.innerText = labelEmoji;
 })
 
-
-
 // Modal for category maker
 const catMakerModal = document.querySelector('.catMakerModal');
 const closeNewCat = document.querySelector('.closeNewCat');
@@ -173,10 +68,9 @@ const catEditorModal = document.querySelector('.catEditorModal'); // Will be mov
 const labEditorModal = document.querySelector('.labelEditorModal'); // Will be moved soon
 
 // Event variables
-// TODO: Consistent formatting
 let labelEmoji = ""; // Variable to store selected emoji
-let events     = []; // Array to store all events
-let labels     = []; // Array to store all labels
+let events = []; // Array to store all events
+let labels = []; // Array to store all labels
 let categories = []; // Array to store all categories
 
 // Color picker input elements
@@ -188,104 +82,21 @@ const thursdayFillColorInput = document.getElementById("thursdayFillColor");
 const fridayFillColorInput = document.getElementById("fridayFillColor");
 const saturdayFillColorInput = document.getElementById("saturdayFillColor");
 
-
 // Initializing the "current" date to display to user
 let currentDate = new Date();
 
-
-
-
-/*
-
-// Creating an instance of Views from the Views class
-const views = new Views(currentDate, daysContainer, monthYearDisplay);
-
-// Event listeners for buttons to change the date
-prevBtn.addEventListener("click", () => {
-
-    // Creating a variable that contains the value of the user selction
-    const currentView = viewSelectionContent.value;
-
-    if (currentView === "month") {
-        currentDate.setMonth(currentDate.getMonth() - 1);
-        views.renderCalendarMonth();
-    } else if (currentView === "year") {
-        currentDate.setFullYear(currentDate.getFullYear() - 1);
-        views.renderCalendarYear();
-    } else if (currentView === "week") {
-        currentDate.setDate(currentDate.getDate() - 7);
-        views.renderCalendarWeek();
-    } else if (currentView === "day") {
-        currentDate.setDate(currentDate.getDate() - 1);
-        views.renderCalendarDay();
-    }
-});
-
-nextBtn.addEventListener("click", () => {
-
-    // Creating a variable that contains the value of the user selction
-    const currentView = viewSelectionContent.value;
-
-    if (currentView === "month") {
-        currentDate.setMonth(currentDate.getMonth() + 1);
-        views.renderCalendarMonth();
-    } else if (currentView === "year") {
-        currentDate.setFullYear(currentDate.getFullYear() + 1);
-        views.renderCalendarYear();
-    } else if (currentView === "week") {
-        currentDate.setDate(currentDate.getDate() + 7);
-        views.renderCalendarWeek();
-    } else if (currentView === "day") {
-        currentDate.setDate(currentDate.getDate() + 1);
-        views.renderCalendarDay();
-    }
-});
-
-
-// The current calendar look upon opening the page (The initial render)
-// Can be changed to something else (this is temporary to see if the views are "working")
-views.renderCalendarMonth();
-
-// Event listener for selection change in the view (Users will choose what view they would like to see)
-viewSelectionContent.addEventListener("change", function() {
-    const selectedValue = this.value;
-
-    // Clear previous content if necessary (which probably will if view is changed)
-    daysContainer.innerHTML = "";
-
-    switch (selectedValue) 
-    {
-        case "month":
-            daysContainer.classList.remove("dayViewContainer", "yearViewContainer", "weekViewContainer");
-            views.renderCalendarMonth();
-            break;
-        case "day":
-            daysContainer.classList.remove("yearViewContainer", "weekViewContainer", "monthViewContainer");
-            views.renderCalendarDay();
-            break;
-        case "year":
-            daysContainer.classList.remove("weekViewContainer", "monthViewContainer", "dayViewContainer");
-            views.renderCalendarYear();
-            break;
-        case "week":
-            daysContainer.classList.remove("dayViewContainer", "yearViewContainer", "monthViewContainer");
-            views.renderCalendarWeek();
-            break;
-    }
-});
-
-// Trigger the change event on page load to set the default view
-viewSelectionContent.dispatchEvent(new Event("change"));
-*/
-
-
+// Helper function to normalize date (removes time)
+function normalizeDate(date) {
+    return new Date(date.getFullYear(), date.getMonth(), date.getDate());
+}
 
 // Function that returns events for a specific day
-function getEventsForDay(day) {
+function getEventsForDay(day, month = currentDate.getMonth(), year = currentDate.getFullYear()) {
     return events.filter(event => {
-        const eventStart = new Date(event.startDate);
-        const eventEnd = new Date(event.endDate);
-        const currentDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
+        const eventStart = normalizeDate(new Date(event.startDate)); // Strip time from start date
+        const eventEnd = normalizeDate(new Date(event.endDate)); // Strip time from end date
+        eventEnd.setDate(eventEnd.getDate() + 1); // Makes sure the full range is included on the calendar view
+        const currentDay = new Date(year, month, day); // The current day being rendered
 
         return currentDay >= eventStart && currentDay <= eventEnd;
     });
@@ -327,30 +138,75 @@ function renderCalendar() {
         daysContainer.appendChild(dayElement);
     }
     
+    // Getting todays date
+    const today = new Date();
 
     // Loop to render the days in the current month
     for (let i = 1; i <= daysInMonth; i++) {
         // Div elements will be created for each day of the current month
+
+        // Creating separete nuber for styling purposes
+        const dayNum = document.createElement("div");
+        dayNum.classList.add('dayNum')
+
+        // Main day div
         const dayElement = document.createElement("div");
 
         // Sets the day numbers to 1 (and overwrites the previous month days number)
-        dayElement.innerHTML = `${i}`;
+        dayNum.innerHTML = `${i}`;
+        dayElement.appendChild(dayNum);
 
         // Get events for the day and adds the emoji and colors from the labels
-        const dayEvents = getEventsForDay(i);
-        dayEvents.forEach(event => {
-            // Create a emoji element
-            const emojiPreview = document.createElement("preview");
-            emojiPreview.innerHTML = `<br>${event.label.getEmojiAndColor()}`;
+        const dayEvents = getEventsForDay(i - 1);
 
-            // Add the emoji to the calendar
-            dayElement.appendChild(emojiPreview);
+        dayEvents.sort((a, b) => {
+            const startA = new Date(a.startDate + 'T' + a.startTime);  // Combine startDate and startTime
+            const startB = new Date(b.startDate + 'T' + b.startTime);  // Combine startDate and startTime
+            return startA - startB;  // Sort by earliest to latest
+        });
+
+        dayEvents.forEach(event => {
+
+            // Not showing events with unchecked labels
+            if((event.label.isChecked == false))
+            {
+                return;
+            }
+
+            // div that contains all event blocks
+            const eventBlock = document.createElement("div");
+            eventBlock.classList.add("eventBlock");
+
+            // Seperate text for if we decide to have some way to shorten it
+            const eventText = document.createElement("span");
+            eventText.innerHTML = `${event.label.emoji} ${event.name}`;
+            eventBlock.appendChild(eventText);
+
+            // Setting event background to it's label's color and adjusting it's text
+            // so it is readable
+            eventBlock.style.background = event.label.color;
+            eventBlock.style.color = adjustTextColor(event.label.color);
+
+            dayElement.appendChild(eventBlock);
         });
 
         // Sets the days of the week to their respective colors
         const dayOfWeek = new Date(currentDate.getFullYear(), currentDate.getMonth(), i).getDay();
         const daysOfWeek = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
         dayElement.classList.add(daysOfWeek[dayOfWeek]);
+
+        // Adds small border around the day if it is the current day
+        if (
+            today.getDate() === i && 
+            today.getMonth() === currentDate.getMonth() && 
+            today.getFullYear() === currentDate.getFullYear()) 
+        {
+            // Change the background color for today's date
+            dayElement.style.border = "2px solid #376753";  
+        }
+
+        // Adds an event listener to each date to open an event viewer for that date
+        dayElement.addEventListener("click", () => openDayEventsModal(i));
 
         // Appending the numbered days to the current month to the calendar display
         daysContainer.appendChild(dayElement);
@@ -361,15 +217,33 @@ function renderCalendar() {
     const nextMonthDays = 42 - totalDisplayedDays; // 42 = 7 days * 6 weeks
     
     // Loop to render in next month's days to fill out the remaning empty boxes
-    // OPTIONAL CAN BE REMOVED
     for (let i = 1; i <= nextMonthDays; i++) {
         const dayElement = document.createElement("div");
         dayElement.classList.add("otherMonth");
         dayElement.innerHTML = `${i}<br>`
+
+        // Get events for the day from the next month
+        const nextMonthEvents = getEventsForDay(i, currentDate.getMonth() + 1, currentDate.getFullYear());
+        
+        // Going through each event and adding it graphically to calendar
+        nextMonthEvents.forEach(event => {
+            const eventBlock = document.createElement("div");
+            eventBlock.classList.add("eventBlock");
+
+            const eventText = document.createElement("span");
+            eventText.classList.add("dayNum");
+            eventText.innerHTML = `${event.label.emoji} ${event.name}`;
+            eventBlock.appendChild(eventText);
+
+            // Set event styles (background color, text color)
+            eventBlock.style.background = event.label.color;
+            eventBlock.style.color = adjustTextColor(event.label.color);
+
+            dayElement.appendChild(eventBlock);
+        });
+        
         daysContainer.appendChild(dayElement);
-    }
-    
-    
+    }   
 }
 
 // TODO: Consistent formatting
@@ -408,385 +282,14 @@ closeColorPickerBtn.addEventListener("click", () => {
     colorPickerModal.style.display = "none";
 });
 
-// Event listener to open the new event modal
-openNewEventBtn.addEventListener("click", () => {
-    newEventModal.style.display = "block";
-});
-
-// Event listener to close the new event modal
-closeNewEventBtn.addEventListener("click", () => {
-    newEventModal.style.display = "none";
-});
-
-// Event listener to open the event viewer modal
-searchBtn.addEventListener("click", () => {
-    const eventsList = document.getElementById("eventList");
-    const pastEventsList = document.getElementById("pastEventList");
-    eventsList.innerHTML = ""; // Clear the current events list
-    pastEventsList.innerHTML = ""; // Clear the past events list
-
-    // Filter out current and past events
-    const now = new Date();
-    const currentEvents = events.filter(event => new Date(event.endDate) >= now);
-    const pastEvents = events.filter(event => new Date(event.endDate) < now);
-
-    // Sort current events by start date
-    const sortedCurrentEvents = currentEvents.sort((a, b) => new Date(a.startDate) - new Date(b.startDate));
-
-    // Creates a table for the current events
-    sortedCurrentEvents.forEach(event => createEventsTable(event, eventsList));
-
-    // Creates a table for the past events
-    pastEvents.forEach(event => createEventsTable(event, pastEventsList));
-
-    eventsViewerModal.style.display = "block";
-});
-
-// Function to aid the creation of current and past events tables
-function createEventsTable(event, tableElement) {
-    const row = document.createElement("tr");
-
-    // Create cell for the name
-    const nameCell = document.createElement("td");
-    nameCell.textContent = event.name;
-
-    if(event.location != "") {
-        nameCell.innerHTML += `<br> at ${event.location}`;
-    }
-
-    row.appendChild(nameCell);
-
-    // Create cell for the label
-    const labelCell = document.createElement("td");
-    labelCell.innerHTML = event.label.getLabel();
-    row.appendChild(labelCell);
-
-    // Create cell for the from date
-    const startsCell = document.createElement("td");
-    startsCell.textContent = event.formatDate(event.startDate);
-    startsCell.innerHTML += `<br> at ${event.formatTime(event.startTime)}`;
-    row.appendChild(startsCell);
-
-    // Create cell for the to date
-    const endsCell = document.createElement("td");
-    endsCell.textContent = event.formatDate(event.endDate);
-    endsCell.innerHTML += `<br> at ${event.formatTime(event.endTime)}`;
-    row.appendChild(endsCell);
-
-    // Create cell for the dropdown menu
-    const optionsCell = document.createElement('td');
-    const optionsDropdown = document.createElement('div');
-    optionsDropdown.className = 'dropdown';
-
-    // Create the dropdown button with image
-    const dropButton = document.createElement('button');
-    dropButton.className = 'optionsDropButton';
-    const optionsImg = document.createElement('img');
-    optionsImg.src = '../../src/Images/verticleDots.png'; // PLEASE MAKE SURE I RECONNECTED THIS CORRECTLY SORRY
-    optionsImg.alt = 'Toggle Panel';
-    optionsImg.style.width = '30px'; // Ensure the image fits the button
-    optionsImg.style.height = '30px'; // Ensure the image fits the button
-    dropButton.appendChild(optionsImg);
-    optionsDropdown.appendChild(dropButton);
-
-    // Create the dropdown content
-    const dropdownContent = document.createElement('div');
-    dropdownContent.className = 'dropdownContent';
-    dropdownContent.style.display = 'none'; // Hidden by default
-    dropdownContent.innerHTML = `
-        <a href="#" id="editEventBtn">Edit</a>
-        <a href="#" id="deleteEventBtn">Delete</a>
-    `;
-    optionsDropdown.appendChild(dropdownContent);
-
-    const editEventBtn = dropdownContent.querySelector('#editEventBtn');
-    const deleteEventBtn = dropdownContent.querySelector('#deleteEventBtn');
-
-    // Edit button functionality
-    editEventBtn.addEventListener('click', function (e) {
-        e.preventDefault(); // Prevent default anchor behavior
-
-        // Replace name with input field
-        const nameInput = document.createElement("input");
-        nameInput.type = "text";
-        nameInput.value = event.name;
-
-        // Replace location with input field
-        const locationInput = document.createElement("input");
-        locationInput.type = "text";
-        locationInput.value = event.location || "";
-
-        // Format the name cell
-        nameCell.innerHTML = "";
-        nameCell.appendChild(nameInput);
-        nameCell.appendChild(document.createElement("br"));   // The newline
-        nameCell.appendChild(document.createTextNode("at ")); // Where the location input goes
-        nameCell.appendChild(locationInput);
-
-        // Replace label with dropdown
-        labelCell.innerHTML = "";
-        labelCell.appendChild(eventLabelDropdown);
-
-        // Replace from date with date input
-        const fromDateInput = document.createElement("input");
-        fromDateInput.type = "date";
-        fromDateInput.value = event.startDate;
-        startsCell.innerHTML = "";
-        startsCell.appendChild(fromDateInput);
-
-        // Replace from time with time input
-        const fromTimeInput = document.createElement("input");
-        fromTimeInput.type = "time";
-        fromTimeInput.value = event.startTime;
-        fromTimeInput.appendChild(document.createElement("br"));
-        startsCell.appendChild(fromTimeInput);
-
-        // Replace to date with date input
-        const toDateInput = document.createElement("input");
-        toDateInput.type = "date";
-        toDateInput.value = event.endDate;
-        endsCell.innerHTML = "";
-        endsCell.appendChild(toDateInput);
-
-        // Replace to time with time input
-        const toTimeInput = document.createElement("input");
-        toTimeInput.type = "time";
-        toTimeInput.value = event.endTime;
-        toTimeInput.appendChild(document.createElement("br"));
-        endsCell.appendChild(toTimeInput);
-
-        // Change dropdown button to a checkmark button
-        const checkmarkButton = document.createElement("button");
-        checkmarkButton.innerHTML = "✔"; // You can use an image here instead
-        checkmarkButton.className = 'checkmarkButton';
-        optionsCell.innerHTML = "";
-        optionsCell.appendChild(checkmarkButton);
-
-        // Save changes when checkmark is clicked
-        checkmarkButton.addEventListener('click', function () {
-            const eventName      = nameInput.value;
-            const eventLocation  = locationInput.value;
-            const labelIndex     = eventLabelDropdown.value;
-            const eventStartDate = fromDateInput.value;
-            const eventStartTime = fromTimeInput.value;
-            const eventEndDate   = toDateInput.value;
-            const eventEndTime   = toTimeInput.value;
-
-            // Warns the user if no name is inputted
-            if (!eventName) {
-                alert("Please name this event.");
-                return;
-            }
-
-            // Warns the user if no label is inputted
-            if (!labelIndex || labelIndex === "select" || labelIndex === "newEvent") {
-            alert("Please label this event.");
-            return;
-            }
-
-            // Warns the user if no start or end date and time are given
-            if (!eventStartDate || !eventStartTime || !eventEndDate || !eventEndTime) {
-                alert("Please select a date and time for the event to start and end.");
-                return;
-            }
-
-            // Combines the dates and times of the start and end date
-            const startDateTime = new Date(`${eventStartDate}T${eventStartTime}`);
-            const endDateTime   = new Date(`${eventEndDate  }T${eventEndTime  }`);
-
-            // Warns the user if the event starts after it has ended
-            if (startDateTime >= endDateTime) {
-                alert("The event cannot start after it has ended.");
-                return;
-            }
-
-            const selectedLabel = labels[labelIndex];
-
-            // Update the event object
-            event.name = eventName;
-            event.location = eventLocation;
-            event.label = selectedLabel;
-            event.startDate = eventStartDate;
-            event.startTime = eventStartTime;
-            event.endDate = eventEndDate;
-            event.endTime = eventEndTime;
-
-            // Replace inputs with plain text
-            nameCell.textContent = event.name;
-            if(event.location != "") {
-                nameCell.innerHTML += `<br> at ${event.location}`;
-            }
-
-            labelCell.innerHTML = "";
-            labelCell.innerHTML = event.label.getLabel();
-
-            startsCell.innerHTML = "";
-            startsCell.textContent = event.formatDate(event.startDate);
-            startsCell.innerHTML += `<br> at ${event.formatTime(event.startTime)}`;
-
-            endsCell.textContent = event.formatDate(event.endDate);
-            endsCell.innerHTML += `<br> at ${event.formatTime(event.endTime)}`;
-
-            // Replace checkmark button with original dropdown button
-            optionsCell.innerHTML = "";
-            optionsCell.appendChild(optionsDropdown);
-
-            // Re-render the calendar and events list
-            renderCalendar();
-        });
-    });
-
-    deleteEventBtn.addEventListener('click', function (e) {
-        e.preventDefault();
-
-        // Find the index of the event in the events array
-        const eventIndex = events.indexOf(event);
-
-        // Remove the event from the events array
-        if (eventIndex > -1) {
-            events.splice(eventIndex, 1);
-        }
-
-        // Remove the corresponding row from the table
-        tableElement.removeChild(row);
-
-        // Re-render the calendar and events list
-        renderCalendar();
-    });
-
-    // Toggle dropdown visibility on button click
-    dropButton.addEventListener('click', function () {
-        dropdownContent.style.display = dropdownContent.style.display === 'none' ? 'block' : 'none';
-    });
-
-    // Append the dropdown to the cell
-    optionsCell.appendChild(optionsDropdown);
-
-    // Append the cell to the row
-    row.appendChild(optionsCell);
-
-    tableElement.appendChild(row);
-}
-
-// Search bar for the eventViewerModal
-function searchEvents() {
-    var input, filter, eventTable, pastEventTable, tr, td, i, txtValue;
-
-    // Get the user input and filter it so it is case-insensitive
-    input = document.getElementById("searchInput");
-    filter = input.value.toUpperCase();
-
-    // Get information from the event table and past event table
-    eventTable = document.getElementById("eventTable");
-    pastEventTable = document.getElementById("pastEventTable");
-  
-    // Search for active events
-    tr = eventTable.getElementsByTagName("tr"); // Get all rows from the active events table
-    for (i = 1; i < tr.length; i++) {           // Loop through each row excluding the header row
-        // Get the first column of each row and check if there is a value
-        td = tr[i].getElementsByTagName("td")[0];
-        if (td) {
-            // There is a value; get the text content
-            txtValue = td.textContent || td.innerText;
-
-            // Check if the case-insensitive text content matches the case-insensitive filter
-            if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                // The text content matches the filter; display the associated row
-                tr[i].style.display = "";
-            } else {
-                // The text content does not match the filter; hide the associated row
-                tr[i].style.display = "none";
-            }
-        }
-    }
-  
-    // Search for past events
-    tr = pastEventTable.getElementsByTagName("tr"); // Get all rows from the active events table
-    for (i = 1; i < tr.length; i++) {               // Loop through each row excluding the header row
-        // Get the first column of each row and check if there is a value
-        td = tr[i].getElementsByTagName("td")[0];
-        if (td) {
-            // There is a value; get the text content
-            txtValue = td.textContent || td.innerText;
-
-            // Check if the case-insensitive text content matches the case-insensitive filter
-            if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                // The text content matches the filter; display the associated row
-                tr[i].style.display = "";
-            } else {
-                // The text content does not match the filter; hide the associated row
-                tr[i].style.display = "none";
-            }
-        }
-    }
-}
-
 // Event listener to close the event viewer modal
 closeEventsViewerBtn.addEventListener("click", () => {
     eventsViewerModal.style.display = "none";
 });
 
-// Add listener to the dropdown menu
-eventLabelDropdown.addEventListener("change", function() {
-    if (eventLabelDropdown.value === "newEvent") {
-        openlabelMakerModal();               // Function to open the label maker modal
-        eventLabelDropdown.value = "select"; // Reset the dropdown to the default option
-    }
-});
-
-// Add listener to the category dropdown menu
-let prevValueRaw = eventCatDropdown.value
-eventCatDropdown.addEventListener("change", () => {
-    const valueRaw = eventCatDropdown.value
-    
-    if(valueRaw === "newCategory")
-    {
-        openCatMaker();
-        eventCatDropdown.value = "select"; // Reset the dropdown to the default option
-        return; // want to stop other functionality
-    }
-    // Back to default if select
-    if(valueRaw === "select")
-    {
-        labelInput.style.display = 'none';
-        return;
-    }
-
-    // Getting proper category class and removing old labels if applicable
-    const value = categories[valueRaw];
-    if(!(prevValueRaw === 'select' || prevValueRaw === 'newCategory'))
-    {
-        const prevValue = categories[prevValueRaw];
-        prevValue.removeLabels();
-    }
-
-    // Check if labelInput div is none and changing if it is
-    if(window.getComputedStyle(labelInput).display == 'none')
-    {
-        labelInput.style.display = 'inline-block';
-    } 
-
-    // Changing out labels based on the category
-    prevValueRaw = valueRaw; // Updating previous value to current value
-    value.addLabels();
-})
-
-// Event listener to open the label maker modal
-// TODO: Possibly group this with the rest of the functions, rather than the rest of the modal openers
-function openlabelMakerModal() {
-    labelMakerModal.style.display = "block";
-}
-
-// Event listener to open the category maker modal
-function openCatMaker()
-{
-    catMakerModal.style.display = 'block';
-    categoryName.focus();
-}
-
-// Event listener to close the label maker modal
-closeLabelMakerBtn.addEventListener("click", () => {
-    labelMakerModal.style.display = "none";
+// Event listener to open the day event viewer modal
+closeDayEventsModal.addEventListener("click", () => {
+    dayEventsViewerModal.style.display = "none";
 });
 
 // Close any of the modals if the user clicks outside of it
@@ -810,125 +313,6 @@ window.addEventListener("click", (event) => {
     }
 });
 
-// Implementation of the event save button
-saveEventBtn.addEventListener("click", () => {
-    // Temporary variables that will be added to a new event
-    // TODO: Consistent formatting
-    const eventName      = document.getElementById("eventName"     ).value;
-    const eventLocation  = document.getElementById("eventLocation" ).value;
-    const eventStartDate = document.getElementById("eventStartDate").value;
-    const eventStartTime = document.getElementById("eventStartTime").value;
-    const eventEndDate   = document.getElementById("eventEndDate"  ).value;
-    const eventEndTime   = document.getElementById("eventEndTime"  ).value;
-    const eventNotes     = document.getElementById("eventNotes"    ).value;
-    const labelIndex     = eventLabelDropdown                       .value;
-
-    // Warns the user if no name is inputted
-    if (!eventName) {
-        alert("Please name this event.");
-        return;
-    }
-
-    // Warns the user if no label is inputted
-    if (!labelIndex || labelIndex === "select" || labelIndex === "newEvent") {
-        alert("Please label this event.");
-        return;
-    }
-
-    // Warns the user if no start or end date and time are given
-    if (!eventStartDate || !eventStartTime || !eventEndDate || !eventEndTime) {
-        alert("Please select a date and time for the event to start and end.");
-        return;
-    }
-
-    // Combines the dates and times of the start and end date
-    const startDateTime = new Date(`${eventStartDate}T${eventStartTime}`);
-    const endDateTime   = new Date(`${eventEndDate  }T${eventEndTime  }`);
-
-    // Warns the user if the event starts after it has ended
-    if (startDateTime >= endDateTime) {
-        alert("The event cannot start after it has ended.");
-        return;
-    }
-
-    const selectedLabel = labels[labelIndex];
-
-    // Create an instance of the Event class
-    const newEvent = new Event(eventName, eventLocation, eventStartDate, eventStartTime, eventEndDate, eventEndTime, eventNotes, selectedLabel);
-
-    // Add the new event to the events array
-    events.push(newEvent);
-
-    // TODO: This is only to help debugging, may need to be deleted or commented out later.
-    console.log("Event Name:           ", eventName                      );
-    console.log("Event Location:       ", eventLocation                  );
-    console.log("Event Start:          ", startDateTime                  );
-    console.log("Event End:            ", endDateTime                    );
-    console.log("Event Notes:          ", eventNotes                     );
-    console.log("Label Name:           ", selectedLabel.name             );
-    console.log("Label Emoji:          ", selectedLabel.emoji            );
-    console.log("Label Color:          ", selectedLabel.color            );
-    console.log("Label Name and Emoji: ", selectedLabel.getEmojiAndName());
-
-    // Clear the input fields
-    // TODO: Consistent formatting
-    document.getElementById("eventName"     ).value = "";
-    document.getElementById("eventLocation" ).value = "";
-    document.getElementById("eventStartDate").value = "";
-    document.getElementById("eventStartTime").value = "";
-    document.getElementById("eventEndDate"  ).value = "";
-    document.getElementById("eventEndTime"  ).value = "";
-    document.getElementById("eventNotes"    ).value = "";
-    const selectOption = eventLabelDropdown.querySelector('option[value="select"]'); // Needed to set label back to select
-    selectOption.selected = true;
-
-    newEventModal.style.display = "none";
-    renderCalendar();
-});
-
-// Implementation of the label save button
-saveLabelBtn.addEventListener("click", () => {
-    const labelName = document.getElementById("labelName").value;
-    const labelColor = document.getElementById("labelColor").value;
-
-    // Warns the user if no name is inputted
-    if (!labelName) {
-        alert("Please provide a name for the label.");
-        return;
-    }
-
-    // Warns the user if no emoji is inputted
-    if (!labelEmoji) {
-        alert("Please provide an emoji for the label.");
-        return;
-    }
-
-    // Warns the user if no color is inputted
-    // Note: Should not happen under normal circumstances
-    if (!labelColor) {
-        alert("Please provide an emoji for the label.");
-        return;
-    }
-
-    const newLabel = new Label(labelName, labelEmoji, labelColor);
-    
-    labels.push(newLabel);
-    submitLabInput(newLabel); // Adding newLabel to label panel
-
-    // Adding to proper category
-    const associatedCat = categories[eventCatDropdown.value];
-    associatedCat.addLabel(newLabel);
-
-    // Reset the label maker modal
-    document.getElementById("labelName").value = "";
-    document.getElementById("labelColor").value = "#ffffff";
-    emojiPreview.innerText = "";
-    labelEmoji = "";
-
-    // Close the label maker modal
-    labelMakerModal.style.display = "none";
-});
-
 // Event listeners for color inputs to update day colors live
 sundayFillColorInput   .addEventListener("input", updateDayColors);
 mondayFillColorInput   .addEventListener("input", updateDayColors);
@@ -941,4 +325,3 @@ saturdayFillColorInput .addEventListener("input", updateDayColors);
 // The current calendar look upon opening the page
 renderCalendar();
 updateDayColors();
-

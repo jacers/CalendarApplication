@@ -13,6 +13,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto&display=swap" rel="stylesheet">
     <!-- Styles -->
     <link rel = "stylesheet" href = "../../src/Styles/CalendarStyles.css">
+    <link rel="stylesheet" href="../../src/Styles/EventStyles.css">
     <link rel="stylesheet" href="../../src/Styles/LabelPanelStyles.css">
 </head>
 <body>
@@ -28,21 +29,6 @@
                 <h2 id = "monthYearDisplay">Month Year</h2>
                 <button id = "nextButton">&gt;</button> <!-- Can be $gt; -->
             </div>
-          
-          
-          <!-- Trying to reconnect, idk if we really need this with teh switch in plans -->
-          <!-- This is to allow users to switch between what view they want currently displayed -->
-            <div class = "viewSelection">
-                <select id="viewSelectionContent">
-                    <option value = "month" selected>Month</option>
-                    <option value = "day" >Day</option>
-                    <option value = "year" >Year</option>
-                    <option value = "week" >Week</option>
-                </select>
-            </div>
-          
-          
-          
   
             <div class="userFunctions">
                 <!-- New Event Button -->
@@ -314,6 +300,28 @@
           </div>
       </div>
 
+    <!-- View day events modal -->
+    <div id="dayEventsViewerModal" class="dayEventsModal">
+        <div class="eventsViewerModal-content">
+            <!-- Close button -->
+            <span class="closeDayEventsModal">x</span> <!--The x icon-->
+            <h1><span id = "selectedDay"></span></h1>
+            <!-- Active Events Table -->
+            <table id="dayEventTable">
+                <thead>
+                  <tr>
+                   <th>Event</th>
+                   <th>Label</th>
+                   <th>Starts</th>
+                   <th>Ends</th>
+                   <th></th> 
+                  </tr>
+              </thead>
+              <tbody id="dayEventList"></tbody>
+          </table>
+          </div>
+      </div>
+
     <!-- Label maker modal sub-menu within new event modal -->
     <div id = "labelMakerModal" class = "labelMakerModal">
         <div class = "newEventModal-content">
@@ -428,8 +436,8 @@
     </div>
 </footer>
 
-<script src = "../../src/Scripts/Calendar/Views.js"></script> <!-- This has to be first because following script depends on it -->
 <script src = "../../src/Scripts/Calendar/Calendar.js"></script>
+<script src="../../src/Scripts/Calendar/Events.js"></script>
 <script src="../../src/Scripts/Calendar/labelPanel.js"></script>
 <script src="../../src/Scripts/Calendar/labelPanelLabel.js"></script>
 <script src="../../src/Scripts/Calendar/labelPanelCategory.js"></script>

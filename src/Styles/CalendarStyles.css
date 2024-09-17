@@ -9,7 +9,6 @@ body, html
     height: 100%;
 
     font-family: "Open Sans", sans-serif;
-    background-color: #7ba683; /* Same green background as before in PrimaryStyles*/
     display: flex;
     flex-direction: column;
 }
@@ -34,8 +33,6 @@ body, html
     padding: 0;
 }
 
-
-
 /* Header */
 
 .calendarHeader 
@@ -50,8 +47,6 @@ body, html
     font-family: Georgia, serif;
     box-sizing: border-box;
 }
-
-
 
 .labelHideShow 
 {
@@ -188,42 +183,6 @@ body, html
     background-color: #3e8e41;
 }
 
-
-/* Day view styles 
-.dayView 
-{
-    position: relative;
-    width: 100%;
-    height: 100%;
-    border: 1px solid #ddd;
-    background-color: #fff;
-}
-
-.dayView .hour 
-{
-    position: absolute;
-    width: 100%;
-    border-bottom: 1px solid #eee;
-    height: 60px; 
-}
-
-.dayView .hour span 
-{
-    position: absolute;
-    left: 10px;
-    top: 10px;
-    font-size: 14px;
-    color: #666;
-}
-
-.dayViewContainer 
-{
-    flex-grow: 1;
-}
-*/
-
-
-
 .userFunctions .newEventBtn 
 {
     background-color: #376753;
@@ -326,20 +285,6 @@ body, html
     flex-direction: column;
 }
 
-
-
-/* Month view styles 
-.monthViewContainer 
-{
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    grid-auto-rows: 1fr;
-    gap: 1px;
-}
-*/
-
-
-
 .weekdays 
 {
     display: flex;
@@ -369,130 +314,37 @@ body, html
 .days div 
 {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
 
-    /* align-items: center;*/
-
-    align-items: top;
-
-    padding: 10px;
-    text-align: center;
+    padding: 3px;
     cursor: pointer; /* Changes the cursor to a pointer when hovering over the days */
-    border: 1px solid #ddd; /* Add border around each day */
+    border: 1px solid #ddd; /*Add border around each day*/
+    box-sizing: border-box;
+}
+
+.days .dayNum
+{
+    border: none;
+    margin-bottom: 3px;
+}
+
+.days .eventBlock
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 5px;
+    border-radius: 5%;
+    width: 100%;
+    border: 1px solid black;
 }
 
 .days .otherMonth 
 {
     color: #ccc; /* Sets the color for days not in current month */
 }
-
-
-
-/* Year view container 
-.yearViewContainer 
-{
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(3, 1fr);
-    gap: 10px;
-    padding: 10px;
-    box-sizing: border-box;
-}
-
- Individual month container
-.month 
-{
-    background-color: #fff;
-    border: 1px solid #ddd;
-    padding: 10px;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
- Month title
-.month h3 
-{
-    margin: 0 0 10px 0;
-    text-align: center;
-    font-size: 16px;
-    font-weight: bold;
-}
-
- Month days grid
-.monthDaysGrid 
-{
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    grid-auto-rows: 1fr;
-    gap: 2px;
-    width: 100%;
-}
-
- Individual day in month view 
-.yearDay 
-{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #f0f0f0;
-    border: 1px solid #ddd;
-    height: 30px;
-    cursor: pointer;
-}
-
-
- Empty day placeholder 
-.emptyDay 
-{
-    background-color: transparent;
-    border: 1px solid transparent;
-}
-
-
-
- Week view container
-.weekViewContainer {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    grid-template-rows: auto 1fr;
-    gap: 1px;
-    box-sizing: border-box;
-    height: 100%;
-}
-
- Weekday headers 
-.weekdayHeader {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #f0f0f0;
-    font-weight: bold;
-    border: 1px solid #ddd;
-    height: 50px;
-}
-
- Weekday blocks 
-.weekdayBlock {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    cursor: pointer;
-    padding: 10px;
-    height: 100%; 
-}
-
- IDK IF THIS IS REALLY NEEDED (just some random thing i added. Was thinking about
-allowing users to also change views by clicking on the calendar themselves) 
-Please keep in mind this just makes the clicking ability visible-ish
-.weekdayBlock:hover {
-    background-color: #f0f0f0;
-}
-*/
-
 
 .colorPickerModal 
 {
@@ -533,309 +385,10 @@ Please keep in mind this just makes the clicking ability visible-ish
     cursor: pointer; /* Changes the cursor to a pointer when hovering over the x */
 }
 
-.newEventModal 
-{
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.2);
-    padding-top: 60px;
-    overflow: auto /* Ensures scroll wheel appears if modal goes off screen*/
-}
-
-.newEventModal-content
-{
-    background-color: #fefefe;
-    margin: 5% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-    overflow-y: auto; /* Ensures scroll wheel appears if modal goes off screen*/
-}
-
-.form-group {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-}
-
-.form-group label {
-    width: 100px;
-    margin-right: 10px;
-}
-
-.form-group input,
-.form-group select,
-.form-group textarea,
-.form-group button {
-    flex: 0;
-}
-
-.closeNewEvent
-{
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.closeNewEvent:hover,
-.closeNewEvent:focus 
-{
-    color: black; /* Gives the x a thicker color when hovered over */
-    cursor: pointer; /* Changes the cursor to a pointer when hovering over the x */
-}
-
-.eventsModal
-{
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.4);
-    padding-top: 60px;
-    overflow: auto /* Ensures scroll wheel appears if modal goes off screen*/
-}
-
-.eventsViewerModal-content
-{
-    background-color: #fefefe;
-    margin: 5% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width:
-     80%;
-}
-
-.catLabInputs {
-    display: inline-block;
-    margin-right: 10px;
-}
-
-#labInputs {
-    display: none;
-}
-
-#eventLabelDropdown {
-    width: 125px;
-}
-
-#labInputs {
-    display: none;
-}
-
-#eventLabelDropdown {
-    width: 125px;
-}
-
-.closeEventsViewer
-{
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.closeEventsViewer:hover,
-.closeEventsViewer:focus
-{
-    color: black; /* Gives the x a thicker color when hovered over */
-    cursor: pointer; /* Changes the cursor to a pointer when hovering over the x */
-}
-
-/*Styling for general tables*/
-table
-{
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-}
-
-th, td
-{
-    border: 1px solid #ddd;
-}
-
-th
-{
-    background-color: #f2f2f2;
-}
-
-.colorPickerTable th,
-.colorPickerTable td
-{
-    text-align: center;
-}
-
-.colorPickerTable tbody tr td
-{
-    text-align: center;
-}
-
-.colorPickerTable tbody tr td:first-child,
-.colorPickerTable tbody tr th:first-child
-{
-    background-color: #f2f2f2;
-    font-weight: bold;
-}
-
-#eventTable th,
-#eventTable td,
-#pastEventTable th,
-#pastEventTable td
-{
-    text-align: left;
-    margin-left: 20px;
-}
-
-/* Set From and To column widths for the event tables */
-#eventTable th:nth-child(3),
-#eventTable th:nth-child(4),
-#eventTable td:nth-child(3),
-#eventTable td:nth-child(4),
-#pastEventTable th:nth-child(3),
-#pastEventTable th:nth-child(4),
-#pastEventTable td:nth-child(3),
-#pastEventTable td:nth-child(4) {
-    width: 150px;
-}
-
-/* Set Name and Label column widths to be half of the remaining space*/
-#eventTable th:nth-child(1),
-#eventTable th:nth-child(2),
-#eventTable td:nth-child(1),
-#eventTable td:nth-child(2),
-#pastEventTable th:nth-child(1),
-#pastEventTable th:nth-child(2),
-#pastEventTable td:nth-child(1),
-#pastEventTable td:nth-child(2) {
-    width: calc((100% - 340 px) / 2); /* Halve the remaining space and leave room for the final column */
-}
-
-/*Set the final column of the event tables to be a square*/
-#eventTable th:nth-child(5),
-#eventTable td:nth-child(5),
-#pastEventTable th:nth-child(5),
-#pastEventTable td:nth-child(5) {
-    width: 40px;
-    height: 40px;
-    text-align: center; /*Ensure all icons are centered*/
-}
-
-.labelMakerModal 
-{
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.4);
-    padding-top: 60px;
-    overflow: auto /* Ensures scroll wheel appears if modal goes off screen*/
-}
-
-.labelMakerModal-content
-{
-    background-color: #fefefe;
-    margin: 5% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 50%;
-    overflow-y: auto; /* Ensures scroll wheel appears if modal goes off screen*/
-}
-
-.closeLabelMaker
-{
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.closeLabelMaker:hover,
-.closeLabelMaker:focus 
-{
-    color: black; /* Gives the x a thicker color when hovered over */
-    cursor: pointer; /* Changes the cursor to a pointer when hovering over the x */
-}
-
-/* TODO: This is supposed to make it so the dropdown menu in the new label maker has a background color but it doesn't work*/
-option
-{
-    background-color: inherit;
-}
-
 emoji-picker
 {
     width: 350px;
     height: 300px;
-}
-
-.catMakerModal
-{
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.4);
-    padding-top: 60px;
-}
-
-.catMakerModel-content
-{
-    display: flex;
-    flex-direction: column;
-    background-color: #fefefe;
-    margin: 12% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 30%;
-}
-
-.catHeader
-{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-#categoryName
-{
-    margin-bottom: 4%;
-}
-
-.closeNewCat
-{
-    display: flex;
-    justify-content: right;
-    color: #aaa;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.closeNewCat:hover,
-.closeNewCat:focus
-{
-    color: black; /* Gives the x a thicker color when hovered over */
-    cursor: pointer; /* Changes the cursor to a pointer when hovering over the x */
-}
-
-.saveCat
-{
-    width: 20%;
-    margin: 0;
 }
 
 /* Dropdown Menu Styles */
