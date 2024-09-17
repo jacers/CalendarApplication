@@ -5,46 +5,53 @@ Purpose: This file will restrict some sections/pages according to user authentic
 Notes: Connected to ../../../index.html
 */
 
-// Import Firebase Authentication
+// Import necessary Firebase functions
 import { auth, onAuthStateChanged, signOut } from "../Firebase.js";
 
-// Get reference to the auth link in the dropdown
+// Get references to the elements
+const settingsLink = document.getElementById("SettingLink");
 const authLink = document.getElementById("AuthenticationLink");
 
-// Function to update the dropdown menu based on the user's login state
+// Check if the user is authenticated
 onAuthStateChanged(auth, (user) => {
 
-    // Loop to check if there is a user
-    if (user) {
-        // If the user is logged in, display "Logout" and add a logout functionality
-        AuthenticationLink.textContent = "Logout";
+    // Checking the status of user (whetehr or logged in or not)
+    if (user) 
+        {
+        // User is authenticated, show the Settings link and update Login to Logout
+        if (settingsLink) 
+        {
+            // Show the link via JS
+            settingsLink.style.display = "block";
+        }
 
-         // `#` because it will be handled through JavaScript
-         AuthenticationLink.href = "#";
+        // Make the dropdown display Logout
+        authLink.textContent = "Logout";
 
-        // Click listender
-        AuthenticationLink.onclick = () => {
+        // Add a click listener
+        authLink.onclick = () => {
 
-            // Log user out
+            // Action upon logout which is redirection
             signOut(auth).then(() => {
-
-                // Print message showing logged out
-                console.log("User signed out");
-
-                // Redirect them to the login page
-                window.location.href = '../../index.html'; // Redirect after logout
+                window.location.href = "../../index.html";
             }).catch((error) => {
-                console.error('Error during logout:', error);
+                console.error("Error during logout:", error);
             });
         };
     } else {
-        // If the user is not logged in, display "Login" and link to the login page
-        AuthenticationLink.textContent = "Login";
+        // User is not authenticated, hide the Settings link and show Login
+        if (settingsLink) 
+        {
+            settingsLink.style.display = "none";
+        }
 
-        // Link to login page which is home page
-        AuthenticationLink.href = '../../index.html';
+        // Display the word Login to users
+        authLink.textContent = "Login";
 
-        // Removing click handler for logout
-        AuthenticationLink.onclick = null;
+        // Link to the login page
+        authLink.href = "../../index.html";
+
+        // Remove logout click listener
+        authLink.onclick = null;
     }
 });

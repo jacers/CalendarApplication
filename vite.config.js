@@ -6,17 +6,29 @@ Notes: Connected to ../../index.html
 */
 
 import { defineConfig } from 'vite';
+import path from 'path';
 
 export default defineConfig({
-  root: '.', // Set this to the directory containing your HTML files
+  root: '.', // The root directory of project
+
   build: {
-    outDir: '../dist', // Output directory for built files, adjust as needed
+    outDir: 'dist', // Directory where build files will be output
     rollupOptions: {
       input: {
-        main: 'index.html',
-        calendar: "/Pages/CalendarPage.html",
-        setting: "/Pages/SettingPage.html",
-      }
-    }
-  }
+        main: path.resolve(__dirname, 'index.html'),
+        calendar: path.resolve(__dirname, 'public/Pages/CalendarPage.html'),
+        setting: path.resolve(__dirname, 'public/Pages/SettingPage.html'),
+      },
+    },
+  },
+
+  // To handle static assets
+  publicDir: 'public',
+
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, 'src'),
+    },
+  },
 });
+

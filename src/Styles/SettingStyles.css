@@ -167,7 +167,7 @@ label {
 
 
 
-
+/* Modal popup */
 .modal {
     position: fixed;
     top: 0;
@@ -196,3 +196,11 @@ label {
 button {
     margin-top: 10px;
 }
+
+
+
+/* In your SettingStyles.css or main CSS file */
+#SettingsLink {
+    display: none; /* By default, hide the Settings link */
+}
+
