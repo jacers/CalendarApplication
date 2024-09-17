@@ -54,6 +54,7 @@ async function register(email, password, firstName, lastName) {
       LastName: lastName
     }); 
 
+    // THIS IS TEMPORARY AS THIS IS BEING USED TO CHECK FOR ERRORS AND CONFIRM ITS WORKING
     console.log("User signed up and data stored:", userCredential.user);
 
     // Redirect user to the login window
@@ -125,6 +126,10 @@ async function loginWithEP(email, password)
       case "auth/invalid-credential":
         passwordFieldL.setCustomValidity("The provided email or password is incorrect.")
         break;
+      case "auth/too-many-requests":
+        // This is temporary before I set up the message to appear on the login page
+        alert("Access to this account has been temporarily disabled due to many failed login attempts. You can immediately restore it by resetting your password or you can try again later.");
+        break;
     }
 
     // Trigger validaition
@@ -138,6 +143,8 @@ async function signInWithGoogle() {
   const provider = new GoogleAuthProvider();
   try {
     const result = await signInWithPopup(auth, provider);
+
+    // ALSO TEMP
     console.log('User signed in with Google:', result.user);
   } catch (error) {
     console.error('Error signing in with Google:', error.message);

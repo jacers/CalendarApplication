@@ -9,7 +9,7 @@ Notes: Connected to ../../index.html
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged, reauthenticateWithCredential, EmailAuthProvider, updateProfile} from 'firebase/auth';
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged, reauthenticateWithCredential, EmailAuthProvider, updateProfile, updatePassword} from 'firebase/auth';
 
 // Adding in Firestore
 import {getFirestore, doc, setDoc, collection, addDoc} from "firebase/firestore";
@@ -52,5 +52,6 @@ export {
   onAuthStateChanged,
   reauthenticateWithCredential,
   EmailAuthProvider,
-  updateProfile
+  updateProfile,
+  updatePassword,
 };
