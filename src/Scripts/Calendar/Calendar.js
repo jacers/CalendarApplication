@@ -4,9 +4,6 @@ const nextBtn = document.getElementById("nextButton");
 const monthYearDisplay = document.getElementById("monthYearDisplay");
 const daysContainer = document.querySelector (".days");
 
-// Will most likely be removed (Just trying to resolve conflicts as of now)
-const viewSelectionContent = document.getElementById("viewSelectionContent");
-
 // Modal for color picker; will appear in front of and disable other elements
 const openModalBtn = document.getElementById("openModalBtn");
 const modal = document.getElementById("colorPickerModal");
@@ -64,8 +61,8 @@ const catMakerModal = document.querySelector('.catMakerModal');
 const closeNewCat = document.querySelector('.closeNewCat');
 const saveCat = document.querySelector('.saveCat');
 const categoryName = document.querySelector('#categoryName');
-const catEditorModal = document.querySelector('.catEditorModal'); // Will be moved soon
-const labEditorModal = document.querySelector('.labelEditorModal'); // Will be moved soon
+const catEditorModal = document.querySelector('.catEditorModal'); 
+const labEditorModal = document.querySelector('.labelEditorModal'); 
 
 // Event variables
 let labelEmoji = ""; // Variable to store selected emoji
@@ -258,6 +255,18 @@ function updateDayColors() {
     document.querySelectorAll('.saturday').forEach(day => day.style.backgroundColor = saturdayFillColorInput .value);
 }
 
+// Getting more holidays based on the year we're in
+let previousYear = currentDate.getFullYear();
+
+function updateYear(newYear)
+{
+    if(newYear !== previousYear)
+    {
+        previousYear = newYear;
+        fetchHolidays(newYear);
+    }
+}
+
 // Event listener to go backward a month
 prevBtn.addEventListener("click", () => {
     currentDate.setMonth(currentDate.getMonth() - 1);
@@ -268,6 +277,9 @@ prevBtn.addEventListener("click", () => {
 // Event listener to go forward a month
 nextBtn.addEventListener("click", () => {
     currentDate.setMonth(currentDate.getMonth() + 1);
+
+    updateYear(currentDate.getFullYear());
+
     renderCalendar();
     updateDayColors();
 });

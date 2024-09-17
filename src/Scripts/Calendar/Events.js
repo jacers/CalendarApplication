@@ -462,6 +462,59 @@ function adjustTextColor(backgroundColorHex) {
     }
 }
 
+// Getting US holidays through an API
+const holidayCache = {} // Object to make sure we don't readd the same holiday events to the same year
+
+async function fetchHolidays(year)
+{
+
+    // exiting early if we already fetched the year
+    if(holidayCache[year])
+    {
+        console.log(`Holidays for ${year} are already fetched`);
+        return;
+    }
+
+    const USHolidays = `https://date.nager.at/api/v3/publicholidays/${year}/US` // Gives all US holidays for the called year
+    try
+    {
+        // Attempting to fetch from server
+        const response = await fetch(USHolidays);
+        if(!response.ok)
+        {
+            throw new Error("Failed to get holidays");
+        }
+
+        const holidays = await response.json();
+
+        // Adding these holidays to the cache
+        holidayCache[year] = holidays;
+
+        holidays.forEach(holiday => {
+            const holidayEvent = new Event(
+                holiday.localName, // Name of the holiday
+                "",                // N/A
+                holiday.date,      // day of holiday
+                "00:00",
+                holiday.date,
+                "23:59",
+                "",                // N/A
+                labels[4]          // Assigning US Holidays label
+            );
+
+            // Adding holiday to events array
+            events.push(holidayEvent);
+        })
+
+        // Re-rendering calendar after process is complete
+        renderCalendar();
+    }
+    catch(error)
+    {
+        console.error("Error fetching holidays:", error);
+    }
+}
+
 function createExampleEvents()
 {
     // Label is Meetings from work
