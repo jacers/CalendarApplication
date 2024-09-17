@@ -95,14 +95,13 @@ saveEventBtn.addEventListener("click", () => {
     events.push(newEvent);
 
     // Clear the input fields
-    // TODO: Consistent formatting
-    document.getElementById("eventName"     ).value = "";
-    document.getElementById("eventLocation" ).value = "";
+    document.getElementById("eventName").value = "";
+    document.getElementById("eventLocation").value = "";
     document.getElementById("eventStartDate").value = "";
     document.getElementById("eventStartTime").value = "";
-    document.getElementById("eventEndDate"  ).value = "";
-    document.getElementById("eventEndTime"  ).value = "";
-    document.getElementById("eventNotes"    ).value = "";
+    document.getElementById("eventEndDate").value = "";
+    document.getElementById("eventEndTime").value = "";
+    document.getElementById("eventNotes").value = "";
     const selectOption = eventLabelDropdown.querySelector('option[value="select"]'); // Needed to set label back to select
     selectOption.selected = true;
 
@@ -272,13 +271,13 @@ function createEventsTable(event, tableElement) {
 
         // Save changes when checkmark is clicked
         checkmarkButton.addEventListener('click', function () {
-            const eventName      = nameInput.value;
-            const eventLocation  = locationInput.value;
-            const labelIndex     = eventLabelDropdown.value;
+            const eventName = nameInput.value;
+            const eventLocation = locationInput.value;
+            const labelIndex = eventLabelDropdown.value;
             const eventStartDate = fromDateInput.value;
             const eventStartTime = fromTimeInput.value;
-            const eventEndDate   = toDateInput.value;
-            const eventEndTime   = toTimeInput.value;
+            const eventEndDate = toDateInput.value;
+            const eventEndTime = toTimeInput.value;
 
             // Warns the user if no name is inputted
             if (!eventName) {
@@ -300,7 +299,7 @@ function createEventsTable(event, tableElement) {
 
             // Combines the dates and times of the start and end date
             const startDateTime = new Date(`${eventStartDate}T${eventStartTime}`);
-            const endDateTime   = new Date(`${eventEndDate  }T${eventEndTime  }`);
+            const endDateTime = new Date(`${eventEndDate}T${eventEndTime}`);
 
             // Warns the user if the event starts after it has ended
             if (startDateTime >= endDateTime) {
@@ -462,8 +461,7 @@ function adjustTextColor(backgroundColorHex) {
     }
 }
 
-function createExampleEvents()
-{
+function createExampleEvents() {
     // Label is Meetings from work
     const E1 = new Event("Sponsor", "Felgar 300", "2024-09-11", "11:10", "2024-09-18", "11:50", "This meeting is stupid", labels[0]);
     events.push(E1);

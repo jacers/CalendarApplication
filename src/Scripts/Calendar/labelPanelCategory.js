@@ -44,8 +44,7 @@ class Category
     }
 
     // Adds this category as an option, using index as value for ease of access
-    addCatOption()
-    {
+    addCatOption() {
         const eventCatDropdown = document.querySelector('#eventCatDropdown');
         const newCatOption = eventCatDropdown.querySelector('option[value="newCategory"]');
         const newOption = document.createElement('option');
@@ -56,8 +55,7 @@ class Category
         newCatOption.parentNode.insertBefore(newOption, newCatOption);
     }
 
-    addLabel(label)
-    {
+    addLabel(label) {
         this.catLabels.push(label);
 
         // Refreshing labels
@@ -66,12 +64,11 @@ class Category
     }
 
     // This is called when a category is selected within the event adder
-    addLabels()
-    {
+    addLabels() {
         // First check if labelInputs is hidden or not, change if it is
         const labInputs = document.querySelector("#labInputs");
-        if(labInputs.style.display === 'none')
-        {
+
+        if(labInputs.style.display === 'none') {
             labInputs.style.display === 'inline-block';
         }
 
@@ -81,16 +78,14 @@ class Category
         });
     }
 
-    removeCatOption()
-    {
+    removeCatOption() {
         // Getting and removing target option
         const eventCatDropdown = document.querySelector('#eventCatDropdown');
         const targetCatOption = eventCatDropdown.querySelector(`option[value="${this.id}"]`);
         targetCatOption.remove();
     }
 
-    removeLabel(label)
-    {
+    removeLabel(label) {
         // Removing given label from catLabels
         const targetIndex = this.catLabels.findIndex(catLabel => catLabel === label);
         this.catLabels.splice(targetIndex, 1);
@@ -99,16 +94,14 @@ class Category
         //this.addLabels();
     }
 
-    removeLabels()
-    {
+    removeLabels() {
         const labInputs = document.querySelector("#labInputs");
         this.catLabels.forEach(label => {
             label.removeLabelOption();
         });
     }
 
-    changeName(name)
-    {
+    changeName(name) {
         // Changing class name
         this.name = name;
 
@@ -119,8 +112,7 @@ class Category
 }
 
 // Event listener to open the category maker modal
-function openCatMaker()
-{
+function openCatMaker() {
     catMakerModal.style.display = 'block';
     categoryName.focus();
 }
@@ -150,30 +142,27 @@ let prevValueRaw = eventCatDropdown.value
 eventCatDropdown.addEventListener("change", () => {
     const valueRaw = eventCatDropdown.value
     
-    if(valueRaw === "newCategory")
-    {
+    if(valueRaw === "newCategory") {
         openCatMaker();
         eventCatDropdown.value = "select"; // Reset the dropdown to the default option
         return; // want to stop other functionality
     }
+    
     // Back to default if select
-    if(valueRaw === "select")
-    {
+    if(valueRaw === "select") {
         labelInput.style.display = 'none';
         return;
     }
 
     // Getting proper category class and removing old labels if applicable
     const value = categories[valueRaw];
-    if(!(prevValueRaw === 'select' || prevValueRaw === 'newCategory'))
-    {
+    if(!(prevValueRaw === 'select' || prevValueRaw === 'newCategory')) {
         const prevValue = categories[prevValueRaw];
         prevValue.removeLabels();
     }
 
     // Check if labelInput div is none and changing if it is
-    if(window.getComputedStyle(labelInput).display == 'none')
-    {
+    if(window.getComputedStyle(labelInput).display == 'none') {
         labelInput.style.display = 'inline-block';
     } 
 
@@ -182,8 +171,7 @@ eventCatDropdown.addEventListener("change", () => {
     value.addLabels();
 })
 
-function openCatEditor(e)
-{
+function openCatEditor(e) {
     // Stopping labels from showing
     e.stopPropagation();
 
@@ -207,8 +195,7 @@ verticleDots.forEach(verticleDot => {
 
 saveCat.addEventListener('click', (e) => {
     // Stops miss input
-    if(categoryName.value.trim() === '')
-    {
+    if(categoryName.value.trim() === '') {
         alert('Please provide a name for this category');
         return;
     }
@@ -229,8 +216,7 @@ catClosers.forEach(catClose => {
 
 saveEditCat.addEventListener('click', () => {
     // Stopping accidental submit
-    if(catNameEdited.value.trim() === '')
-    {
+    if(catNameEdited.value.trim() === '') {
         alert('Please provide a name for this category');
         return;
     }
@@ -250,22 +236,17 @@ closeEditCat.addEventListener('click', () => {
 
 deleteCat.addEventListener('click', () => {
     const catConfirmation = confirm(`Are you sure you want to delete \"${prevCatName.textContent}\"?`);
-    if(catConfirmation)
-    {
+    if(catConfirmation) {
         deleteCatHelper();
-    }
-    else
-    {
+    } else {
         return;
     }
     catEditorModal.style.display = 'none';
 });
 
-function deleteCatHelper()
-{
+function deleteCatHelper() {
     // Hiding labels if we're deleted the associated category
-    if(eventCatDropdown.value == prevCat.id)
-    {
+    if(eventCatDropdown.value == prevCat.id) {
         console.log(`got in`)
         labelInput.style.display = 'none';
     }
@@ -286,22 +267,18 @@ function deleteCatHelper()
     prevCat = '';
     prevCatName = '';
     console.log('deleted');
-
 }
 
 // Used for the adding of labels to the label panel
-function getCatByName(name)
-{
+function getCatByName(name) {
     return categories.find(category => category.name === name);
 }
 
 // Handles input deemed acceptable and creates the actual category
-function submitCatInput(name)
-{
+function submitCatInput(name) {
 
     // Prevents an accidental enter or submit
-    if(name.trim() === '')
-    {
+    if(name.trim() === '') {
         return;
     } 
 

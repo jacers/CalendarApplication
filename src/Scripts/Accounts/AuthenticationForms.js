@@ -15,8 +15,7 @@ async function register(email, password, firstName, lastName) {
     const user = userCredential.user;
 
     // Store user information in Firestore
-    await setDoc(doc(database, "Users", user.uid), 
-    {
+    await setDoc(doc(database, "Users", user.uid), {
       EmailAddress: user.email,
       FirstName: firstName,
       LastName: lastName
@@ -30,8 +29,7 @@ async function register(email, password, firstName, lastName) {
     console.error('Error signing up:', error.message);
 
     // Displaying error code based on the error messages thrown
-    switch (error.code) 
-    {
+    switch (error.code) {
       case 'auth/email-already-in-use':
         emailField.setCustomValidity('This email address is already in use.');
         break;
@@ -46,10 +44,8 @@ async function register(email, password, firstName, lastName) {
 }
 
 // Sign In with Email and Password
-async function loginWithEP(email, password) 
-{
-  try 
-  {
+async function loginWithEP(email, password) {
+  try {
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
     console.log('User signed in:', userCredential.user);
     window.location.href = "../../../public/Pages/CalendarPage.html"; // Or another page

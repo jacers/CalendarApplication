@@ -103,7 +103,6 @@ body, html
 
 /* Dropdown Menu Styles */
 .dropdown 
-
 {
     position: relative;
     display: inline-block;
@@ -120,13 +119,15 @@ body, html
     gap: 20px;
 }
 
-.dropdown .dropButton {
+.dropdown .dropButton
+{
     background-color: #376753;
     color: white;
     border: 1px solid white;
 }
 
-.dropdown .optionsDropButton {
+.dropdown .optionsDropButton
+{
     background-color: white;
     color: white;
     border: 0px;
@@ -146,7 +147,8 @@ body, html
 }
 
 .dropdownContent
-.dropdownContent {
+.dropdownContent
+{
 
     display: none;
     position: absolute;

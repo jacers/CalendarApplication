@@ -9,9 +9,7 @@ Notes: Connected to RegistrationPage.html
 // OPTIONAL: We can add in focus onto the texts or element boxes when an error occurs (I believe it can also be done in HTML)
 
 // Waiting for the HTML document to be fully loaded before performing any actions
-document.addEventListener("DOMContentLoaded", function()
-
-{ 
+document.addEventListener("DOMContentLoaded", function() { 
     // Retrieve references to the HTML elements based on the IDs we gave them
     var registrationForm = document.getElementById("RegistrationForm");
     var passwordInput = document.getElementById("RPassword");
@@ -19,8 +17,7 @@ document.addEventListener("DOMContentLoaded", function()
     var passwordRequirements = document.getElementById("PasswordRequirements").getElementsByTagName("li");
 
     // Adding an event listener to the form itself (meaning the submit button)
-    registrationForm.addEventListener("submit", function(event)
-    {
+    registrationForm.addEventListener("submit", function(event) {
         // Prevent actual form submission so that checks on password can be performed
         event.preventDefault();
 
@@ -31,8 +28,7 @@ document.addEventListener("DOMContentLoaded", function()
         var isValidPassword = checkPasswordRequirements(password);
 
         // Custom Message Loop for Password
-        if (!isValidPassword)
-        {
+        if (!isValidPassword) {
             passwordInput.setCustomValidity("Please meet all of the password requirements.");
 
             passwordInput.reportValidity();
@@ -47,8 +43,7 @@ document.addEventListener("DOMContentLoaded", function()
     });
 
     // The following will be the dynamically updating list that users will see for the password requirements
-    passwordInput.addEventListener("input", function()
-    {
+    passwordInput.addEventListener("input", function() {
         // Clearing any previous validity message(s) if any
         passwordInput.setCustomValidity("");
 
@@ -57,8 +52,7 @@ document.addEventListener("DOMContentLoaded", function()
 
         // Iterating over each item in the password requirements list to
         // remove the former signs beside them to add in new ones
-        for (var listItem = 0; listItem < passwordRequirements.length; listItem++)
-        {
+        for (var listItem = 0; listItem < passwordRequirements.length; listItem++) {
             passwordRequirements[listItem].classList.remove("valid", "invalid")
         }
 
@@ -66,8 +60,7 @@ document.addEventListener("DOMContentLoaded", function()
 
         // Updating the list based on the length of the password, which has to be 
         // between 6-24 characters
-        if(password.length >= 6 && password.length <= 24)
-        {
+        if(password.length >= 6 && password.length <= 24) {
             passwordRequirements[0].classList.add("valid");
         } else {
             passwordRequirements[0].classList.add("invalid");
@@ -76,8 +69,7 @@ document.addEventListener("DOMContentLoaded", function()
         // Updating the list based on the special characters, which has to have at
         // least one special character
         // Regex expression is accepting any non-characters and underscores
-        if (/[\W_]/.test(password))
-        {
+        if (/[\W_]/.test(password)) {
             passwordRequirements[1].classList.add("valid");
         } else {
             passwordRequirements[1].classList.add("invalid");
@@ -86,8 +78,7 @@ document.addEventListener("DOMContentLoaded", function()
         // Updating the list based on the numbers, which has to contain at least
         // one number character
         // Regex expression is accepting any digit character
-        if(/\d/.test(password))
-        {
+        if(/\d/.test(password)) {
             passwordRequirements[2].classList.add("valid");
         } else {
             passwordRequirements[2].classList.add("invalid");
@@ -96,8 +87,7 @@ document.addEventListener("DOMContentLoaded", function()
         // Updating the list based on the uppercase letters, which the password needs
         // at least on uppercase letter
         // Regex expression is accepting any uppercase letter
-        if (/[A-Z]/.test(password))
-        {
+        if (/[A-Z]/.test(password)) {
             passwordRequirements[3].classList.add("valid");
         } else {
             passwordRequirements[3].classList.add("invalid");
@@ -105,8 +95,7 @@ document.addEventListener("DOMContentLoaded", function()
 
         // Updating the list based on the lowercase letters, where the password
         // must contain at least one lowercase letter
-        if (/[a-z]/.test(password))
-        {
+        if (/[a-z]/.test(password)) {
             passwordRequirements[4].classList.add("valid");
         } else {
                 passwordRequirements[4].classList.add("invalid");
