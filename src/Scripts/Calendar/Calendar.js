@@ -92,7 +92,7 @@ function getEventsForDay(day, month = currentDate.getMonth(), year = currentDate
     return events.filter(event => {
         const eventStart = normalizeDate(new Date(event.startDate)); // Strip time from start date
         const eventEnd = normalizeDate(new Date(event.endDate)); // Strip time from end date
-        eventEnd.setDate(eventEnd.getDate() + 1); // Makes sure the full range is included on the calendar view
+        //eventEnd.setDate(eventEnd.getDate() + 1); // Makes sure the full range is included on the calendar view
         const currentDay = new Date(year, month, day); // The current day being rendered
 
         return currentDay >= eventStart && currentDay <= eventEnd;
@@ -203,7 +203,7 @@ function renderCalendar() {
         }
 
         // Adds an event listener to each date to open an event viewer for that date
-        dayElement.addEventListener("click", () => openDayEventsModal(i));
+        dayElement.addEventListener("click", () => openDayEventsModal(i - 1));
 
         // Appending the numbered days to the current month to the calendar display
         daysContainer.appendChild(dayElement);
@@ -312,7 +312,8 @@ window.addEventListener("click", (event) => {
         event.target == eventsViewerModal ||
         event.target == catMakerModal     ||
         event.target == catEditorModal    ||
-        event.target == labEditorModal) 
+        event.target == labEditorModal    ||
+        event.target == dayEventsViewerModal)
     {
         // TODO: Consistent formatting
         colorPickerModal .style.display = "none";
@@ -322,6 +323,7 @@ window.addEventListener("click", (event) => {
         catMakerModal    .style.display = "none";
         catEditorModal   .style.display = "none";
         labEditorModal   .style.display = "none";
+        dayEventsViewerModal.style.display = "none";
     }
 });
 
