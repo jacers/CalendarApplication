@@ -336,3 +336,4 @@ function submitCatInput(name) {
 
 // Pls don't forget to remove this k thanks
 createExampleEvents();
+fetchHolidays(2024);
