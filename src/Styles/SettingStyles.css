@@ -1,22 +1,33 @@
+
 body
 {
     margin: 0;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: "Open Sans", sans-serif;
 }
 
-#CalendarHeader
-{
-    background-color: #376753; 
-    color: white;
-    padding: 10px;
+
+/* Open Sans font settings */
+.open-sans-font {
+    font-family: "Open Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 100;
+    font-style: normal;
+    font-variation-settings: "wdth" 100;
+}
+
+/* Header styles */
+#CalendarHeader {
+
     display: flex;
     justify-content: space-between;
     align-items: center;
-    position: fixed;
     width: 100%;
-    top: 0;
-    left: 0;
-    z-index: 1000;
+    padding: 5px 10px;
+    background-color: #376753; /* Match background color */
+    color: white; /* Match text color */
+    font-family: Georgia, serif; /* Match font family */
+    box-sizing: border-box; /* Ensure padding is included in width/height */
+    height: 80px; /* DONT TOUCH, its finally matching the calendar height */
 }
 
 #CalendarHeader h1
@@ -41,7 +52,9 @@ body
 
 .dropdownLinks
 {
+
     position: relative;
+    display: inline-block;
 }
 
 .dropButton
@@ -52,6 +65,12 @@ body
     padding: 10px;
     cursor: pointer;
     font-size: 16px;
+    border: 1px solid #fff; /* Border color */
+    cursor: pointer;
+    margin-bottom: 10px;
+    height: 60px; /* Set height of the button, DONT TOUCH, its finally matching the calendar height */
+    line-height: 67px; /* Center text vertically, DONT TOUCH, its finally matching the calendar height */
+    
 }
 
 .dropdownContent
@@ -59,9 +78,9 @@ body
     display: none;
     position: absolute;
     right: 0;
-    background-color: #f4f4f4;
+    background-color: #f9f9f9;
     min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.4);
     z-index: 1;
 }
 
@@ -73,29 +92,35 @@ body
     display: block;
 }
 
-.dropdownContent a:hover
-{
-    background-color: #ddd;
+.dropdownContent a:hover {
+    background-color: #f1f1f1;
 }
 
-.dropdownLinks:hover .dropdownContent
-{
+.dropdown:hover .dropdownContent {
     display: block;
 }
 
-#SettingsContainer
-{
-    display: flex;
-    margin-top: 60px; /* Adjust based on header height */
-    height: calc(100vh - 60px); /* Full height minus header */
+.dropdown:hover .dropButton {
+    background-color: #3e8e41;
 }
 
-#Sidebar
-{
-    width: 250px;
-    background-color: #f4f4f4;
+.dropdown img {
+    width: 34px;
+    height: 34px;
+}
+
+/* Settings container and sidebar styles */
+#SettingsContainer {
+
+    display: flex;
+    height: calc(100vh - 80px); /* Full height minus header */
+}
+
+#Sidebar {
+    width: 180px;
+    background-color: white;
     padding: 15px;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 1px 0 0px rgba(0, 0, 0, 0.1);
 }
 
 .SidebarHeader
@@ -138,16 +163,17 @@ body
     display: block;
 }
 
-button
-{
-    background-color: #4CAF50;
-    color: white;
+/* Button styles */
+button {
+    background-color: #376753; /* Match background color */
+    color: white; /* Match text color */
     border: none;
     padding: 10px 20px;
     cursor: pointer;
     margin-top: 10px;
 }
 
+/* Input and label styles */
 input[type="text"],
 input[type="email"],
 input[type="password"]
@@ -156,6 +182,7 @@ input[type="password"]
     margin-top: 5px;
     padding: 10px;
     width: 100%;
+    max-width: 250px;
     border: 1px solid #ddd;
     border-radius: 4px;
 }
@@ -165,3 +192,50 @@ label
     display: block;
     margin-top: 10px;
 }
+
+#MainContent {
+    flex: 1;
+    padding: 2px;
+    margin-left: 20px;
+    overflow-y: auto;
+}
+
+
+
+/* Modal popup */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center; /* Items moved to the right of the modal header */
+    justify-content: center;
+    z-index: 1000;
+}
+
+.ModalContent {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    width: 300px;
+    text-align: center;
+    border: 1px solid #376753;
+}
+
+.hidden {
+    display: none;
+}
+
+button {
+    margin-top: 10px;
+}
+
+
+
+/* In your SettingStyles.css or main CSS file */
+#SettingsLink {
+    display: none; /* By default, hide the Settings link */
+}
+
