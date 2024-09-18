@@ -1,45 +1,52 @@
+// Importing from Firebase 
+import { database, doc, setDoc, collection, addDoc, auth, query, where, getDocs, deleteDoc, getDoc} from "../Firebase";
+
+// Importing needed references
+import { adjustTextColor, openDayEventsModal, Event } from "./Events";
+//import { showLabels } from "./labelPanel.js";
+
 // Selecting DOM elements (Elements in the CalendarPage.html)
-const prevBtn = document.getElementById("prevButton");
-const nextBtn = document.getElementById("nextButton");
-const monthYearDisplay = document.getElementById("monthYearDisplay");
-const daysContainer = document.querySelector (".days");
+export const prevBtn = document.getElementById("prevButton");
+export const nextBtn = document.getElementById("nextButton");
+export const monthYearDisplay = document.getElementById("monthYearDisplay");
+export const daysContainer = document.querySelector (".days");
 
 // Modal for color picker; will appear in front of and disable other elements
-const openModalBtn = document.getElementById("openModalBtn");
-const modal = document.getElementById("colorPickerModal");
-const closeModalBtn = document.querySelector (".close");
+export const openModalBtn = document.getElementById("openModalBtn");
+export const modal = document.getElementById("colorPickerModal");
+export const closeModalBtn = document.querySelector (".close");
 
 // Color picker's user interaction elements
-const openColorPickerBtn = document.getElementById("openColorPickerBtn");
-const colorPickerModal = document.getElementById("colorPickerModal"  );
-const closeColorPickerBtn = document.querySelector(".closeColorPicker" );
+export const openColorPickerBtn = document.getElementById("openColorPickerBtn");
+export const colorPickerModal = document.getElementById("colorPickerModal"  );
+export const closeColorPickerBtn = document.querySelector(".closeColorPicker" );
 
 // Modal for new event; will appear in front of and disable other elements
-const openNewEventBtn = document.getElementById("openNewEvent");
-const newEventModal = document.getElementById("newEventModal");
-const closeNewEventBtn = document.querySelector (".closeNewEvent");
-const eventCatDropdown = document.querySelector("#eventCatDropdown");
-const labelInput = document.querySelector("#labInputs");
-const saveEventBtn = document.getElementById("saveEvent");
+export const openNewEventBtn = document.getElementById("openNewEvent");
+export const newEventModal = document.getElementById("newEventModal");
+export const closeNewEventBtn = document.querySelector (".closeNewEvent");
+export const eventCatDropdown = document.querySelector("#eventCatDropdown");
+export const labelInput = document.querySelector("#labInputs");
+export const saveEventBtn = document.getElementById("saveEvent");
 
 // Modal to view events; will appear in front of and disable other elements
-const searchBtn = document.getElementById("openEventsViewer");
-const closeEventsViewerBtn = document.querySelector(".closeEventsViewer");
-const eventsViewerModal = document.getElementById("eventsViewerModal");
+export const searchBtn = document.getElementById("openEventsViewer");
+export const closeEventsViewerBtn = document.querySelector(".closeEventsViewer");
+export const eventsViewerModal = document.getElementById("eventsViewerModal");
 
 // Modal to view events within a day; will appear in front of and disable other elements
-const dayEventsViewerModal = document.getElementById("dayEventsViewerModal");
-const closeDayEventsModal = document.querySelector(".closeDayEventsModal");
-const selectedDayElement = document.getElementById("selectedDay");
-const dayEventList = document.getElementById("dayEventList");
+export const dayEventsViewerModal = document.getElementById("dayEventsViewerModal");
+export const closeDayEventsModal = document.querySelector(".closeDayEventsModal");
+export const selectedDayElement = document.getElementById("selectedDay");
+export const dayEventList = document.getElementById("dayEventList");
 
 // Modal for label maker; will appear in front of and disable other elements
-const eventLabelDropdown = document.getElementById("eventLabelDropdown");
-const labelMakerModal = document.getElementById("labelMakerModal");
-const closeLabelMakerBtn = document.querySelector (".closeLabelMaker");
-const emojiPreview = document.getElementById("emojiPreview");
-const emojiPreviewEdit = document.getElementById("emojiPreviewEdit");
-const saveLabelBtn = document.getElementById("saveLabel");
+export const eventLabelDropdown = document.getElementById("eventLabelDropdown");
+export const labelMakerModal = document.getElementById("labelMakerModal");
+export const closeLabelMakerBtn = document.querySelector (".closeLabelMaker");
+export const emojiPreview = document.getElementById("emojiPreview");
+export const emojiPreviewEdit = document.getElementById("emojiPreviewEdit");
+export const saveLabelBtn = document.getElementById("saveLabel");
 
 // Emoji Picker for the maker modal
 const emojiPicker = document. querySelector ("emoji-picker");
@@ -57,18 +64,18 @@ emojiEditPicker.addEventListener("emoji-click", (event) => {
 })
 
 // Modal for category maker
-const catMakerModal = document.querySelector('.catMakerModal');
-const closeNewCat = document.querySelector('.closeNewCat');
-const saveCat = document.querySelector('.saveCat');
-const categoryName = document.querySelector('#categoryName');
-const catEditorModal = document.querySelector('.catEditorModal'); 
-const labEditorModal = document.querySelector('.labelEditorModal'); 
+export const catMakerModal = document.querySelector('.catMakerModal');
+export const closeNewCat = document.querySelector('.closeNewCat');
+export const saveCat = document.querySelector('.saveCat');
+export const categoryName = document.querySelector('#categoryName');
+export const catEditorModal = document.querySelector('.catEditorModal'); 
+export const labEditorModal = document.querySelector('.labelEditorModal'); 
 
 // Event variables
-let labelEmoji = ""; // Variable to store selected emoji
-let events = []; // Array to store all events
-let labels = []; // Array to store all labels
-let categories = []; // Array to store all categories
+export let labelEmoji = ""; // Variable to store selected emoji
+export let events = []; // Array to store all events
+export let labels = []; // Array to store all labels
+export let categories = []; // Array to store all categories
 
 // Color picker input elements
 const sundayFillColorInput = document.getElementById("sundayFillColor");
@@ -80,7 +87,7 @@ const fridayFillColorInput = document.getElementById("fridayFillColor");
 const saturdayFillColorInput = document.getElementById("saturdayFillColor");
 
 // Initializing the "current" date to display to user
-let currentDate = new Date();
+export let currentDate = new Date();
 
 // Helper function to normalize date (removes time)
 function normalizeDate(date) {
@@ -88,7 +95,7 @@ function normalizeDate(date) {
 }
 
 // Function that returns events for a specific day
-function getEventsForDay(day, month = currentDate.getMonth(), year = currentDate.getFullYear()) {
+export function getEventsForDay(day, month = currentDate.getMonth(), year = currentDate.getFullYear()) {
     return events.filter(event => {
         const eventStart = normalizeDate(new Date(event.startDate)); // Strip time from start date
         const eventEnd = normalizeDate(new Date(event.endDate)); // Strip time from end date
@@ -100,7 +107,7 @@ function getEventsForDay(day, month = currentDate.getMonth(), year = currentDate
 }
 
 // Function to have the whole calendar displayed
-function renderCalendar() {
+export function renderCalendar() {
     // Clearing the days currently being displayed
     daysContainer.innerHTML = "";
 
@@ -190,6 +197,7 @@ function renderCalendar() {
 
         dayEvents.forEach(event => {
             // Not showing events with unchecked labels
+            console.log(event.label.isChecked + "Check");
             if((event.label.isChecked == false)) {
                 return;
             }
@@ -362,6 +370,281 @@ wednesdayFillColorInput.addEventListener("input", updateDayColors);
 thursdayFillColorInput .addEventListener("input", updateDayColors);
 fridayFillColorInput   .addEventListener("input", updateDayColors);
 saturdayFillColorInput .addEventListener("input", updateDayColors);
+
+
+/* STORAGE TO DATABASE */
+// Function to convert a Label instance to a plain object
+function labelToPlainObject(label) {
+    if (!label) return null;
+    return {
+        name: label.name,
+        emoji: label.emoji,
+        color: label.color,
+        id: label.id,
+        isChecked: label.isChecked
+    };
+}
+
+// Function to add an event for the authenticated user
+export async function addEvent(event) {
+    const user = auth.currentUser;
+    console.log(user + "USER");
+
+    if (!user) {
+        console.error("No authenticated user found.");
+        return;
+    }
+
+    console.log("Auth user found:", user.uid);
+    const userId = user.uid;
+    const eventsRef = collection(database, "Users", userId, "Events");
+
+    // Ensure event is a valid object
+    if (!event || typeof event !== "object") {
+        console.error("Invalid event object:", event);
+        return;
+    }
+
+    // Ensure event has necessary fields
+    if (!event.name) {
+        console.warn("Event missing name:", event);
+        return;
+    }
+
+    // Check if event already exists
+    const q = query(eventsRef, where("name", "==", event.name));
+    const querySnapshot = await getDocs(q);
+
+    if (!querySnapshot.empty) {
+        console.log("Event already exists:", event.name);
+        return; // Skip adding this event
+    }
+
+    // Convert Label instance to plain object
+    const labelPlain = labelToPlainObject(event.label);
+
+    // Extract values from the Event object
+    const plainEvent = {
+        name: event.name,
+        location: event.location,
+        startDate: event.startDate,
+        startTime: event.startTime,
+        endDate: event.endDate,
+        endTime: event.endTime,
+        notes: event.notes,
+        label: labelPlain
+    };
+
+    // Add the event to the Firestore collection
+    try {
+        const docRef = await addDoc(eventsRef, plainEvent);
+       // await addDoc(eventsRef, plainEvent);
+        console.log("Event added successfully:", event.name);
+        event.firestoreId = docRef.id;
+        console.log(event);
+    } catch (error) {
+        console.error("Error adding event:", error);
+    }
+}
+/* STORAGE TO DATABASE */
+
+
+
+
+/* Making Label class again because import destroys the website */
+class Label {
+    constructor(name, emoji, color, id, isChecked ) {
+        this.name = name;        // Name of the label
+        this.emoji = emoji;      // Emoji associated with the label
+        this.color = color;      // Color associated with the label
+        this.id = id; // Generate a unique ID for each label
+        this.isChecked = isChecked;  // Determines if the checkbox is marked
+    }
+    // Combines and returns the name and emoji parameters
+    getEmojiAndName() {
+        return `${this.emoji} ${this.name}`;
+    }
+
+    getEmojiAndColor() {
+        return `<span style="background-color:${this.color}; border-radius: 5px; padding: 2px 4px;">${this.emoji}</span>`;
+    }
+
+    getLabel() {
+        return `${this.getEmojiAndColor()} ${this.name}`;
+    }
+
+    // Adds the label to the options under the event label dropdown selector
+    addLabelOption() {
+        const eventLabelDropdown = document.querySelector('#eventLabelDropdown');
+        const newLabelOption = eventLabelDropdown.querySelector('option[value="newEvent"]');
+        const newOption = document.createElement('option');
+
+        // Giving new option proper value and name/emoji
+        newOption.value = this.id;
+        newOption.innerHTML = this.getEmojiAndName();
+
+        // Inserting this before the new label option to maintain consistency and readability
+        newLabelOption.parentNode.insertBefore(newOption, newLabelOption);
+    }
+
+    // Removes the label from the options under the event label dropdown selector
+    removeLabelOption() {
+        const eventLabelDropdown = document.querySelector('#eventLabelDropdown');
+        const optionToRemove = eventLabelDropdown.querySelector(`option[value="${this.id}"]`);
+        if(optionToRemove) {
+            optionToRemove.remove();
+        }
+    }
+
+    // Updates name and emoji after change, changes html if label is present as an option
+    changeNameAndEmoji(name, emoji) {
+        this.name = name;
+        this.emoji = emoji;
+
+        const targetLabOption = eventLabelDropdown.querySelector(`option[value="${this.id}"]`);
+        if(targetLabOption) {
+            targetLabOption.innerHTML = this.getEmojiAndName();
+        }
+    }
+}
+
+// Function to parse Firestore label data into Label objects
+function parseLabel(data) {
+    return new Label(
+        data.name,
+        data.emoji,
+        data.color,
+        data.id,
+        data.isChecked
+    );
+}
+
+/* LOAD EVENTS FOR USER */
+async function fetchEventsFromFirestore() {
+    const user = auth.currentUser;
+    if (!user) {
+        console.error("No authenticated user found.");
+        return [];
+    }
+
+    try {
+        const userId = user.uid;
+        const eventsRef = collection(database, 'Users', userId, 'Events');
+        const querySnapshot = await getDocs(eventsRef);
+
+        // Create Event objects from Firestore documents
+        const events = querySnapshot.docs.map(doc => {
+            const data = doc.data();
+
+            // Parse label data if it exists
+            let label = null;
+            if (data.label) {
+                label = parseLabel(data.label); // Ensure parseLabel is correctly implemented
+            }
+
+            // Create and return an Event object
+            return new Event(
+                data.name || '', // Ensure 'name' field exists
+                data.location || '', // Ensure 'location' field exists
+                data.startDate || '', // Ensure 'startDate' field exists
+                data.startTime || '', // Ensure 'startTime' field exists
+                data.endDate || '', // Ensure 'endDate' field exists
+                data.endTime || '', // Ensure 'endTime' field exists
+                data.notes || '', // Ensure 'notes' field exists
+                label // Attach the parsed label if available
+            );
+        });
+
+        console.log(events + "Events");
+        return events;
+    } catch (error) {
+        console.error("Error fetching events from Firestore:", error);
+        return [];
+    }
+}
+
+// Function to load events
+async function loadEvents() {
+    try {
+        const fetchedEvents = await fetchEventsFromFirestore();
+        events.length = 0; // Clear existing events
+        events.push(...fetchedEvents); // Add fetched events to the array
+        console.log("Events loaded successfully:", events);
+        renderCalendar(); // Call this to update the calendar UI
+    } catch (error) {
+        console.error("Error loading events:", error);
+    }
+}
+
+// Listener for authentication state changes
+auth.onAuthStateChanged(async (user) => {
+    if (user) {
+        console.log("User logged in:", user.uid);
+        await loadEvents(); // Load events when user logs in
+    } else {
+        console.log("No user logged in.");
+    }
+});
+
+// Function to check if the user is authenticated and load events
+async function initializeApp() {
+    const user = auth.currentUser;
+    if (user) {
+        console.log("User is authenticated on page load:", user.uid);
+        await loadEvents(); // Load events if the user is already logged in
+    } else {
+        console.log("No authenticated user found on page load.");
+    }
+}
+
+// Call initializeApp when the page loads
+document.addEventListener("DOMContentLoaded", initializeApp);
+/* LOAD EVENTS FOR USER */
+
+
+/* DELETE EVENTS */
+// Function to delete an event given its index
+// Function to delete an event using the event object
+export async function deleteEvent(firestoreId) {
+    if (!firestoreId || typeof firestoreId !== 'string') {
+        console.error("Invalid Firestore ID:", firestoreId);
+        return;
+    }
+
+    const user = auth.currentUser;
+
+    if (!user) {
+        console.error("No authenticated user found.");
+        return;
+    }
+
+    const userId = user.uid;
+    const eventsRef = collection(database, "Users", userId, "Events");
+    const eventDocRef = doc(eventsRef, firestoreId);
+
+    try {
+        // Delete the event from Firestore
+        await deleteDoc(eventDocRef);
+        console.log("Event successfully deleted from Firestore:", firestoreId);
+
+        // Optionally, remove the event from the local array (Although should be handled in another file)
+        const eventIndex = events.findIndex(ev => ev.firestoreId === firestoreId);
+        if (eventIndex !== -1) {
+            events.splice(eventIndex, 1);
+        }
+
+        // Optionally, remove the corresponding row from the UI (if applicable)
+        // tableElement.removeChild(row);
+
+        renderCalendar(); // Re-render the calendar
+    } catch (error) {
+        console.error("Error deleting event from Firestore:", error);
+    }
+}
+/* DELETE EVENTS */
+
+/* CHECK */
+/* CHECK */
 
 // The current calendar look upon opening the page
 renderCalendar();

@@ -1,5 +1,15 @@
+// Importing references from Calendar.js
+import {openNewEventBtn, newEventModal, closeNewEventBtn, eventCatDropdown, labelInput, saveEventBtn} from "./Calendar.js";
+import {closeEventsViewerBtn, eventsViewerModal} from "./Calendar.js";
+import {eventLabelDropdown, labelMakerModal, closeLabelMakerBtn, emojiPreview, emojiPreviewEdit, saveLabelBtn} from "./Calendar.js";
+import { searchBtn, labels, events, renderCalendar, addEvent } from "./Calendar.js";
+import { selectedDayElement, currentDate, getEventsForDay, deleteEvent } from "./Calendar.js";
+
+import { Label } from "./labelPanelLabel.js";
+
+
 // Constructs a new event to be added to the calendar
-class Event {
+export class Event {
     constructor(name, location, startDate, startTime, endDate, endTime, notes, label) {
         this.name = name; // Name of the event
         this.location = location; // Location where the event takes place
@@ -29,6 +39,7 @@ openNewEventBtn.addEventListener("click", () => {
 
 // Implementation of the event save button
 saveEventBtn.addEventListener("click", () => {
+
     // Temporary variables that will be added to a new event
     const eventName = document.getElementById("eventName").value;
     const eventLocation = document.getElementById("eventLocation").value;
@@ -39,6 +50,7 @@ saveEventBtn.addEventListener("click", () => {
     const eventNotes = document.getElementById("eventNotes").value;
     const labelIndex = eventLabelDropdown.value;
 
+    /*
     // Warns the user if no name is inputted
     if (!eventName) {
         alert("Please name this event.");
@@ -50,6 +62,7 @@ saveEventBtn.addEventListener("click", () => {
         alert("Please label this event.");
         return;
     }
+        */
 
     // Warns the user if no start or end date and time are given
     if (!eventStartDate || !eventStartTime || !eventEndDate || !eventEndTime) {
@@ -74,6 +87,8 @@ saveEventBtn.addEventListener("click", () => {
 
     // Add the new event to the events array
     events.push(newEvent);
+
+    addEvent(newEvent);
 
     // Clear the input fields
     document.getElementById("eventName").value = "";
@@ -120,9 +135,8 @@ searchBtn.addEventListener("click", () => {
 });
 
 // Event listener to open the day event viewer modal
-function openDayEventsModal(day) {
-    const selectedDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), day + 1);
-    selectedDayElement.textContent = formatDate(selectedDate);
+export function openDayEventsModal(day) {
+    selectedDayElement.textContent = `${currentDate.toLocaleString("default", { month: "long" })} ${day + 1}, ${currentDate.getFullYear()}`;
     dayEventList.innerHTML = ""; // Clear the current events list
 
     const dayEvents = getEventsForDay(day);
@@ -335,6 +349,8 @@ function createEventsTable(event, tableElement) {
         if (eventIndex > -1) {
             events.splice(eventIndex, 1);
         }
+        
+        deleteEvent(event.firestoreId);
 
         // Remove the corresponding row from the table
         tableElement.removeChild(row);
@@ -450,7 +466,7 @@ function getBrightness({ r, g, b }) {
 }
 
 // Function to change the text color based on the background color
-function adjustTextColor(backgroundColorHex) {
+export function adjustTextColor(backgroundColorHex) {
     let rgb = hexToRgb(backgroundColorHex);
     let brightness = getBrightness(rgb);
     
@@ -515,6 +531,60 @@ async function fetchHolidays(year)
     }
 }
 
+// Getting US holidays through an API
+const holidayCache = {} // Object to make sure we don't readd the same holiday events to the same year
+
+async function fetchHolidays(year)
+{
+
+    // exiting early if we already fetched the year
+    if(holidayCache[year])
+    {
+        console.log(`Holidays for ${year} are already fetched`);
+        return;
+    }
+
+    const USHolidays = `https://date.nager.at/api/v3/publicholidays/${year}/US` // Gives all US holidays for the called year
+    try
+    {
+        // Attempting to fetch from server
+        const response = await fetch(USHolidays);
+        if(!response.ok)
+        {
+            throw new Error("Failed to get holidays");
+        }
+
+        const holidays = await response.json();
+
+        // Adding these holidays to the cache
+        holidayCache[year] = holidays;
+
+        holidays.forEach(holiday => {
+            const holidayEvent = new Event(
+                holiday.localName, // Name of the holiday
+                "",                // N/A
+                holiday.date,      // day of holiday
+                "00:00",
+                holiday.date,
+                "23:59",
+                "",                // N/A
+                labels[4]          // Assigning US Holidays label
+            );
+
+            // Adding holiday to events array
+            events.push(holidayEvent);
+        })
+
+        // Re-rendering calendar after process is complete
+        renderCalendar();
+    }
+    catch(error)
+    {
+        console.error("Error fetching holidays:", error);
+    }
+}
+
+/*
 function createExampleEvents() {
     // Label is Meetings from work
     const E1 = new Event("Sponsor", "Felgar 300", "2024-09-11", "11:10", "2024-09-18", "11:50", "This meeting is stupid", labels[0]);
@@ -538,3 +608,4 @@ function createExampleEvents() {
 
     renderCalendar();
 }
+    */

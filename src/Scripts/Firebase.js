@@ -12,7 +12,7 @@ import { getAnalytics } from "firebase/analytics";
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged, reauthenticateWithCredential, EmailAuthProvider, updateProfile, updatePassword} from 'firebase/auth';
 
 // Adding in Firestore
-import {getFirestore, doc, setDoc, collection, addDoc} from "firebase/firestore";
+import {getFirestore, doc, setDoc, collection, addDoc, deleteDoc, updateDoc, query, where, getDocs, getDoc} from "firebase/firestore";
 
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -54,4 +54,14 @@ export {
   EmailAuthProvider,
   updateProfile,
   updatePassword,
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  updateDoc,
+  setDoc,
+  query, 
+  where,
+  getDocs,
+  getDoc
 };

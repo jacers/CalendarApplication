@@ -1,3 +1,8 @@
+// Importing needed references from Calendar.js
+import { labels, labelEmoji, categories, eventCatDropdown, catMakerModal, closeNewCat, saveCat, categoryName} from "./Calendar";
+import { adjustTextColor } from "./Events";
+//import { showLabels } from "./labelPanel.js";
+
 // General DOM elements
 const allLabels = document.querySelectorAll('.labelContent label');
 const labelDots = document.querySelectorAll('label img');
@@ -17,7 +22,7 @@ let prevLabName = '';
 let prevLabEmoji = '';
 let prevLabInstance = '';
 
-class Label {
+export class Label {
     constructor(name, emoji, color) {
         this.name = name ; // Name of the label
         this.emoji = emoji; // Emoji associated with the label
@@ -75,6 +80,8 @@ class Label {
 
 }
 
+const saveLabelBtn = document.getElementById("saveLabel");
+
 // Implementation of the label save button, creates new label instance and saves to the array
 saveLabelBtn.addEventListener("click", () => {
     const labelName = document.getElementById("labelName").value;
@@ -105,7 +112,7 @@ saveLabelBtn.addEventListener("click", () => {
     document.getElementById("labelName").value = "";
     document.getElementById("labelColor").value = "#ffffff";
     emojiPreview.innerText = "";
-    labelEmoji = "";
+   labelEmoji = "";
 
     // Close the label maker modal
     labelMakerModal.style.display = "none";
@@ -144,6 +151,9 @@ function submitLabInput(label) {
     // Adding proper event listener for newDots
     newDots.addEventListener('click', openLabEditor);
 }
+
+// Other code in the file
+
 
 // Opens the label editor modal
 function openLabEditor(e) {
