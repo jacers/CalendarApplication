@@ -3,7 +3,7 @@ import {openNewEventBtn, newEventModal, closeNewEventBtn, eventCatDropdown, labe
 import {closeEventsViewerBtn, eventsViewerModal} from "./Calendar.js";
 import {eventLabelDropdown, labelMakerModal, closeLabelMakerBtn, emojiPreview, emojiPreviewEdit, saveLabelBtn} from "./Calendar.js";
 import { searchBtn, labels, events, renderCalendar, addEvent } from "./Calendar.js";
-import { selectedDayElement, currentDate, getEventsForDay } from "./Calendar.js";
+import { selectedDayElement, currentDate, getEventsForDay, deleteEvent } from "./Calendar.js";
 
 import { Label } from "./labelPanelLabel.js";
 
@@ -50,6 +50,7 @@ saveEventBtn.addEventListener("click", () => {
     const eventNotes = document.getElementById("eventNotes").value;
     const labelIndex = eventLabelDropdown.value;
 
+    /*
     // Warns the user if no name is inputted
     if (!eventName) {
         alert("Please name this event.");
@@ -61,6 +62,7 @@ saveEventBtn.addEventListener("click", () => {
         alert("Please label this event.");
         return;
     }
+        */
 
     // Warns the user if no start or end date and time are given
     if (!eventStartDate || !eventStartTime || !eventEndDate || !eventEndTime) {
@@ -348,6 +350,8 @@ function createEventsTable(event, tableElement) {
         if (eventIndex > -1) {
             events.splice(eventIndex, 1);
         }
+        
+        deleteEvent(event.firestoreId);
 
         // Remove the corresponding row from the table
         tableElement.removeChild(row);

@@ -1,7 +1,7 @@
 // Importing needed references from Calendar.js
-import { saveLabelBtn, labels, labelEmoji, categories} from "./Calendar";
+import { labels, labelEmoji, categories, eventCatDropdown, catMakerModal, closeNewCat, saveCat, categoryName} from "./Calendar";
 import { adjustTextColor } from "./Events";
-import { showLabels } from "./labelPanel";
+//import { showLabels } from "./labelPanel.js";
 
 // General DOM elements
 const allLabels = document.querySelectorAll('.labelContent label');
@@ -80,6 +80,8 @@ export class Label {
 
 }
 
+const saveLabelBtn = document.getElementById("saveLabel");
+
 // Implementation of the label save button, creates new label instance and saves to the array
 saveLabelBtn.addEventListener("click", () => {
     const labelName = document.getElementById("labelName").value;
@@ -149,6 +151,9 @@ function submitLabInput(label) {
     // Adding proper event listener for newDots
     newDots.addEventListener('click', openLabEditor);
 }
+
+// Other code in the file
+
 
 // Opens the label editor modal
 function openLabEditor(e) {
