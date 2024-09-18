@@ -1,3 +1,8 @@
+// Importing needed refernces from other files
+import { closeLabelMakerBtn, labels, categories, closeNewCat, saveCat, labelInput, catMakerModal, catEditorModal } from "./Calendar.js";
+import { Label } from "./labelPanelLabel.js";
+import { labelPanel, showLabels } from "./labelPanel.js";
+
 // General DOM Elements
 const addCatButton = document.querySelector("#addCat");
 const verticleDots = document.querySelectorAll('.verticleDots');
@@ -335,5 +340,5 @@ function submitCatInput(name) {
 }
 
 // Pls don't forget to remove this k thanks
-createExampleEvents();
-fetchHolidays(2024);
+//createExampleEvents();
+//fetchHolidays(2024);

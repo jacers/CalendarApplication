@@ -1,5 +1,5 @@
 // General panel elements
-const labelPanel = document.querySelector(".labelPanel");
+export const labelPanel = document.querySelector(".labelPanel");
 
 // Buttons
 const allLabelBtn = document.querySelectorAll('.labelBtn');
@@ -25,7 +25,7 @@ labelHideShow.addEventListener('click', (e) => {
 });
 
  // Functionality for the dropdown of categories
-function showLabels(e) {
+export function showLabels(e) {
     const button = e.currentTarget;
     const labelDown = button.closest('.labelDown');
     const labelArrow = button.querySelector('.labelArrow');

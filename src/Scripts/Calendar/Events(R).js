@@ -1,15 +1,6 @@
-// Importing references from Calendar.js
-import {openNewEventBtn, newEventModal, closeNewEventBtn, eventCatDropdown, labelInput, saveEventBtn} from "./Calendar.js";
-import {closeEventsViewerBtn, eventsViewerModal} from "./Calendar.js";
-import {eventLabelDropdown, labelMakerModal, closeLabelMakerBtn, emojiPreview, emojiPreviewEdit, saveLabelBtn} from "./Calendar.js";
-import { searchBtn, labels, events, renderCalendar, addEvent } from "./Calendar.js";
-import { selectedDayElement, currentDate, getEventsForDay } from "./Calendar.js";
-
-import { Label } from "./labelPanelLabel.js";
-
 
 // Constructs a new event to be added to the calendar
-export class Event {
+class Event {
     constructor(name, location, startDate, startTime, endDate, endTime, notes, label) {
         this.name = name; // Name of the event
         this.location = location; // Location where the event takes place
@@ -58,7 +49,6 @@ openNewEventBtn.addEventListener("click", () => {
 
 // Implementation of the event save button
 saveEventBtn.addEventListener("click", () => {
-
     // Temporary variables that will be added to a new event
     const eventName = document.getElementById("eventName").value;
     const eventLocation = document.getElementById("eventLocation").value;
@@ -105,8 +95,6 @@ saveEventBtn.addEventListener("click", () => {
     // Add the new event to the events array
     events.push(newEvent);
 
-    addEvent(newEvent);
-
     // Clear the input fields
     document.getElementById("eventName").value = "";
     document.getElementById("eventLocation").value = "";
@@ -152,7 +140,7 @@ searchBtn.addEventListener("click", () => {
 });
 
 // Event listener to open the day event viewer modal
-export function openDayEventsModal(day) {
+function openDayEventsModal(day) {
     selectedDayElement.textContent = `${currentDate.toLocaleString("default", { month: "long" })} ${day}, ${currentDate.getFullYear()}`;
     dayEventList.innerHTML = ""; // Clear the current events list
 
@@ -462,7 +450,7 @@ function getBrightness({ r, g, b }) {
 }
 
 // Function to change the text color based on the background color
-export function adjustTextColor(backgroundColorHex) {
+function adjustTextColor(backgroundColorHex) {
     let rgb = hexToRgb(backgroundColorHex);
     let brightness = getBrightness(rgb);
     
