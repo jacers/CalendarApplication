@@ -5,7 +5,7 @@ Purpose: This file performs authtication functions, such as registration and log
 Notes: Connected to ../../..index.html
 */
 
-import { auth, database, signInWithEmailAndPassword, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, signOut} from '../Firebase.js';
+import { auth, database, signInWithEmailAndPassword, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, signOut } from '../Firebase.js';
 import { setDoc, doc } from 'firebase/firestore';
 import { checkEmpty, checkPasswordRequirements} from './PasswordCheck.js';
 

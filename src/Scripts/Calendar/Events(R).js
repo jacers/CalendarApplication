@@ -1,15 +1,6 @@
-// Importing references from Calendar.js
-import {openNewEventBtn, newEventModal, closeNewEventBtn, eventCatDropdown, labelInput, saveEventBtn} from "./Calendar.js";
-import {closeEventsViewerBtn, eventsViewerModal} from "./Calendar.js";
-import {eventLabelDropdown, labelMakerModal, closeLabelMakerBtn, emojiPreview, emojiPreviewEdit, saveLabelBtn} from "./Calendar.js";
-import { searchBtn, labels, events, renderCalendar, addEvent } from "./Calendar.js";
-import { selectedDayElement, currentDate, getEventsForDay } from "./Calendar.js";
-
-import { Label } from "./labelPanelLabel.js";
-
 
 // Constructs a new event to be added to the calendar
-export class Event {
+class Event {
     constructor(name, location, startDate, startTime, endDate, endTime, notes, label) {
         this.name = name; // Name of the event
         this.location = location; // Location where the event takes place
@@ -30,6 +21,25 @@ export class Event {
     getEnd() {
         return new Date(`${this.endDate}T${this.endTime}`)
     }
+
+    // Formats a date as Month Day, Year
+    formatDate(date) {
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        const dateObj = new Date(date);
+        // Adjust for timezone offset; without this, the date will be one day off
+        dateObj.setMinutes(dateObj.getMinutes() + dateObj.getTimezoneOffset());
+        return dateObj.toLocaleDateString('en-US', options);
+    }
+
+    // Formats a time as H:MM AM/PM
+    formatTime(time) {
+        const [hours, minutes] = time.split(':');
+        const date = new Date();
+        date.setHours(parseInt(hours, 10));
+        date.setMinutes(parseInt(minutes, 10));
+        const options = { hour: 'numeric', minute: 'numeric', hour12: true };
+        return date.toLocaleTimeString('en-US', options);
+    }
 }
 
 // Event listener to open the new event modal
@@ -39,7 +49,6 @@ openNewEventBtn.addEventListener("click", () => {
 
 // Implementation of the event save button
 saveEventBtn.addEventListener("click", () => {
-
     // Temporary variables that will be added to a new event
     const eventName = document.getElementById("eventName").value;
     const eventLocation = document.getElementById("eventLocation").value;
@@ -86,8 +95,6 @@ saveEventBtn.addEventListener("click", () => {
     // Add the new event to the events array
     events.push(newEvent);
 
-    addEvent(newEvent);
-
     // Clear the input fields
     document.getElementById("eventName").value = "";
     document.getElementById("eventLocation").value = "";
@@ -133,9 +140,8 @@ searchBtn.addEventListener("click", () => {
 });
 
 // Event listener to open the day event viewer modal
-export function openDayEventsModal(day) {
-    const selectedDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), day + 1);
-    selectedDayElement.textContent = formatDate(selectedDate);
+function openDayEventsModal(day) {
+    selectedDayElement.textContent = `${currentDate.toLocaleString("default", { month: "long" })} ${day}, ${currentDate.getFullYear()}`;
     dayEventList.innerHTML = ""; // Clear the current events list
 
     const dayEvents = getEventsForDay(day);
@@ -165,14 +171,14 @@ function createEventsTable(event, tableElement) {
 
     // Create cell for the from date
     const startsCell = document.createElement("td");
-    startsCell.textContent = formatDate(event.startDate);
-    startsCell.innerHTML += `<br> at ${formatTime(event.startTime)}`;
+    startsCell.textContent = event.formatDate(event.startDate);
+    startsCell.innerHTML += `<br> at ${event.formatTime(event.startTime)}`;
     row.appendChild(startsCell);
 
     // Create cell for the to date
     const endsCell = document.createElement("td");
-    endsCell.textContent = formatDate(event.endDate);
-    endsCell.innerHTML += `<br> at ${formatTime(event.endTime)}`;
+    endsCell.textContent = event.formatDate(event.endDate);
+    endsCell.innerHTML += `<br> at ${event.formatTime(event.endTime)}`;
     row.appendChild(endsCell);
 
     // Create cell for the dropdown menu
@@ -323,11 +329,11 @@ function createEventsTable(event, tableElement) {
             labelCell.innerHTML = event.label.getLabel();
 
             startsCell.innerHTML = "";
-            startsCell.textContent = formatDate(event.startDate);
-            startsCell.innerHTML += `<br> at ${formatTime(event.startTime)}`;
+            startsCell.textContent = event.formatDate(event.startDate);
+            startsCell.innerHTML += `<br> at ${event.formatTime(event.startTime)}`;
 
-            endsCell.textContent = formatDate(event.endDate);
-            endsCell.innerHTML += `<br> at ${formatTime(event.endTime)}`;
+            endsCell.textContent = event.formatDate(event.endDate);
+            endsCell.innerHTML += `<br> at ${event.formatTime(event.endTime)}`;
 
             // Replace checkmark button with original dropdown button
             optionsCell.innerHTML = "";
@@ -423,25 +429,6 @@ function searchEvents() {
     }
 }
 
-// Formats a date as Month Day, Year
-function formatDate(date) {
-    const options = { year: 'numeric', month: 'long', day: 'numeric' };
-    const dateObj = new Date(date);
-    // Adjust for timezone offset; without this, the date will be one day off
-    dateObj.setMinutes(dateObj.getMinutes() + dateObj.getTimezoneOffset());
-    return dateObj.toLocaleDateString('en-US', options);
-}
-
-// Formats a time as H:MM AM/PM
-function formatTime(time) {
-    const [hours, minutes] = time.split(':');
-    const date = new Date();
-    date.setHours(parseInt(hours, 10));
-    date.setMinutes(parseInt(minutes, 10));
-    const options = { hour: 'numeric', minute: 'numeric', hour12: true };
-    return date.toLocaleTimeString('en-US', options);
-}
-
 // Function to convert a hex color to RGB
 function hexToRgb(hex) {
     // Remove the '#' if it's there
@@ -463,7 +450,7 @@ function getBrightness({ r, g, b }) {
 }
 
 // Function to change the text color based on the background color
-export function adjustTextColor(backgroundColorHex) {
+function adjustTextColor(backgroundColorHex) {
     let rgb = hexToRgb(backgroundColorHex);
     let brightness = getBrightness(rgb);
     
@@ -472,112 +459,6 @@ export function adjustTextColor(backgroundColorHex) {
         return 'black';
     } else {
         return 'white';
-    }
-}
-
-// Getting US holidays through an API
-const holidayCache = {} // Object to make sure we don't readd the same holiday events to the same year
-
-async function fetchHolidays(year)
-{
-
-    // exiting early if we already fetched the year
-    if(holidayCache[year])
-    {
-        console.log(`Holidays for ${year} are already fetched`);
-        return;
-    }
-
-    const USHolidays = `https://date.nager.at/api/v3/publicholidays/${year}/US` // Gives all US holidays for the called year
-    try
-    {
-        // Attempting to fetch from server
-        const response = await fetch(USHolidays);
-        if(!response.ok)
-        {
-            throw new Error("Failed to get holidays");
-        }
-
-        const holidays = await response.json();
-
-        // Adding these holidays to the cache
-        holidayCache[year] = holidays;
-
-        holidays.forEach(holiday => {
-            const holidayEvent = new Event(
-                holiday.localName, // Name of the holiday
-                "",                // N/A
-                holiday.date,      // day of holiday
-                "00:00",
-                holiday.date,
-                "23:59",
-                "",                // N/A
-                labels[4]          // Assigning US Holidays label
-            );
-
-            // Adding holiday to events array
-            events.push(holidayEvent);
-        })
-
-        // Re-rendering calendar after process is complete
-        renderCalendar();
-    }
-    catch(error)
-    {
-        console.error("Error fetching holidays:", error);
-    }
-}
-
-// Getting US holidays through an API
-const holidayCache = {} // Object to make sure we don't readd the same holiday events to the same year
-
-async function fetchHolidays(year)
-{
-
-    // exiting early if we already fetched the year
-    if(holidayCache[year])
-    {
-        console.log(`Holidays for ${year} are already fetched`);
-        return;
-    }
-
-    const USHolidays = `https://date.nager.at/api/v3/publicholidays/${year}/US` // Gives all US holidays for the called year
-    try
-    {
-        // Attempting to fetch from server
-        const response = await fetch(USHolidays);
-        if(!response.ok)
-        {
-            throw new Error("Failed to get holidays");
-        }
-
-        const holidays = await response.json();
-
-        // Adding these holidays to the cache
-        holidayCache[year] = holidays;
-
-        holidays.forEach(holiday => {
-            const holidayEvent = new Event(
-                holiday.localName, // Name of the holiday
-                "",                // N/A
-                holiday.date,      // day of holiday
-                "00:00",
-                holiday.date,
-                "23:59",
-                "",                // N/A
-                labels[4]          // Assigning US Holidays label
-            );
-
-            // Adding holiday to events array
-            events.push(holidayEvent);
-        })
-
-        // Re-rendering calendar after process is complete
-        renderCalendar();
-    }
-    catch(error)
-    {
-        console.error("Error fetching holidays:", error);
     }
 }
 

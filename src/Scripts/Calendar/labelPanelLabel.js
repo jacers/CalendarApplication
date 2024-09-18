@@ -1,3 +1,8 @@
+// Importing needed references from Calendar.js
+import { saveLabelBtn, labels, labelEmoji, categories} from "./Calendar";
+import { adjustTextColor } from "./Events";
+import { showLabels } from "./labelPanel";
+
 // General DOM elements
 const allLabels = document.querySelectorAll('.labelContent label');
 const labelDots = document.querySelectorAll('label img');
@@ -17,7 +22,7 @@ let prevLabName = '';
 let prevLabEmoji = '';
 let prevLabInstance = '';
 
-class Label {
+export class Label {
     constructor(name, emoji, color) {
         this.name = name ; // Name of the label
         this.emoji = emoji; // Emoji associated with the label
@@ -105,7 +110,7 @@ saveLabelBtn.addEventListener("click", () => {
     document.getElementById("labelName").value = "";
     document.getElementById("labelColor").value = "#ffffff";
     emojiPreview.innerText = "";
-    labelEmoji = "";
+   labelEmoji = "";
 
     // Close the label maker modal
     labelMakerModal.style.display = "none";
