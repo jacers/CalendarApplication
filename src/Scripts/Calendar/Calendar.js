@@ -306,7 +306,8 @@ window.addEventListener("click", (event) => {
         event.target == eventsViewerModal ||
         event.target == catMakerModal     ||
         event.target == catEditorModal    ||
-        event.target == labEditorModal) {
+        event.target == labEditorModal    ||
+        event.target == dayEventsViewerModal) {
         colorPickerModal.style.display = "none";
         newEventModal.style.display = "none";
         labelMakerModal.style.display = "none";
@@ -314,6 +315,7 @@ window.addEventListener("click", (event) => {
         catMakerModal.style.display = "none";
         catEditorModal.style.display = "none";
         labEditorModal.style.display = "none";
+        dayEventsViewerModal.style.display = "none";
     }
 });
 
