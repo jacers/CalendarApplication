@@ -136,8 +136,7 @@ searchBtn.addEventListener("click", () => {
 
 // Event listener to open the day event viewer modal
 export function openDayEventsModal(day) {
-    const selectedDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), day + 1);
-    selectedDayElement.textContent = formatDate(selectedDate);
+    selectedDayElement.textContent = `${currentDate.toLocaleString("default", { month: "long" })} ${day + 1}, ${currentDate.getFullYear()}`;
     dayEventList.innerHTML = ""; // Clear the current events list
 
     const dayEvents = getEventsForDay(day);
