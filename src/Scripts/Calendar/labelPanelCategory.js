@@ -336,5 +336,5 @@ function submitCatInput(name) {
 }
 
 // Calls our examples and calls the API populated with the current year
-createExampleEvents();
+//createExampleEvents();
 fetchHolidays(2024);
