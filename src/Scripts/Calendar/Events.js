@@ -20,25 +20,6 @@ class Event {
     getEnd() {
         return new Date(`${this.endDate}T${this.endTime}`)
     }
-
-    // Formats a date as Month Day, Year
-    formatDate(date) {
-        const options = { year: 'numeric', month: 'long', day: 'numeric' };
-        const dateObj = new Date(date);
-        // Adjust for timezone offset; without this, the date will be one day off
-        dateObj.setMinutes(dateObj.getMinutes() + dateObj.getTimezoneOffset());
-        return dateObj.toLocaleDateString('en-US', options);
-    }
-
-    // Formats a time as H:MM AM/PM
-    formatTime(time) {
-        const [hours, minutes] = time.split(':');
-        const date = new Date();
-        date.setHours(parseInt(hours, 10));
-        date.setMinutes(parseInt(minutes, 10));
-        const options = { hour: 'numeric', minute: 'numeric', hour12: true };
-        return date.toLocaleTimeString('en-US', options);
-    }
 }
 
 // Event listener to open the new event modal
@@ -140,7 +121,8 @@ searchBtn.addEventListener("click", () => {
 
 // Event listener to open the day event viewer modal
 function openDayEventsModal(day) {
-    selectedDayElement.textContent = `${currentDate.toLocaleString("default", { month: "long" })} ${day}, ${currentDate.getFullYear()}`;
+    const selectedDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), day + 1);
+    selectedDayElement.textContent = formatDate(selectedDate);
     dayEventList.innerHTML = ""; // Clear the current events list
 
     const dayEvents = getEventsForDay(day);
@@ -170,14 +152,14 @@ function createEventsTable(event, tableElement) {
 
     // Create cell for the from date
     const startsCell = document.createElement("td");
-    startsCell.textContent = event.formatDate(event.startDate);
-    startsCell.innerHTML += `<br> at ${event.formatTime(event.startTime)}`;
+    startsCell.textContent = formatDate(event.startDate);
+    startsCell.innerHTML += `<br> at ${formatTime(event.startTime)}`;
     row.appendChild(startsCell);
 
     // Create cell for the to date
     const endsCell = document.createElement("td");
-    endsCell.textContent = event.formatDate(event.endDate);
-    endsCell.innerHTML += `<br> at ${event.formatTime(event.endTime)}`;
+    endsCell.textContent = formatDate(event.endDate);
+    endsCell.innerHTML += `<br> at ${formatTime(event.endTime)}`;
     row.appendChild(endsCell);
 
     // Create cell for the dropdown menu
@@ -328,11 +310,11 @@ function createEventsTable(event, tableElement) {
             labelCell.innerHTML = event.label.getLabel();
 
             startsCell.innerHTML = "";
-            startsCell.textContent = event.formatDate(event.startDate);
-            startsCell.innerHTML += `<br> at ${event.formatTime(event.startTime)}`;
+            startsCell.textContent = formatDate(event.startDate);
+            startsCell.innerHTML += `<br> at ${formatTime(event.startTime)}`;
 
-            endsCell.textContent = event.formatDate(event.endDate);
-            endsCell.innerHTML += `<br> at ${event.formatTime(event.endTime)}`;
+            endsCell.textContent = formatDate(event.endDate);
+            endsCell.innerHTML += `<br> at ${formatTime(event.endTime)}`;
 
             // Replace checkmark button with original dropdown button
             optionsCell.innerHTML = "";
@@ -426,6 +408,25 @@ function searchEvents() {
             }
         }
     }
+}
+
+// Formats a date as Month Day, Year
+function formatDate(date) {
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    const dateObj = new Date(date);
+    // Adjust for timezone offset; without this, the date will be one day off
+    dateObj.setMinutes(dateObj.getMinutes() + dateObj.getTimezoneOffset());
+    return dateObj.toLocaleDateString('en-US', options);
+}
+
+// Formats a time as H:MM AM/PM
+function formatTime(time) {
+    const [hours, minutes] = time.split(':');
+    const date = new Date();
+    date.setHours(parseInt(hours, 10));
+    date.setMinutes(parseInt(minutes, 10));
+    const options = { hour: 'numeric', minute: 'numeric', hour12: true };
+    return date.toLocaleTimeString('en-US', options);
 }
 
 // Function to convert a hex color to RGB
