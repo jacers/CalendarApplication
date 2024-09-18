@@ -129,7 +129,33 @@ function renderCalendar() {
         dayElement.classList.add("otherMonth");
 
         // Writes in the prevoius month days into the calendar
-        dayElement.innerHTML = `${prevMonthDays - i + 1}<br>`;
+        const dayNum = document.createElement("div"); // Adding dayNum element
+        dayNum.classList.add('dayNum');
+        dayNum.innerHTML = `${prevMonthDays - i + 1}`;
+        dayElement.appendChild(dayNum); // Append dayNum
+
+        // Get events for the day from the previous month
+        const prevMonthEvents = getEventsForDay(prevMonthDays - i, currentDate.getMonth() - 1, currentDate.getFullYear());
+
+        // Going through each event and adding it graphically to the calendar
+        prevMonthEvents.forEach(event => {
+            if (event.label.isChecked === false) {
+                return;  // Skip unchecked labels
+            }
+            const eventBlock = document.createElement("div");
+            eventBlock.classList.add("eventBlock");
+
+            const eventText = document.createElement("span");
+            eventText.classList.add("dayNum");
+            eventText.innerHTML = `${event.label.emoji} ${event.name}`;
+            eventBlock.appendChild(eventText);
+
+            // Set event styles (background color, text color)
+            eventBlock.style.background = event.label.color;
+            eventBlock.style.color = adjustTextColor(event.label.color);
+
+            dayElement.appendChild(eventBlock);
+        });
 
         // Appends each dayElement to the daysContainer
         daysContainer.appendChild(dayElement);
@@ -212,13 +238,22 @@ function renderCalendar() {
     for (let i = 1; i <= nextMonthDays; i++) {
         const dayElement = document.createElement("div");
         dayElement.classList.add("otherMonth");
-        dayElement.innerHTML = `${i}<br>`
+
+        // Creating separate dayNum for styling purposes
+        const dayNum = document.createElement("div"); 
+        dayNum.classList.add('dayNum');
+        dayNum.innerHTML = `${i}`;
+        dayElement.appendChild(dayNum);
 
         // Get events for the day from the next month
         const nextMonthEvents = getEventsForDay(i, currentDate.getMonth() + 1, currentDate.getFullYear());
         
         // Going through each event and adding it graphically to calendar
         nextMonthEvents.forEach(event => {
+            if((event.label.isChecked == false)) {
+                return;
+            }
+            
             const eventBlock = document.createElement("div");
             eventBlock.classList.add("eventBlock");
 

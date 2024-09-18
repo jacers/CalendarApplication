@@ -301,6 +301,7 @@ function submitCatInput(name) {
     // Span that contains verticle dots
     const verticleDots = document.createElement('span');
     verticleDots.classList.add('verticleDots');
+    verticleDots.addEventListener('click', openCatEditor);
 
     // Actual verticle dots image creation
     const dotImage = document.createElement('img');
@@ -334,6 +335,6 @@ function submitCatInput(name) {
     return labelDown;
 }
 
-// Pls don't forget to remove this k thanks
+// Calls our examples and calls the API populated with the current year
 createExampleEvents();
 fetchHolidays(2024);
