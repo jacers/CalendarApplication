@@ -18,7 +18,7 @@
     margin: 5% auto;
     padding: 20px;
     border: 1px solid #888;
-    width: 80%;
+    width: 30%;
     overflow-y: auto; /* Ensures scroll wheel appears if modal goes off screen*/
 }
 
@@ -82,28 +82,14 @@
 
 .catLabInputs
 {
-    display: inline-block;
+    display: flex;
+    flex-direction: row;
     margin-right: 10px;
 }
 
 #labInputs
 {
     display: none;
-}
-
-#eventLabelDropdown
-{
-    width: 125px;
-}
-
-#labInputs
-{
-    display: none;
-}
-
-#eventLabelDropdown
-{
-    width: 125px;
 }
 
 .closeEventsViewer,

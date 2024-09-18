@@ -163,7 +163,7 @@ eventCatDropdown.addEventListener("change", () => {
 
     // Check if labelInput div is none and changing if it is
     if(window.getComputedStyle(labelInput).display == 'none') {
-        labelInput.style.display = 'inline-block';
+        labelInput.style.display = 'flex';
     } 
 
     // Changing out labels based on the category
