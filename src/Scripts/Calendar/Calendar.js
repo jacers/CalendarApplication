@@ -1,9 +1,9 @@
 // Importing from Firebase 
-import { database, doc, setDoc, collection, addDoc, auth, query, where, getDocs} from "../Firebase";
+import { database, doc, setDoc, collection, addDoc, auth, query, where, getDocs, deleteDoc, getDoc} from "../Firebase";
 
 // Importing needed references
 import { adjustTextColor, openDayEventsModal, Event } from "./Events";
-//import { Label } from "./labelPanelLabel";
+//import { showLabels } from "./labelPanel.js";
 
 // Selecting DOM elements (Elements in the CalendarPage.html)
 export const prevBtn = document.getElementById("prevButton");
@@ -171,6 +171,7 @@ export function renderCalendar() {
 
         dayEvents.forEach(event => {
             // Not showing events with unchecked labels
+            console.log(event.label.isChecked + "Check");
             if((event.label.isChecked == false)) {
                 return;
             }
@@ -399,8 +400,11 @@ export async function addEvent(event) {
 
     // Add the event to the Firestore collection
     try {
-        await addDoc(eventsRef, plainEvent);
+        const docRef = await addDoc(eventsRef, plainEvent);
+       // await addDoc(eventsRef, plainEvent);
         console.log("Event added successfully:", event.name);
+        event.firestoreId = docRef.id;
+        console.log(event);
     } catch (error) {
         console.error("Error adding event:", error);
     }
@@ -409,85 +413,6 @@ export async function addEvent(event) {
 
 
 
-/*
-// Function to fetch events from Firestore
-async function fetchEventsFromFirestore() {
-    const user = auth.currentUser;
-    if (!user) {
-        console.error("No authenticated user found.");
-        return [];
-    }
-
-    try {
-        const userId = user.uid;
-        const eventsRef = collection(database, 'Users', userId, 'Events');
-        const querySnapshot = await getDocs(eventsRef);
-
-        // Parse Firestore documents into Event objects
-        const events = querySnapshot.docs.map(doc => {
-            const data = doc.data();
-            return parseFirestoreEvent(data); // Convert to Event object
-        });
-        return events;
-    } catch (error) {
-        console.error("Error fetching events from Firestore:", error);
-        return [];
-    }
-}
-
-// Function to convert a Firestore document to an Event object
-function parseFirestoreEvent(data) {
-    const label = data.label ? new Label(data.label.name, data.label.emoji, data.label.color) : null;
-    return new Event(
-        data.name,
-        data.location,
-        data.startDate,
-        data.startTime,
-        data.endDate,
-        data.endTime,
-        data.notes,
-        label
-    );
-}
-
-
-// Function to load events
-async function loadEvents() {
-    try {
-        const fetchedEvents = await fetchEventsFromFirestore();
-        events.length = 0; // Clear existing events
-        events.push(...fetchedEvents); // Add fetched events to the array
-        console.log("Events loaded successfully:", events);
-        renderCalendar(); // Call this to update the calendar UI
-    } catch (error) {
-        console.error("Error loading events:", error);
-    }
-}
-
-// Listener for authentication state changes
-auth.onAuthStateChanged(async (user) => {
-    if (user) {
-        console.log("User logged in:", user.uid);
-        await loadEvents(); // Load events when user logs in
-    } else {
-        console.log("No user logged in.");
-    }
-});
-
-// Function to check if the user is authenticated and load events
-async function initializeApp() {
-    const user = auth.currentUser;
-    if (user) {
-        console.log("User is authenticated on page load:", user.uid);
-        await loadEvents(); // Load events if the user is already logged in
-    } else {
-        console.log("No authenticated user found on page load.");
-    }
-}
-
-// Call initializeApp when the page loads
-document.addEventListener("DOMContentLoaded", initializeApp);
-*/
 
 /* Making Label class again because import destroys the website */
 class Label {
@@ -593,7 +518,7 @@ async function fetchEventsFromFirestore() {
             );
         });
 
-        console.log(events);
+        console.log(events + "Events");
         return events;
     } catch (error) {
         console.error("Error fetching events from Firestore:", error);
@@ -640,7 +565,49 @@ document.addEventListener("DOMContentLoaded", initializeApp);
 /* LOAD EVENTS FOR USER */
 
 
+/* DELETE EVENTS */
+// Function to delete an event given its index
+// Function to delete an event using the event object
+export async function deleteEvent(firestoreId) {
+    if (!firestoreId || typeof firestoreId !== 'string') {
+        console.error("Invalid Firestore ID:", firestoreId);
+        return;
+    }
 
+    const user = auth.currentUser;
+
+    if (!user) {
+        console.error("No authenticated user found.");
+        return;
+    }
+
+    const userId = user.uid;
+    const eventsRef = collection(database, "Users", userId, "Events");
+    const eventDocRef = doc(eventsRef, firestoreId);
+
+    try {
+        // Delete the event from Firestore
+        await deleteDoc(eventDocRef);
+        console.log("Event successfully deleted from Firestore:", firestoreId);
+
+        // Optionally, remove the event from the local array (Although should be handled in another file)
+        const eventIndex = events.findIndex(ev => ev.firestoreId === firestoreId);
+        if (eventIndex !== -1) {
+            events.splice(eventIndex, 1);
+        }
+
+        // Optionally, remove the corresponding row from the UI (if applicable)
+        // tableElement.removeChild(row);
+
+        renderCalendar(); // Re-render the calendar
+    } catch (error) {
+        console.error("Error deleting event from Firestore:", error);
+    }
+}
+/* DELETE EVENTS */
+
+/* CHECK */
+/* CHECK */
 
 // The current calendar look upon opening the page
 renderCalendar();
