@@ -30,14 +30,8 @@ A minimalist and customizable calendar web application, built with a focus on si
 
 ## :gear: Installation
 
-### Run Locally
-
 1. [Clone the repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository) on your local machine.
 2. Run a local server for the .html files in [`public/Pages`](public/Pages/).
-
-### Use Online
-
-Explore the calendar application online without local installation by visiting the hosted version [here](https://calendar-application-d87fa.web.app/).
 
 ---
 
